@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 //var mongoose = require('mongoose');
 
 
-
+var User = require('./models/user');
 var pg = require('pg');
 
 
@@ -42,11 +42,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 
+
 // passport config
-var User = require('./models/user');
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser())
+
+passport.use(new LocalStrategy(
+	function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      if (!user.verifyPassword(password)) { return done(null, false); }
+      return done(null, user);
+    });
+  }
+
+
+	));
+//passport.serializeUser(User.serializeUser());
+//passport.deserializeUser(User.deserializeUser())
+
+
+var connectionString = "pg://postgres:postgres@localhost:5432/ciudad_de_los_niños_development";
+
 
 
 
