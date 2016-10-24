@@ -45,7 +45,7 @@ app.use('/', routes);
 
 // passport config
 
-passport.use(new LocalStrategy(
+/*passport.use(new LocalStrategy(
 	function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
       if (err) { return done(err); }
@@ -56,12 +56,89 @@ passport.use(new LocalStrategy(
   }
 
 
-	));
-//passport.serializeUser(User.serializeUser());
+	));*/
+  var connectionString = "pg://postgres:root@localhost:5432/postgres";
+  var client = new pg.Client(connectionString);
+
+
+
+   // passport.use(new LocalStrategy(
+   //  function(username, password, done){
+   //    console.log("Login process:", username);
+   //    client.query("SELECT * from ciudad_de_los_niños_development.user WHERE username="+username+" AND password="+password+" limit 1")
+   //      .then((result)=> {
+   //        return done(null, result);
+   //      })
+   //      .catch((err) => {
+   //        console.log("/login: " + err);
+   //        return done(null, false, {message:'Wrong user name or password'});
+   //      });
+   //  }));
+
+   passport.use(new LocalStrategy(
+    function(username, password, done){
+      
+      console.log("Login process:", username);
+      client.connect(function (err) {
+      if (err) throw err;     
+        client.query("SELECT * from ciudad_de_los_niños_development.user WHERE username='"+username+"' limit 1",function(err,result){
+          console.log(err);
+          
+          if(err){done(err)};
+          if(!err){
+            console.log("el result0 es:   ");
+            console.log(result.rows[0]);
+            done(null,result.rows[0]);
+          };
+          client.end(function (err) {
+            if (err) throw err;
+        });
+
+
+        });
+      });  
+    }));
+
+
+//passport.serializeUser();
 //passport.deserializeUser(User.deserializeUser())
 
+passport.serializeUser((user, done)=>{
+    console.log("serialize ", user);
+    done(null, user.id);
+  });
 
-var connectionString = "pg://postgres:postgres@localhost:5432/ciudad_de_los_niños_development";
+  // passport.deserializeUser((id, done)=>{
+  //   console.log("deserialize ", id);
+  //   client.query("SELECT * FROM ciudad_de_los_niños_development.user" +"WHERE id ="+id)
+  //   .then((user)=>{
+  //     //log.debug("deserializeUser ", user);
+  //     done(null, user);
+  //   })
+  //   .catch((err)=>{
+  //     done(new Error(`User with the id ${id} does not exist`));
+  //   })
+  // });
+
+passport.deserializeUser((id, done)=>{
+  var client = new pg.Client(connectionString);
+  console.log("deserialize ", id);
+  client.connect(function (err) {
+    console.log(err);
+    if (err) {throw err};
+    client.query("SELECT * FROM ciudad_de_los_niños_development.user WHERE id ="+id,function(err,result){
+      if(result.rows[0]){done(null,result.rows[0]);}  
+      if (err){done(new Error(`User with the id ${id} does not exist`))}; 
+      client.end(function (err) {
+        if (err) throw err;
+        
+        });
+    });
+  });     
+    
+});
+  
+
 
 
 

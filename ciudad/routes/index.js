@@ -6,14 +6,17 @@ var router = express.Router();
 var lodash = require('lodash');
 
 
+var pg = require('pg');
+var connectionString = "pg://postgres:root@localhost:5432/postgres";
 
 
-
+var client = new pg.Client(connectionString);
+var User = require('../models/user');
 
 /* GET home page. */
 router.get('/', function (req, res) {
   console.log(connectionString);
-  res.render('index', { user : req.user ,idgame:req.idgame});
+  res.render('index', { user : req.user});
 
 
 });
@@ -27,16 +30,25 @@ router.get('/register', function(req, res) {
 
 
 router.post('/register', function(req, res) {
-    User.register(req.body.username, req.body.password,)
+ 	
+ 	client.connect(function (err) {
+  		if (err) throw err;
+	 	client.query("insert into ciudad_de_los_niños_development.user values ('"+req.body.username+"','"+req.body.password+"');",function(err,result){
+	 		passport.authenticate('local')(req, res, function () {
+	            res.redirect('/');
+	        });
+	 		client.end(function (err) {
+	      		if (err) throw err;
+	    	});
+
+	 	});
+	    
+    
+    
 
 
-    passport.authenticate('local')(req, res, function () {
-            res.redirect('/');
-        });
 
-
-
-});
+})});
 
 
 
