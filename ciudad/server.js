@@ -10,7 +10,8 @@ var bodyParser = require('body-parser');
 var User = require('./models/user');
 var pg = require('pg');
 
-
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -86,10 +87,13 @@ app.use('/', routes);
           
           if(err){done(err)};
           if(!err){
-            console.log("el result0 es:   ");
             console.log(result.rows[0]);
-            done(null,result.rows[0]);
-          };
+            if(bcrypt.compareSync(password, result.rows[0].password)){done(null,result.rows[0])};
+              }else{done(null,false);}
+
+
+
+          
           client.end(function (err) {
             if (err) throw err;
         });
