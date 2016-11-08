@@ -58,7 +58,7 @@ app.use('/', routes);
 
 
 	));*/
-  var connectionString = "pg://postgres:root@localhost:5432/postgres";
+  var connectionString = "pg://postgres:postgres@localhost:5432/postgres";
   var client = new pg.Client(connectionString);
 
 
@@ -78,13 +78,13 @@ app.use('/', routes);
 
    passport.use(new LocalStrategy(
     function(username, password, done){
-      
+
       console.log("Login process:", username);
       client.connect(function (err) {
-      if (err) throw err;     
+      if (err) throw err;
         client.query("SELECT * from ciudad_de_los_niños_development.user WHERE username='"+username+"' limit 1",function(err,result){
           console.log(err);
-          
+
           if(err){done(err)};
           if(!err){
             console.log(result.rows[0]);
@@ -93,14 +93,14 @@ app.use('/', routes);
 
 
 
-          
+
           client.end(function (err) {
             if (err) throw err;
         });
 
 
         });
-      });  
+      });
     }));
 
 
@@ -131,17 +131,17 @@ passport.deserializeUser((id, done)=>{
     console.log(err);
     if (err) {throw err};
     client.query("SELECT * FROM ciudad_de_los_niños_development.user WHERE id ="+id,function(err,result){
-      if(result.rows[0]){done(null,result.rows[0]);}  
-      if (err){done(new Error(`User with the id ${id} does not exist`))}; 
+      if(result.rows[0]){done(null,result.rows[0]);}
+      if (err){done(new Error(`User with the id ${id} does not exist`))};
       client.end(function (err) {
         if (err) throw err;
-        
+
         });
     });
-  });     
-    
+  });
+
 });
-  
+
 
 
 

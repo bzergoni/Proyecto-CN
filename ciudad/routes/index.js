@@ -7,7 +7,7 @@ var lodash = require('lodash');
 
 
 var pg = require('pg');
-var connectionString = "pg://postgres:root@localhost:5432/postgres";
+var connectionString = "pg://postgres:postgres@localhost:5432/postgres";
 
 
 var client = new pg.Client(connectionString);
@@ -35,9 +35,9 @@ router.get('/register', function(req, res) {
 
 
 router.post('/register', function(req, res) {
- 	
+
  	client.connect(function (err) {
-  		
+
 
   		bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
 	   		if (err) throw err;
@@ -53,16 +53,16 @@ router.post('/register', function(req, res) {
 		 		passport.authenticate('local')(req, res, function () {
 		            res.redirect('/');
 		        });
-		 		
+
 
 		 	});
 
 
 	});
-  		
-	    
-    
-    
+
+
+
+
 
 
 
