@@ -1,18 +1,24 @@
 var pg = require('pg');
-
-var connectionString = "pg://postgres:root@localhost:5432/postgres";
-  var results = [];
+var connectionString = "pg://postgres:postgres@localhost:5432/postgres";
+var results = [];
 
 var client = new pg.Client(connectionString);
+
+
+var persona_model = require("./models/persona");
+var Persona = persona_model.persona;
+
+
+
 
 // connect to our database
 client.connect(function (err) {
   if (err) throw err;
 
   // execute a query on our database
-  client.query("SELECT dni FROM ciudad_de_los_niños_development.persona where dni='1'", function (err, result) {
+  client.query("SELECT * FROM ciudad_de_los_niños_development.contacto where dni='32456915'", function (err, result) {
     if (err) throw err;
-    console.log(result.rows[0]);
+      console.log(result.rows[0].fecha_alta.toLocaleDateString());
     // just print the result to the console
    //var i=0;
    // while (i<result.rowCount){
@@ -25,9 +31,39 @@ client.connect(function (err) {
     });
   });
 });
+//
+//
+// var personaprueba = new Persona("11222333");
+// console.log(personaprueba);
+//
+// console.log(personaprueba.show());
+//
+// console.log("APLICAMOS EL METODO CARGA:"+ personaprueba.dni);
+//
+// personaprueba.cargar();
+//
+//
+//
+// setTimeout(function(){console.log(personaprueba.show());
+// }, 15);
+  //
+  // var personaprueba2 = new Persona("999");
+  // personaprueba2.n_y_ap="JOSE"
+  // console.log(personaprueba2)
+  // personaprueba2.insertar();
+  //
+  //
+    // var personaprueba2 = new Persona("39420475");
+    // personaprueba2.n_y_ap="valinto"
+    // console.log(personaprueba2)
+    // personaprueba2.actualizar();
 
+  // ]
 
-
+//
+// console.log("modificamos el nombre de la persona y volvemos a cargar el nombre desde la base")
+// personaprueba.cargar();
+// console.log(personaprueba.show());
 
 
 //console.log("supuestamente hizo la conexion");

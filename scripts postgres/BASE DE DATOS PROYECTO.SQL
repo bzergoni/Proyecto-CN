@@ -1,4 +1,4 @@
-CREATE SCHEMA ciudad_de_los_niños_development;
+﻿CREATE SCHEMA ciudad_de_los_niños_development;
 
 set search_path = ciudad_de_los_niños_development;
 
@@ -17,7 +17,9 @@ celular varchar(50),
 fecha_nac date,
 cod_postal integer,
 
-
+Constraint pk_Padrino  primary key (Dni),
+constraint CF_Padrino foreign key (Dni) references Persona (Dni) on delete cascade on update cascade
+);
 
 CREATE TABLE "ciudad_de_los_niños_development"."user"
 (
@@ -26,13 +28,9 @@ CREATE TABLE "ciudad_de_los_niños_development"."user"
   id serial NOT NULL,
   CONSTRAINT user_pkey PRIMARY KEY (username),
   CONSTRAINT user_id_key UNIQUE (id)
-)
-
-
-
-Constraint pk_Padrino  primary key (Dni),
-constraint CF_Padrino foreign key (Dni) references Persona (Dni) on delete cascade on update cascade
 );
+
+
 
 Create table Donante (
 Dni varchar(10),
