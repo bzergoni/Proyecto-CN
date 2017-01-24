@@ -10,42 +10,45 @@ var Persona = persona_model.persona;
 
 
 
+//
+// // connect to our database
+// client.connect(function (err) {
+//   if (err) throw err;
+//
+//   // execute a query on our database
+//   client.query("SELECT * FROM ciudad_de_los_niños_development.contacto where dni='32456915'", function (err, result) {
+//     if (err) throw err;
+//       console.log(result.rows[0].fecha_alta.toLocaleDateString());
+//     // just print the result to the console
+//    //var i=0;
+//    // while (i<result.rowCount){
+//     	//console.log(result.rows[i].dni+'||'+result.rows[i].n_y_ap); // outputs: { name: 'brianc' }
+// 		//i++;
+// 	//}
+//     // disconnect the client
+//     client.end(function (err) {
+//       if (err) throw err;
+//     });
+//   });
+// });
+// //
+//
+var personaprueba = new Persona("1122333");
+console.log(personaprueba);
 
-// connect to our database
-client.connect(function (err) {
-  if (err) throw err;
-
-  // execute a query on our database
-  client.query("SELECT * FROM ciudad_de_los_niños_development.contacto where dni='32456915'", function (err, result) {
-    if (err) throw err;
-      console.log(result.rows[0].fecha_alta.toLocaleDateString());
-    // just print the result to the console
-   //var i=0;
-   // while (i<result.rowCount){
-    	//console.log(result.rows[i].dni+'||'+result.rows[i].n_y_ap); // outputs: { name: 'brianc' }
-		//i++;
-	//}
-    // disconnect the client
-    client.end(function (err) {
-      if (err) throw err;
-    });
-  });
-});
-//
-//
-// var personaprueba = new Persona("11222333");
-// console.log(personaprueba);
-//
 // console.log(personaprueba.show());
 //
 // console.log("APLICAMOS EL METODO CARGA:"+ personaprueba.dni);
 //
 // personaprueba.cargar();
+personaprueba.exist();
+setTimeout(function(){if (personaprueba.existe){console.log("existe la persona");} }, 1500);
+
+
+
+// console.log(personaprueba.existe())
 //
-//
-//
-// setTimeout(function(){console.log(personaprueba.show());
-// }, 15);
+// setTimeout(function(){console.log(personaprueba.show()); }, 15);
   //
   // var personaprueba2 = new Persona("999");
   // personaprueba2.n_y_ap="JOSE"

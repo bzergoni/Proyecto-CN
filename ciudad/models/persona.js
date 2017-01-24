@@ -5,6 +5,7 @@ var client = new pg.Client(connectionString);
 function Persona(number){
   this.dni = number;
   this.n_y_ap;
+  this.existe=undefined;
 };
 
 /*
@@ -109,8 +110,28 @@ Persona.prototype.eliminar= function(){
 
 };
 
-Persona
 
+Persona.prototype.exist = function(){
+  var dni=this.dni;
+  var thisrespaldo=this;
+
+  client.connect(function (err) {
+    if (err){console.log(err);}
+    client.query("SELECT * FROM ciudad_de_los_niños_development.persona where dni='"+dni+"'", function (err, result) {
+      if (err) throw err;
+      if(result.rows[0]){
+        thisrespaldo.existe=true;
+
+      }
+
+      client.end(function (err) {
+        if (err) {console.log(err)};
+      });
+    });
+
+  });
+
+};
 
 
 module.exports.persona = Persona;
