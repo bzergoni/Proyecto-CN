@@ -4,34 +4,13 @@ var client = new pg.Client(connectionString);
 
 function MedioPago(i){
   this.id = i;
+  this.existe = undefined;
 };
 
 MedioPago.prototype.show = function(){
   return this.id;
 };
 
-
-MedioPago.prototype.cargar = function(){
-  var id=this.id;
-  var thisrespaldo=this;
-  client.connect(function (err) {
-    if (err){console.log(err);}
-
-    client.query("SELECT * FROM ciudad_de_los_niños_development.medio_de_pago where id='"+id+"'", function (err, result) {
-      if (err) throw err;
-      if(result.rows[0]){
-        thisrespaldo.id=result.rows[0].id;
-        console.log(thisrespaldo);
-      }
-    
-    	console.log(thisrespaldo)
-    	client.end(function (err) {
-        	if (err) {console.log(err)};
-      });
-    });
-
-  });
-};
 ///Esta funcion se supone que inserte o actualize la tabla
 MedioPago.prototype.insertar = function(){
   var id=this.id;
@@ -78,12 +57,12 @@ MedioPago.prototype.eliminar= function(){
 
 
 MedioPago.prototype.exist = function(){
-  var dni=this.dni;
+  var id=this.id;
   var thisrespaldo=this;
 
   client.connect(function (err) {
     if (err){console.log(err);}
-    client.query("SELECT * FROM ciudad_de_los_niños_development.persona where dni='"+dni+"'", function (err, result) {
+    client.query("SELECT * FROM ciudad_de_los_niños_development.medio_de_pago where id='"+id+"'", function (err, result) {
       if (err) throw err;
       if(result.rows[0]){
         thisrespaldo.existe=true;
