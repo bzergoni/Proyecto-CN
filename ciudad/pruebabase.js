@@ -8,7 +8,8 @@ var client = new pg.Client(connectionString);
 var persona_model = require("./models/persona");
 var Persona = persona_model.persona;
 
-
+var medioPago_model = require("./models/medioPago");
+var MedioPago = medioPago_model.medioPago;
 
 //
 // // connect to our database
@@ -32,17 +33,19 @@ var Persona = persona_model.persona;
 //   });
 // });
 // //
+console.log(MedioPago);
+var mpp = new MedioPago(1);
 //
-var personaprueba = new Persona("1122333");
-console.log(personaprueba);
+//var personaprueba = new Persona("1122333");
+//console.log(medioPagoprueba);
 
 // console.log(personaprueba.show());
 //
-// console.log("APLICAMOS EL METODO CARGA:"+ personaprueba.dni);
+console.log("APLICAMOS EL METODO CARGA:"+ mpp.id);
 //
-// personaprueba.cargar();
-personaprueba.exist();
-setTimeout(function(){if (personaprueba.existe){console.log("existe la persona");} }, 1500);
+mpp.eliminar();
+//personaprueba.exist();
+//setTimeout(function(){if (personaprueba.existe){console.log("existe la persona");} }, 1500);
 
 
 
