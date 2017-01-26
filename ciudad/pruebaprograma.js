@@ -13,6 +13,8 @@ var Programa = programa_model.programa;
 
 var debito_model = require("./models/debito");
 var Debito = debito_model.debito;
+var padrino_model = require("./models/padrino");
+var Persona = persona_model.padrino;
 
 //
 // // connect to our database
