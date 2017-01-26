@@ -102,7 +102,6 @@ Credito.prototype.actualizar = function(){
 };
 Credito.prototype.eliminar= function(){
   var id = this.id;
-  var nro = this.nro;
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
