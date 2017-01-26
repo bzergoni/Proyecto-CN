@@ -11,6 +11,8 @@ var Persona = persona_model.persona;
 var programa_model = require("./models/programa");
 var Programa = programa_model.programa;
 
+var debito_model = require("./models/debito");
+var Debito = debito_model.debito;
 
 //
 // // connect to our database
@@ -37,20 +39,58 @@ var Programa = programa_model.programa;
 //
 
 //---------------------------------------------------------------------------------------------------------------------
+//                                          PRUEBA DE PROGRAMA
 //var programaprueba = new Programa("asado");
 //console.log(programaprueba);
 //programaprueba.cargar();
 // setTimeout(function(){console.log(programaprueba.show()); }, 15);
 
-  var programaprueba2 = new Programa("fobal socker gogogo");
+//  var programaprueba2 = new Programa("fobal socker gogogo");
 //  programaprueba2.descripcion="jugar al fobal pateando el esferico";
  //console.log(programaprueba2)
 // programaprueba2.insertar();
 //programaprueba2.cargar();
 //setTimeout(function(){programaprueba2.actualizar("fobal socker gogogo");} , 1500);
 //programaprueba2.eliminar();
-programaprueba2.exist();
-setTimeout(function(){if (programaprueba2.existe){console.log("existe el programa");} }, 1500);
+//programaprueba2.exist();
+//setTimeout(function(){if (programaprueba2.existe){console.log("existe el programa");} }, 1500);
+
+//                            -----            PRUEBA DE DEBITO         -----
+ var debitoprueba = new Debito(1);
+// console.log(debitoprueba);
+// debitoprueba.cargar();
+// setTimeout(function(){console.log(debitoprueba.show()); }, 1500);
+
+var debitoprueba2 = new Debito(2);
+// debitoprueba2.numero_cuenta=345;
+// debitoprueba2.cbu="3455786845";
+// debitoprueba2.titular="cangre burger";
+// debitoprueba2.codigo=342;
+// debitoprueba2.cuenta="debe todo";
+// debitoprueba2.banco="frances";
+// debitoprueba2.sucursal="chucuy";
+//  console.log(debitoprueba2)
+//  debitoprueba2.insertar();
+
+ // debitoprueba2.cargar();
+ // setTimeout(function(){console.log(debitoprueba2.show()); }, 1500);
+
+ // debitoprueba2.numero_cuenta=6789;
+ // debitoprueba2.cbu="12345";
+ // debitoprueba2.titular="victor corleone";
+ // debitoprueba2.codigo=678;
+ // debitoprueba2.cuenta=" todo al dia";
+ // debitoprueba2.banco="hipotecario";
+ // debitoprueba2.sucursal="ucrania";
+ // debitoprueba2.actualizar();
+ //
+ // setTimeout(function(){console.log(debitoprueba2.show()); }, 1500);
+
+//debitoprueba.eliminar();
+debitoprueba2.exist();
+setTimeout(function(){if (debitoprueba2.existe){console.log(" existe el debito");} }, 2500);
+
+
 
 //------------------------------------------------------------------------------------------------------------------
 
