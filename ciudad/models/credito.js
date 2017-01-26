@@ -2,10 +2,10 @@ var pg = require('pg');
 var connectionString = "pg://postgres:postgres@localhost:5432/postgres";
 var client = new pg.Client(connectionString);
 
-function Credito(i, number, tipo_tarj, nom_titular, fecha_venc, cod_verif){
-  this.id = i;
+function Credito(number, tipo_tarj, nom_titular, fecha_venc, cod_verif){
+  this.id = undefined;
   this.nro = number;
-  this.tipo_tarjeta = tipo_tarj;
+  this.nombre_tarjeta = tipo_tarj;
   this.nombre_titular = nom_titular;
   this.fecha_vencimiento = fecha_venc;
   this.codigo_verificacion = cod_verif;
@@ -13,26 +13,27 @@ function Credito(i, number, tipo_tarj, nom_titular, fecha_venc, cod_verif){
 };
 
 Credito.prototype.show = function(){
-  return this.id +" | "+this.nro + " | " + this.tipo_tarjeta+ " | " + this.nombre_titular+ " | " + this.fecha_vencimiento+ " | " + this.codigo_verificacion;
+  return this.id +" | "+this.nro + " | " + this.nombre_tarjeta+ " | " + this.nombre_titular+ " | " + this.fecha_vencimiento+ " | " + this.codigo_verificacion;
 };
 
 
 Credito.prototype.cargar = function(){
 
-  var id = this.id;
+  var nro = this.nro;
+  var nombre_tarjeta=this.nombre_tarjeta;
   var thisrespaldo = this;
 
-  
+
   client.connect(function (err) {
     if (err){console.log(err);}
 
-    client.query("SELECT * FROM ciudad_de_los_niños_development.tarjeta where id='"+id+"'", function (err, result) {
+    client.query("SELECT * FROM ciudad_de_los_niños_development.tarjeta where nro='"+nro+"'and nombre_tarjeta='"+nombre_tarjeta+"'"+, function (err, result) {
       if (err) throw err;
       if(result.rows[0]){
         //repetirse para todos los campos
         thisrespaldo.id=result.rows[0].id;
         thisrespaldo.nro=result.rows[0].nro;
-        thisrespaldo.tipo_tarjeta=result.rows[0].tipo_tarjeta;
+        thisrespaldo.nombre_tarjeta=result.rows[0].nombre_tarjeta;
         thisrespaldo.nombre_titular=result.rows[0].nombre_titular;
         thisrespaldo.fecha_vencimiento=result.rows[0].fecha_vencimiento;
         thisrespaldo.codigo_verificacion=result.rows[0].codigo_verificacion;
@@ -49,9 +50,8 @@ Credito.prototype.cargar = function(){
 };
 ///Esta funcion se supone que inserte o actualize la tabla
 Credito.prototype.insertar = function(){
-  var id = this.id;
   var nro = this.nro;
-  var tipo_tarjeta = this.tipo_tarjeta;
+  var nombre_tarjeta = this.nombre_tarjeta;
   var nombre_titular = this.nombre_titular;
   var fecha_vencimiento = this.fecha_vencimiento;
   var codigo_verificacion = this.codigo_verificacion;
@@ -59,8 +59,8 @@ Credito.prototype.insertar = function(){
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
-   
-    client.query("insert into ciudad_de_los_niños_development.tarjeta values ("+id+",'"+nro+"','"+nombre_titular+"','"+fecha_vencimiento+"','"+tipo_tarjeta+"','"+codigo_verificacion+"');", function (err, result) {
+
+    client.query("insert into ciudad_de_los_niños_development.tarjeta values (lastval(),'"+nro+"','"+nombre_titular+"','"+fecha_vencimiento+"','"+nombre_tarjeta+"','"+codigo_verificacion+"');", function (err, result) {
       if (err){console.log(err)}
 
 
@@ -76,9 +76,8 @@ Credito.prototype.insertar = function(){
 
 //la funcion actualizar, subiria los cambios luego de una modificacion!
 Credito.prototype.actualizar = function(){
-  var id = this.id;
   var nro = this.nro;
-  var tipo_tarjeta = this.tipo_tarjeta;
+  var nombre_tarjeta = this.nombre_tarjeta;
   var nombre_titular = this.nombre_titular;
   var fecha_vencimiento = this.fecha_vencimiento;
   var codigo_verificacion = this.codigo_verificacion;
@@ -86,8 +85,8 @@ Credito.prototype.actualizar = function(){
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
-    
-    client.query("update ciudad_de_los_niños_development.tarjeta set nombre_titular='"+nombre_titular+"', fecha_vencimiento='"+fecha_vencimiento+"', nombre_tarjeta='"+tipo_tarjeta+"', codigo_verificacion='"+codigo_verificacion+"' where id='"+id+"' and nro='"+nro+"'", function (err, result) {
+
+    client.query("update ciudad_de_los_niños_development.tarjeta set nombre_titular='"+nombre_titular+"', fecha_vencimiento='"+fecha_vencimiento+"', codigo_verificacion='"+codigo_verificacion+"' where nombre_tarjeta='"+nombre_tarjeta+"' and nro='"+nro+"'", function (err, result) {
       if (err){console.log(err)}
 
 
@@ -122,7 +121,7 @@ Credito.prototype.eliminar= function(){
 
 
 Credito.prototype.exist = function(){
-  var id = this.id;
+  var nombre_tarjeta=this.nombre_tarjeta;
   var nro = this.nro;
   var thisrespaldo=this;
 
@@ -144,5 +143,8 @@ Credito.prototype.exist = function(){
 
 };
 
+Credito.prototype.obtenerId()=function(){
+  return this.id;
+}
 
 module.exports.credito = Credito;
