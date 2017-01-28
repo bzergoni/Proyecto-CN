@@ -154,7 +154,7 @@ Padrino.prototype.eliminar = function() {
 };
 
 
-Persona.prototype.exist = function() {
+Padrino.prototype.exist = function() {
     var dni = this.dni;
     var thisrespaldo = this;
 
