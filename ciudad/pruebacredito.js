@@ -13,9 +13,18 @@ var MedioPago = medioPago_model.medioPago;
 
 var credito_model = require("./models/credito");
 var Credito = credito_model.credito;
+
+var aporta_model = require("./models/aporta");
+var Aporta = aporta_model.aporta;
+
+var programa_model = require("./models/programa");
+var Programa = programa_model.programa;
+
+var programaprueba = new Programa("asado");
 //
 // // connect to our database
-// client.connect(function (err) {
+// client.connect(function (err) {debitoprueba2.exist();
+
 //   if (err) throw err;
 //
 //   // execute a query on our database
@@ -35,17 +44,29 @@ var Credito = credito_model.credito;
 //   });
 // });
 // //
+
 console.log(MedioPago);
 var mpp = new MedioPago(1);
 
-var creditoprueba1 = new Credito(3,'12333','BBVA','cordobesa','22/11/2017','3213');
-var creditoprueba = new Credito(3,'12333','BBVA','Bruno','22/11/2017','3213');
+var creditoprueba1 = new Credito('12333','BBVA','cordobesa','22/11/2017','3213');
+var creditoprueba = new Credito('12333','BBVA','Bruno','22/11/2017','3213');
 
 //creditoprueba.insertar();
 console.log("antes de la actualiacion");
 creditoprueba.cargar();
+
+var aport = new Aporta('17589342','asado', 80, 'Semestral', 3);
+
+//var pers = new Persona('123123');
+//pers.n_y_ap = 'hola';
+//pers.eliminar();
+//aport.cargar();
+//aport.insertar();
+//aport.eliminar();
+//console.log(aport);
+//setTimeout(function(){if (aport.exist()){console.log(" existe el aporte");} }, 1500);
 //creditoprueba.actualizar();
-creditoprueba.eliminar();
+//creditoprueba.eliminar();
 //console.log(creditoprueba.show());
 //
 //var personaprueba = new Persona("1122333");

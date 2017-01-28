@@ -27,7 +27,7 @@ Credito.prototype.cargar = function(){
   client.connect(function (err) {
     if (err){console.log(err);}
 
-    client.query("SELECT * FROM ciudad_de_los_niños_development.tarjeta where nro='"+nro+"'and nombre_tarjeta='"+nombre_tarjeta+"'"+, function (err, result) {
+    client.query("SELECT * FROM ciudad_de_los_niños_development.tarjeta where nro='"+nro+"'and nombre_tarjeta='"+nombre_tarjeta+"'", function (err, result) {
       if (err) throw err;
       if(result.rows[0]){
         //repetirse para todos los campos
@@ -143,7 +143,7 @@ Credito.prototype.exist = function(){
 
 };
 
-Credito.prototype.obtenerId()=function(){
+Credito.prototype.obtenerId=function(){
   return this.id;
 }
 
