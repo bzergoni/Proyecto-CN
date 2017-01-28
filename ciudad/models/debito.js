@@ -143,7 +143,7 @@ Debito.prototype.exist = function(){
 
 };
 
-Debito.prototype.obtenerId()=function(){
+Debito.prototype.obtenerId=function(){
   return this.id;
 }
 
