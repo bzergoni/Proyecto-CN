@@ -20,12 +20,10 @@ MedioPago.prototype.insertar = function() {
             console.log(err)
         };
 
-        console.log("insert into ciudad_de_los_niños_development.medio_de_pago values (default);")
         client.query("insert into ciudad_de_los_niños_development.medio_de_pago values (default);", function(err, result) {
             if (err) {
                 console.log(err)
             }
-
 
             client.end(function(err) {
                 if (err) {
@@ -76,7 +74,7 @@ MedioPago.prototype.exist = function() {
         if (err) {
             console.log(err);
         }
-        client.query("SELECT * FROM ciudad_de_los_niños_development.medio_de_pago where id='" + id + "'", function(err, result) {
+        client.query("SELECT * FROM ciudad_de_los_niños_development.medio_de_pago where id=" + id, function(err, result) {
             if (err) throw err;
             if (result.rows[0]) {
                 thisrespaldo.existe = true;

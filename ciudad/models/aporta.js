@@ -152,7 +152,7 @@ Aporta.prototype.exist = function() {
             if (err) throw err;
             if (result.rows[0]) {
                 thisrespaldo.existe = true;
-
+                console.log("Existe");
             }
 
             client.end(function(err) {

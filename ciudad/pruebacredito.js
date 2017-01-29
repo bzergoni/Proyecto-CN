@@ -21,65 +21,69 @@ var programa_model = require("./models/programa");
 var Programa = programa_model.programa;
 
 var programaprueba = new Programa("asado");
-//
-// // connect to our database
-// client.connect(function (err) {debitoprueba2.exist();
 
-//   if (err) throw err;
-//
-//   // execute a query on our database
-//   client.query("SELECT * FROM ciudad_de_los_niños_development.contacto where dni='32456915'", function (err, result) {
-//     if (err) throw err;
-//       console.log(result.rows[0].fecha_alta.toLocaleDateString());
-//     // just print the result to the console
-//    //var i=0;
-//    // while (i<result.rowCount){
-//     	//console.log(result.rows[i].dni+'||'+result.rows[i].n_y_ap); // outputs: { name: 'brianc' }
-// 		//i++;
-// 	//}
-//     // disconnect the client
-//     client.end(function (err) {
-//       if (err) throw err;
-//     });
-//   });
-// });
-// //
+//----------------------------PRUEBA MEDIO DE PAGO--------------------------------------------
 
-console.log(MedioPago);
-var mpp = new MedioPago(1);
+var mpp = new MedioPago(5);
 
-var creditoprueba1 = new Credito('12333','BBVA','cordobesa','22/11/2017','3213');
-var creditoprueba = new Credito('12333','BBVA','Bruno','22/11/2017','3213');
+//console.log(mpp.show());
 
+//mpp.insertar();
+//mpp.eliminar();
+//setTimeout(function(){if (mpp.exist()){console.log(" existe el medio de pago");} }, 2500);
+//setTimeout(function(){mpp.insertar();}, 2500);
+
+
+//-----------------------------PRUEBA CREDITO-----------------------------------------
+
+var creditoprueba = new Credito('123','cordobesa','bruno','11/11/2017','3213');
+//var creditoprueba = new Credito('12333','BBVA','Bruno','22/11/2017','3213');
+
+//creditoprueba.cargar();
 //creditoprueba.insertar();
-console.log("antes de la actualiacion");
-creditoprueba.cargar();
+//console.log("antes de la actualiacion");
+//creditoprueba.actualizar();
+
+
+//----------------------------PRUEBA APORTA-----------------------------------
 
 var aport = new Aporta('17589342','asado', 80, 'Semestral', 3);
 
-//var pers = new Persona('123123');
-//pers.n_y_ap = 'hola';
-//pers.eliminar();
-//aport.cargar();
+// //var pers = new Persona('123123');
+// //pers.n_y_ap = 'hola';
+// //pers.eliminar();
+// //aport.cargar();
+
 //aport.insertar();
 //aport.eliminar();
-//console.log(aport);
-//setTimeout(function(){if (aport.exist()){console.log(" existe el aporte");} }, 1500);
-//creditoprueba.actualizar();
-//creditoprueba.eliminar();
-//console.log(creditoprueba.show());
-//
-//var personaprueba = new Persona("1122333");
-//console.log(medioPagoprueba);
 
-// console.log(personaprueba.show());
-//
-//console.log("APLICAMOS EL METODO CARGA:"+ mpp.id);
-//
-//mpp.insertar();
-//personaprueba.exist();
-//setTimeout(function(){if (personaprueba.existe){console.log("existe la persona");} }, 1500);
+// //console.log(aport);
+setTimeout(function(){if (aport.exist()){console.log(" existe el aporte");} }, 1500);
+// //creditoprueba.actualizar();
+// //creditoprueba.eliminar();
+// //console.log(creditoprueba.show());
+// //
+// //var personaprueba = new Persona("1122333");
+// //console.log(medioPagoprueba);
+// //aport.cargar();
+// // console.log(personaprueba.show());
+// //setTimeout(function(){aport.cargar() }, 1500);
+// //console.log("APLICAMOS EL METODO CARGA:"+ mpp.id);
 
+// //mpp.insertar();
+// //personaprueba.exist();
+// setTimeout(function(){
+//   if (aport.exist()){
+//     console.log("existe el aporte");
+//     console.log(aport);
+//   } 
+// }, 2500);
+
+
+// setTimeout(function(){
+//   aport.existe = true;
+
+// }, 2500);
 
 
 // console.log(personaprueba.existe())
