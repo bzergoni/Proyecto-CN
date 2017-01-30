@@ -58,7 +58,8 @@ var aport = new Aporta('17589342','asado', 80, 'Semestral', 3);
 //aport.eliminar();
 
 // //console.log(aport);
-setTimeout(function(){if (aport.exist()){console.log(" existe el aporte");} }, 1500);
+//aport.exist();
+setTimeout(function(){  if (aport.existe){console.log(" existe el aporte");} }, 1500);
 // //creditoprueba.actualizar();
 // //creditoprueba.eliminar();
 // //console.log(creditoprueba.show());
@@ -76,7 +77,7 @@ setTimeout(function(){if (aport.exist()){console.log(" existe el aporte");} }, 1
 //   if (aport.exist()){
 //     console.log("existe el aporte");
 //     console.log(aport);
-//   } 
+//   }
 // }, 2500);
 
 
