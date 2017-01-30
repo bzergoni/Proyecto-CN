@@ -72,7 +72,7 @@ Donante.prototype.actualizar = function(name){
   client.connect(function (err) {
     if (err) {console.log(err)};
     // execute a query on our database
-    client.query("update ciudad_de_los_niños_development.donante set dni='"+dni+"',ocupacion='"+ocupacion+"',cuil_cuit='"+cuil_cuit+"'", function (err, result) {
+    client.query("update ciudad_de_los_niños_development.donante set ocupacion='"+ocupacion+"',cuil_cuit='"+cuil_cuit+"'where dni='"+dni+"'", function (err, result) {
       if (err){console.log(err)}
 
 
