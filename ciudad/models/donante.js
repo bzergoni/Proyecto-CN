@@ -30,9 +30,9 @@ Donante.prototype.cargar = function(){
       if (err) throw err;
       if(result.rows[0]){
         //repetirse para todos los campos
-        thisrespaldo.existe=true;
         thisrespaldo.ocupacion=result.rows[0].ocupacion;
         thisrespaldo.cuil_cuit=result.rows[0].cuil_cuit;
+        thisrespaldo.existe=true;
         thisrespaldo.existeLogico=result.rows[0].existe;
       }
       client.end(function (err) {

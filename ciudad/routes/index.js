@@ -136,6 +136,10 @@ router.post('/insertarDonante', function(req, res) {
             donant.insertar()
 
           }
+          if(donant.existe&&!(donant.existeLogico)){
+            donant.insertarLOGIC()
+          }
+
           setTimeout(function(){
             res.redirect('/modificarDonante?dni='+dni);
           }, 1000);
@@ -243,11 +247,101 @@ router.post('/eliminarDonante', function(req, res) {
   var dni=req.body.dni
   donant.eliminar()
   setTimeout(function(){
-    res.redirect('')
+    res.redirect('/')
   }, 50);
 
 
 });
+
+router.get('/insertarPrograma', function(req, res) {
+    res.render('insertarPrograma', { user : req.user });
+});
+
+router.post('/insertarPrograma', function(req, res) {
+
+
+   var program = new Programa(req.body.nombre_programa)
+
+//setTimeout(function(){}, 1000);
+  var nombre_programa=req.body.nombre_programa
+
+  program.cargar();
+  setTimeout(function(){
+    if(!program.existe){
+      program = new Programa(req.body.nombre_programa,req.body.descripcion);
+      program.insertar()
+    }
+    if(program.existe && !(program.existeLogico)){
+      program.insertarLOGIC();
+    }
+    setTimeout(function(){
+      res.redirect('/modificarPrograma?nombre_programa='+nombre_programa);
+    }, 1000);
+
+  }, 1000);
+
+});
+
+router.get('/modificarPrograma', function(req, res) {
+    var nombre_programa =req.query.nombre_programa;
+    if(nombre_programa){
+      var program = new Programa(nombre_programa);
+      program.cargar();
+      setTimeout(function(){
+        res.render('modificarPrograma', { user : req.user,datosprograma:program});
+      }, 50);
+
+
+    }else{res.render('modificarPrograma', { user : req.user });}
+
+
+});
+
+router.post('/modificarProgramaRedir', function(req, res) {
+  res.redirect('/modificarPrograma?dni='+req.body.nombre_programaRedir);
+
+});
+
+router.post('/modificarPrograma', function(req, res) {
+  var program = new Program(req.body.nombre_programa,req.body.descripcion);
+  console.log(program.show())
+  var nombre_programa=req.body.nombre_programa
+  program.actualizar()
+  setTimeout(function(){
+    res.redirect('/modificarPrograma?nombre_programa='+nombre_programa);
+  }, 50);
+
+});
+
+router.get('/eliminarPrograma', function(req, res) {
+    var nombre_programa =req.query.nombre_programa;
+    if(nombre_programa){
+      console.log("entro al if de nombre_programa")
+      var program = new Programa(nombre_programa);
+      program.cargar();
+      setTimeout(function(){
+        console.log(program)
+        res.render('eliminarPrograma', { user : req.user,datosprograma:program });
+      }, 1000);
+
+    }else{
+      console.log("entro al else")
+      res.render('eliminarPrograma', { user : req.user });}
+});
+
+router.post('/eliminarProgramaRedir', function(req, res) {
+  res.redirect('/eliminarPrograma?nombre_programa='+req.body.nombre_programaRedir);
+});
+
+router.post('/eliminarPrograma', function(req, res) {
+  var program = new Programa(req.body.nombre_programa);
+  program.eliminar()
+  setTimeout(function(){
+    res.redirect('/')
+  }, 50);
+});
+
+
 router.get('/login', function(req, res) {
     res.render('login', { user : req.user });
 });

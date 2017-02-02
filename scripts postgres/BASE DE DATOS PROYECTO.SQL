@@ -64,7 +64,7 @@ Create table Programa (
 
 Nombre_Programa varchar(50) ,
 Descripcion varchar(50) ,
-
+existe boolean DEFAULT true,
 Constraint pk_Programa  primary key (Nombre_Programa)
 
 );
