@@ -36,6 +36,7 @@ Create table Donante (
 Dni varchar(10),
 ocupacion varchar(50) ,
 Cuil_cuit varchar(50),
+existe boolean DEFAULT true,
 Constraint pk_Donante  primary key (Dni),
 constraint CF_Donante foreign key (Dni) references Padrino (Dni) on delete cascade on update cascade
 );

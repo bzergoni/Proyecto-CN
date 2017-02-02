@@ -2,9 +2,9 @@ var pg = require('pg');
 var connectionString = "pg://postgres:postgres@localhost:5432/postgres";
 var client = new pg.Client(connectionString);
 
-function Persona(number) {
+function Persona(number,nya) {
     this.dni = number;
-    this.n_y_ap;
+    this.n_y_ap=nya;
     this.existe = undefined;
 };
 
@@ -17,7 +17,7 @@ Persona.prototype.show = function() {
 
 
 Persona.prototype.cargar = function() {
-
+    client = new pg.Client(connectionString);
     var dni = this.dni;
     var thisrespaldo = this;
     client.connect(function(err) {
@@ -34,6 +34,7 @@ Persona.prototype.cargar = function() {
             if (err) throw err;
             if (result.rows[0]) {
                 //repetirse para todos los campos
+                thisrespaldo.existe=true;
                 thisrespaldo.n_y_ap = result.rows[0].n_y_ap;
                 console.log(thisrespaldo);
 
@@ -54,7 +55,8 @@ Persona.prototype.insertar = function() {
     var dni = this.dni;
     var n_y_ap = this.n_y_ap;
 
-    client = new pg.Client(connectionString);
+    var client = new pg.Client(connectionString);
+
     client.connect(function(err) {
         if (err) {
             console.log(err)
@@ -136,7 +138,7 @@ Persona.prototype.eliminar = function() {
 Persona.prototype.exist = function() {
     var dni = this.dni;
     var thisrespaldo = this;
-
+    client = new pg.Client(connectionString);
     client.connect(function(err) {
         if (err) {
             console.log(err);

@@ -6,7 +6,8 @@ function Donante(doc,ocup,cuit_cuil){
   this.dni = doc;
   this.ocupacion=ocup;
   this.cuil_cuit=cuit_cuil;
-  this.existe=undefined;
+  this.existe=false;
+  this.existeLogico=undefined
 };
 
 
@@ -16,7 +17,7 @@ Donante.prototype.show = function(){
 
 
 Donante.prototype.cargar = function(){
-
+  client = new pg.Client(connectionString);
   var dni=this.dni;
   var thisrespaldo=this;
   client.connect(function (err) {
@@ -29,10 +30,10 @@ Donante.prototype.cargar = function(){
       if (err) throw err;
       if(result.rows[0]){
         //repetirse para todos los campos
-
+        thisrespaldo.existe=true;
         thisrespaldo.ocupacion=result.rows[0].ocupacion;
         thisrespaldo.cuil_cuit=result.rows[0].cuil_cuit;
-
+        thisrespaldo.existeLogico=result.rows[0].existe;
       }
       client.end(function (err) {
         if (err) {console.log(err)};
@@ -60,6 +61,25 @@ Donante.prototype.insertar = function(){
     });
   });
 };
+
+Donante.prototype.insertarLOGIC = function(){
+  var dni=this.dni;
+
+  client = new pg.Client(connectionString);
+  client.connect(function (err) {
+    if (err) {console.log(err)};
+    // execute a query on our database
+    client.query("update ciudad_de_los_niños_development.donante set existe=true where dni='"+dni+"'", function (err, result) {
+      if (err){console.log(err)}
+
+
+      client.end(function (err) {
+        if (err){ console.log(err)};
+      });
+    });
+  });
+};
+
 
 //la funcion actualizar, subiria los cambios luego de una modificacion!
 Donante.prototype.actualizar = function(name){
@@ -89,7 +109,7 @@ Donante.prototype.eliminar= function(){
   client.connect(function (err) {
     if (err) {console.log(err)};
     // execute a query on our database
-    client.query("delete from ciudad_de_los_niños_development.donante  where dni='"+dni+"'", function (err, result) {
+    client.query("update ciudad_de_los_niños_development.donante set existe=false where dni='"+dni+"'", function (err, result) {
       if (err){console.log(err)}
 
 
@@ -106,10 +126,31 @@ Donante.prototype.eliminar= function(){
 Donante.prototype.exist = function(){
   var dni=this.dni;
   var thisrespaldo=this;
-
+  client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err){console.log(err);}
-    client.query("SELECT * FROM ciudad_de_los_niños_development.donante where dni='"+dni+"'", function (err, result) {
+    client.query("SELECT * FROM ciudad_de_los_niños_development.donante where dni='"+dni+"' ", function (err, result) {
+      if (err) throw err;
+      if(result.rows[0]){
+        thisrespaldo.existe=true;
+      }
+      client.end(function (err) {
+        if (err) {console.log(err)};
+      });
+    });
+
+  });
+
+};
+
+
+Donante.prototype.existLOGIC = function(){
+  var dni=this.dni;
+  var thisrespaldo=this;
+  client = new pg.Client(connectionString);
+  client.connect(function (err) {
+    if (err){console.log(err);}
+    client.query("SELECT * FROM ciudad_de_los_niños_development.donante where dni='"+dni+"' and existe=true", function (err, result) {
       if (err) throw err;
       if(result.rows[0]){
         thisrespaldo.existe=true;

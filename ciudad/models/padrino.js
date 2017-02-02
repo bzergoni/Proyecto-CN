@@ -9,7 +9,9 @@ function Padrino(number,em,tel,dir,cel,nac,cod) {
     this.direccion=dir;
     this.celular=cel;
     this.fecha_nac=nac;
+
     this.cod_postal=cod;
+    if(!cod){this.cod_postal=0000}
     this.existe = undefined;
 };
 
@@ -22,6 +24,7 @@ Padrino.prototype.show = function() {
 
 
 Padrino.prototype.cargar = function() {
+  client = new pg.Client(connectionString);
 
     var dni = this.dni;
     var thisrespaldo = this;
@@ -39,6 +42,7 @@ Padrino.prototype.cargar = function() {
             if (err) throw err;
             if (result.rows[0]) {
                 //repetirse para todos los campos
+                thisrespaldo.existe=true;
                 thisrespaldo.email = result.rows[0].email;
                 thisrespaldo.tel_fijo = result.rows[0].tel_fijo;
                 thisrespaldo.direccion = result.rows[0].direccion;
@@ -157,6 +161,7 @@ Padrino.prototype.eliminar = function() {
 Padrino.prototype.exist = function() {
     var dni = this.dni;
     var thisrespaldo = this;
+    client = new pg.Client(connectionString);
 
     client.connect(function(err) {
         if (err) {
