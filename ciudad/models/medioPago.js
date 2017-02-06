@@ -37,6 +37,31 @@ MedioPago.prototype.insertar = function() {
 
 };
 
+MedioPago.prototype.cargar = function(){
+
+  var id = this.id;
+
+  client = new pg.Client(connectionString);
+  client.connect(function (err) {
+    if (err){console.log(err);}
+
+    client.query("SELECT * FROM ciudad_de_los_niños_development.medio_de_pago where id="+id, function (err, result) {
+      if (err) throw err;
+      if(result.rows[0]){
+        //repetirse para todos los campos
+        thisrespaldo.id=result.rows[0].id;
+        thisrespaldo.existe=true;
+        //console.log(thisrespaldo);
+      }
+
+    //console.log(thisrespaldo)
+    client.end(function (err) {
+      if (err) {console.log(err)};
+    });
+    });
+
+  });
+};
 ///Quizas no es necesario borrar el medio de pago
 
 MedioPago.prototype.eliminar = function() {
