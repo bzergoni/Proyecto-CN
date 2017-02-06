@@ -348,13 +348,11 @@ router.get('/insertarDebito', function(req, res) {
 
 router.post('/insertarDebito', function(req, res) {
    var debit = new Debito(req.body.nro_cuenta,req.body.cbu,req.body.nombre_titular,req.body.codigo_verificacion,req.body.tipo_cuenta,req.body.nombre_banco,req.body.sucursal_banco);
-   var mediopag=new MedioPago();
 //setTimeout(function(){}, 1000);
    var cbu=req.body.cbu
    debit.exist();
    setTimeout(function(){
      if(!debit.existe){
-       mediopag.insertar()
        setTimeout(function(){
          debit.insertar()
          setTimeout(function(){
