@@ -1,0 +1,15 @@
+extends layout
+block content 
+      center insertar debito 
+        form(role='form', action="/insertarDebito",method="post", style='max-width: 300px;')
+          .form-group
+            
+            input.form-control(type='text', name="cbu", placeholder='DNI')
+            input.form-control(type='text', name="nro_cuenta", placeholder='NUMERO DE CUENTA')
+            input.form-control(type='text', name="nombre_titular", placeholder='NOMBRE DEL TITULAR')
+            input.form-control(type='text', name="codigo_verificacion", placeholder='CODIGO DE VERIFIACION')
+            input.form-control(type='text', name="tipo_cuenta", placeholder='TIPO DE CUENTA')
+            input.form-control(type='text', name="nombre_banco", placeholder='NOMBRE DEL BANCO')
+            input.form-control(type='text', name="sucursal_banco", placeholder='SUCURSAL DEL BANCO')
+          button(type='submit',class="boton") Aceptar
+          
