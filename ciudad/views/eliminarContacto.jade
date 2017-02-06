@@ -1,0 +1,31 @@
+extends layout
+block content
+      center eliminar Contacto
+        if(!datoscontacto)
+          form(role='form', action="/eliminarContactoRedir",method="post", style='max-width: 300px;')
+            .form-group
+              input.form-control(type='text', name="dniRedir", placeholder='DNI')
+            button(type='submit',class="boton") Aceptar
+
+        if(datoscontacto)
+            p SEGURO QUE QUIERE ELIMINAR EL SIGUIENTE CONTACTO?
+            form(role='form', action="/eliminarContacto",method="post", style='max-width: 300px;')
+              .form-group
+                input.form-control(type='text', name="dni", placeholder='DNI',value=datospersona.dni,readonly="true")
+                input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',value=datospersona.n_y_ap,readonly="true")
+                input.form-control(type='text', name="email", placeholder='EMAIL',value=datospadrino.email,readonly="true")
+                input.form-control(type='text', name="tel_fijo", placeholder='TELEFONO FIJO',value=datospadrino.tel_fijo,readonly="true")
+                input.form-control(type='text', name="direccion", placeholder='DIRECCION',value=datospadrino.direccion,readonly="true")
+                input.form-control(type='text', name="celular", placeholder='CELULAR',value=datospadrino.celular,readonly="true")
+                input.form-control(type='text', name="fecha_nac", placeholder='FECHA DE NACIMIENTO',value=datospadrino.fecha_nac,readonly="true")
+                input.form-control(type='text', name="cod_postal", placeholder='CODIGO POSTAL',value=datospadrino.cod_postal,readonly="true")
+                input.form-control(type='text', name="fecha_primer_contacto", placeholder='FECHA DE PRIMER CONTACTO',value=datoscontacto.fecha_primer_contacto,readonly="true")
+                input.form-control(type='text', name="fecha_alta", placeholder='FECHA DE ALTA',value=datoscontacto.fecha_alta,readonly="true")
+                input.form-control(type='text', name="fecha_baja", placeholder='FECHA DE BAJA',value=datoscontacto.fecha_baja,readonly="true")
+                input.form-control(type='text', name="fecha_rechazo_adhesion", placeholder='FECHA DE RECHAZO DE ADHESION',value=datoscontacto.fecha_rechazo_adhesion,readonly="true")
+                input.form-control(type='text', name="estado", placeholder='ESTADO',value=datoscontacto.estado,readonly="true")
+                input.form-control(type='text', name="dni_recomendador", placeholder='DNI DEL RECOMENDADOR',value=datoscontacto.dni_recomendador,readonly="true")
+                input.form-control(type='text', name="comentario", placeholder='COMENTARIO',value=datoscontacto.comentario,readonly="true")
+                input.form-control(type='text', name="relacion", placeholder='RELACION CON RECOMENDADOR',value=datoscontacto.relacion,readonly="true")
+              button(type='submit',class="boton") Eliminar
+              a(href="/register",class='.link') Cancelar
