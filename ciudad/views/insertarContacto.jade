@@ -1,0 +1,22 @@
+extends layout
+block content
+      center insertar contacto
+        form(role='form', action="/insertarContacto",method="post", style='max-width: 300px;')
+          .form-group
+            input.form-control(type='text', name="dni", placeholder='DNI')
+            input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO')
+            input.form-control(type='text', name="email", placeholder='EMAIL')
+            input.form-control(type='text', name="tel_fijo", placeholder='TELEFONO FIJO')
+            input.form-control(type='text', name="direccion", placeholder='DIRECCION')
+            input.form-control(type='text', name="celular", placeholder='CELULAR')
+            input.form-control(type='text', name="fecha_nac", placeholder='FECHA DE NACIMIENTO DD/MM/AAAA')
+            input.form-control(type='text', name="cod_postal", placeholder='CODIGO POSTAL')
+            input.form-control(type='text', name="fecha_primer_contacto", placeholder='FECHA DE PRIMER CONTACTO')
+            input.form-control(type='text', name="fecha_alta", placeholder='FECHA DE ALTA')
+            input.form-control(type='text', name="fecha_baja", placeholder=' FECHA DE BAJA')
+            input.form-control(type='text', name="fecha_rechazo_adhesion", placeholder='FECHA DE RECHAZO DE ADHESION')
+            input.form-control(type='text', name="estado", placeholder='ESTADO(Sin llamar,ERROR, No acepta, En gestion, Adherido, Amigo, Baja)')
+            input.form-control(type='text', name="dni_recomendador", placeholder='DNI DEL RECOMENDADOR')
+            input.form-control(type='text', name="comentario", placeholder='COMENTARIO')
+            input.form-control(type='text', name="relacion", placeholder='RELACION CON EL RECOMENDADOR')
+          button(type='submit',class="boton") Aceptar

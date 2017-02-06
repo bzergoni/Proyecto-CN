@@ -362,4 +362,130 @@ router.get('/ping', function(req, res){
     res.status(200).send("pong!");
 });
 
+
+router.get('/insertarContacto', function(req, res) {
+    res.render('insertarContacto', { user : req.user });
+});
+
+router.post('/insertarContacto', function(req, res) {
+  console.log("POST DE MODIFICAR Contacto, REQ.BODY.DNI="+req.body.dni)
+  var contact = new Contacto(req.body.dni)
+  var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
+  var pers = new Persona(req.body.dni,req.body.n_y_ap);
+  var dni=req.body.dni
+
+  pers.cargar();
+  padr.cargar();
+  contact.cargar();
+  setTimeout(function(){
+      if(!pers.existe){
+        pers = new Persona(req.body.dni,req.body.n_y_ap);
+        pers.insertar()
+      };
+      setTimeout(function(){
+        if(!padr.existe){
+          padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
+          padr.insertar()
+        }
+          setTimeout(function(){
+            console.log("existe de contact: "+contact.existe);
+            if(!contact.existe){
+              console.log("entro al if de existe contact");
+              contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_alta,req.body.fecha_baja,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion);
+              contact.insertar()
+            }
+              setTimeout(function(){
+                res.redirect('/modificarContacto?dni='+dni);
+               }, 1000);
+          }, 1000);
+     }, 1000);
+   }, 1000);
+});
+
+router.get('/modificarContacto', function(req, res) {
+    var dni =req.query.dni;
+    if(dni){
+      console.log()
+      var pers = new Persona(dni);
+      var padr = new Padrino(dni);
+      var contact = new Contacto(dni);
+      setTimeout(function(){
+        pers.cargar()
+        setTimeout(function(){
+          padr.cargar();
+          setTimeout(function(){
+            contact.cargar();
+            setTimeout(function(){
+              res.render('modificarContacto', { user : req.user,datospersona:pers, datospadrino:padr,datoscontacto:contact});
+            }, 50);
+          }, 50);
+        }, 50);
+      }, 50);
+    }else{res.render('modificarContacto', { user : req.user });}
+});
+
+router.post('/modificarContactoRedir', function(req, res) {
+  res.redirect('/modificarContacto?dni='+req.body.dniRedir);
+});
+
+router.post('/modificarContacto', function(req, res) {
+  console.log("POST DE MODIFICAR Contacto, REQ.BODY.DNI="+req.body.dni)
+
+  var pers = new Persona(req.body.dni,req.body.n_y_ap);
+  var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
+  var contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_alta,req.body.fecha_baja,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion);
+
+  console.log(pers.show());
+
+  console.log(contact.show());
+  var dni=req.body.dni
+
+    pers.actualizar();
+    setTimeout(function(){
+      padr.actualizar();
+      setTimeout(function(){
+        contact.actualizar();
+          setTimeout(function(){
+            console.log("dentro del ultimo setTimeout antes del redirect");
+            res.redirect('/modificarContacto?dni='+dni);
+          }, 50);
+      }, 50);
+  }, 50);
+});
+
+
+router.get('/eliminarContacto', function(req, res) {
+    var dni =req.query.dni;
+    if(dni){
+      console.log("entro al if de dni")
+      var pers = new Persona(dni);
+      var contact = new Contacto(dni);
+      var padr = new Padrino(dni);
+      pers.cargar()
+      contact.cargar();
+      padr.cargar();
+      setTimeout(function(){
+        res.render('eliminarContacto', { user : req.user,datospersona:pers,datospadrino:padr,datoscontacto:contact});
+      }, 1000);
+    }else{
+      console.log("entro al else")
+      res.render('eliminarContacto', { user : req.user });}
+});
+
+router.post('/eliminarContactoRedir', function(req, res) {
+  res.redirect('/eliminarContacto?dni='+req.body.dniRedir);
+});
+
+router.post('/eliminarContacto', function(req, res) {
+  console.log("POST DE eliminar Contacto, REQ.BODY.DNI="+req.body.dni)
+  var contact = new Contacto(req.body.dni);
+
+  var dni=req.body.dni
+  contact.eliminar()
+  setTimeout(function(){
+    res.redirect('/')
+  }, 50);
+});
+
+
 module.exports = router;
