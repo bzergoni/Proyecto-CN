@@ -1,0 +1,20 @@
+extends layout
+block content 
+      center eliminar Credito 
+        if(!datoscredito)  
+          form(role='form', action="/eliminarCreditoRedir",method="post", style='max-width: 300px;')
+            .form-group
+              input.form-control(type='text', name="nroRedir", placeholder='NUMERO')
+            button(type='submit',class="boton") Aceptar
+        
+        if(datoscredito)  
+          p SEGURO QUE QUIERE ELIMINAR LA SIGUIENTE TARJETA?
+          form(role='form', action="/eliminarCredito",method="post", style='max-width: 300px;')
+            .form-group
+              input.form-control(type='text', name="nro", placeholder='NUMERO DE TARJETA',value=datoscredito.nro, readonly="true")
+              input.form-control(type='text', name="nombre_tarjeta", placeholder='NOMBRE DE LA TARJETA',value=datoscredito.nombre_tarjeta, readonly="true")
+              input.form-control(type='text', name="nombre_titular", placeholder='NOMBRE DEL TITULAR',value=datoscredito.nombre_titular, readonly="true")
+              input.form-control(type='text', name="fecha_vencimiento", placeholder='FECHA DE VENCIMIENTO (DD/MM/AAAA)',value=datoscredito.fecha_vencimiento, readonly="true")
+              input.form-control(type='text', name="codigo_verificacion", placeholder='CODIGO VERIFICACION',value=datoscredito.codigo_verificacion, readonly="true")
+            button(type='submit',class="boton") Eliminar
+            a(href="/register",class='.link') Cancelar

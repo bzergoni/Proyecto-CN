@@ -23,7 +23,7 @@ Credito.prototype.cargar = function(){
   var nombre_tarjeta=this.nombre_tarjeta;
   var thisrespaldo = this;
 
-
+  client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err){console.log(err);}
 

@@ -342,6 +342,99 @@ router.post('/eliminarPrograma', function(req, res) {
 });
 
 
+//----------------------------------------------------
+router.get('/insertarCredito', function(req, res) {
+    res.render('insertarCredito', { user : req.user });
+});
+
+router.post('/insertarCredito', function(req, res) {
+  
+  var mp = new MedioPago(req.body.id);
+  //var tarj = new Credito(req.body.id, req.body.nro, req.body.nombre_tarjeta, req.body.nombre_titular, req.body.fecha_vencimiento, req.body.codigo_verificacion);
+  var tarj = new Credito(req.body.id);
+//setTimeout(function(){}, 1000);
+  
+
+  mp.cargar();
+  tarj.cargar();
+  setTimeout(function(){
+      if(!mp.existe){
+        mp = new MedioPago(req.body.id);
+        mp.insertar()
+      };
+      setTimeout(function(){
+        if(!tarj.existe){
+          tarj = new Credito(req.body.id, req.body.nro, req.body.nombre_tarjeta, req.body.nombre_titular, req.body.fecha_vencimiento, req.body.codigo_verificacion);
+          tarj.insertar()
+        }
+      }, 1000);
+  }, 1000);
+});
+
+router.get('/modificarCredito', function(req, res) {
+    var nro =req.query.nro;
+    if(nro){
+      var tarj = new Credito(nro);
+      setTimeout(function(){
+        tarj.cargar();
+        setTimeout(function(){
+              res.render('modificarCredito', { user : req.user,datoscredito:tarj});
+        }, 50);
+      }, 50);
+    }else{res.render('modificarCredito', { user : req.user });}
+
+
+});
+
+router.post('/modificarCreditoRedir', function(req, res) {
+  res.redirect('/modificarCredito?nro='+req.body.nroRedir);
+
+});
+
+router.post('/modificarCredito', function(req, res) {
+
+  var tarj = new Credito(req.body.nro,req.body.nombre_tarjeta, req.body.nombre_titular, req.body.fecha_vencimiento, req.body.codigo_verificacion);
+  var nro=req.body.nro
+  setTimeout(function(){
+    tarj.actualizar()
+	setTimeout(function(){
+      res.redirect('/modificarCredito?nro='+nro);
+    }, 50);
+  }, 50);
+});
+
+
+router.get('/eliminarCredito', function(req, res) {
+	var nro =req.query.nro;
+	if(nro){
+	  var tarj = new Credito(nro);
+	  setTimeout(function(){
+	    tarj.cargar();
+	    setTimeout(function(){
+	    	console.log(tarj);
+	      	res.render('eliminarCredito', { user : req.user,datoscredito:tarj});
+	    }, 1000);
+	  }, 1000);
+	}else{
+	  res.render('eliminarCredito', { user : req.user });
+	}
+});
+
+router.post('/eliminarCreditoRedir', function(req, res) {
+  res.redirect('/eliminarCredito?nro='+req.body.nroRedir);
+
+});
+
+router.post('/eliminarCredito', function(req, res) {
+  var tarj = new Credito(req.body.nro);
+  var nro=req.body.nro;
+  tarj.eliminar()
+  setTimeout(function(){
+    res.redirect('/')
+  }, 50);
+});
+//----------------------------------------------------
+
 router.get('/login', function(req, res) {
     res.render('login', { user : req.user });
 });
