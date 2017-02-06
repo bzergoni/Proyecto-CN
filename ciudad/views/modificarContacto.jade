@@ -1,0 +1,29 @@
+extends layout
+block content
+      center modificar contacto
+        if(!datoscontacto)
+          form(role='form', action="/modificarContactoRedir",method="post", style='max-width: 300px;')
+            .form-group
+              input.form-control(type='text', name="dniRedir", placeholder='DNI')
+            button(type='submit',class="boton") Aceptar
+        if(datoscontacto)
+          p se cargo el contacto!
+          form(role='form', action="/modificarContacto",method="post", style='max-width: 300px;')
+            .form-group
+              input.form-control(type='text', name="dni", placeholder='DNI',value=datospersona.dni,readonly="true")
+              input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',value=datospersona.n_y_ap)
+              input.form-control(type='text', name="email", placeholder='EMAIL',value=datospadrino.email)
+              input.form-control(type='text', name="tel_fijo", placeholder='TELEFONO FIJO',value=datospadrino.tel_fijo)
+              input.form-control(type='text', name="direccion", placeholder='DIRECCION',value=datospadrino.direccion)
+              input.form-control(type='text', name="celular", placeholder='CELULAR',value=datospadrino.celular)
+              input.form-control(type='text', name="fecha_nac", placeholder='FECHA DE NACIMIENTO',value=datospadrino.fecha_nac)
+              input.form-control(type='text', name="cod_postal", placeholder='CODIGO POSTAL',value=datospadrino.cod_postal)
+              input.form-control(type='text', name="fecha_primer_contacto", placeholder='FECHA DE PRIMER CONTACTO',value=datoscontacto.fecha_primer_contacto)
+              input.form-control(type='text', name="fecha_alta", placeholder='FECHA DE ALTA',value=datoscontacto.fecha_alta)
+              input.form-control(type='text', name="fecha_baja", placeholder='FECHA DE BAJA',value=datoscontacto.fecha_baja)
+              input.form-control(type='text', name="fecha_rechazo_adhesion", placeholder='FECHA DE RECHAZO DE ADHESION',value=datoscontacto.fecha_rechazo_adhesion)
+              input.form-control(type='text', name="estado", placeholder='ESTADO',value=datoscontacto.estado)
+              input.form-control(type='text', name="dni_recomendador", placeholder='DNI DEL RECOMENDADOR',value=datoscontacto.dni_recomendador)
+              input.form-control(type='text', name="comentario", placeholder='COMENTARIO',value=datoscontacto.comentario)
+              input.form-control(type='text', name="relacion", placeholder='RELACION CON RECOMENDADOR',value=datoscontacto.relacion)
+            button(type='submit',class="boton") Aceptar
