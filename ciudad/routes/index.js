@@ -348,27 +348,20 @@ router.get('/insertarCredito', function(req, res) {
 });
 
 router.post('/insertarCredito', function(req, res) {
-  
-  var mp = new MedioPago(req.body.id);
-  //var tarj = new Credito(req.body.id, req.body.nro, req.body.nombre_tarjeta, req.body.nombre_titular, req.body.fecha_vencimiento, req.body.codigo_verificacion);
-  var tarj = new Credito(req.body.id);
-//setTimeout(function(){}, 1000);
-  
-
-  mp.cargar();
-  tarj.cargar();
+  var tarj = new Credito(req.body.nro, req.body.tipo_tarjeta, req.body.nombre_titular, req.body.fecha_vencimiento, req.body.codigo_verificacion);
+  //var tarj = new Credito(req.body.nro);
+  tarj.exist();
   setTimeout(function(){
-      if(!mp.existe){
-        mp = new MedioPago(req.body.id);
-        mp.insertar()
-      };
+    if(!tarj.existe){
+      tarj.insertar();
       setTimeout(function(){
-        if(!tarj.existe){
-          tarj = new Credito(req.body.id, req.body.nro, req.body.nombre_tarjeta, req.body.nombre_titular, req.body.fecha_vencimiento, req.body.codigo_verificacion);
-          tarj.insertar()
-        }
-      }, 1000);
-  }, 1000);
+      	res.redirect('/modificarCredito?nro='+req.body.nro);
+    	})
+	  }
+	  else{
+	  	res.redirect('/modificarCredito?nro='+req.body.nro);
+	  }
+	}, 1000);
 });
 
 router.get('/modificarCredito', function(req, res) {
@@ -378,9 +371,10 @@ router.get('/modificarCredito', function(req, res) {
       setTimeout(function(){
         tarj.cargar();
         setTimeout(function(){
-              res.render('modificarCredito', { user : req.user,datoscredito:tarj});
-        }, 50);
-      }, 50);
+        	console.log(tarj);
+            res.render('modificarCredito', { user : req.user, datoscredito:tarj});
+        }, 500);
+      }, 500);
     }else{res.render('modificarCredito', { user : req.user });}
 
 
@@ -396,7 +390,7 @@ router.post('/modificarCredito', function(req, res) {
   var tarj = new Credito(req.body.nro,req.body.nombre_tarjeta, req.body.nombre_titular, req.body.fecha_vencimiento, req.body.codigo_verificacion);
   var nro=req.body.nro
   setTimeout(function(){
-    tarj.actualizar()
+    tarj.actualizar();
 	setTimeout(function(){
       res.redirect('/modificarCredito?nro='+nro);
     }, 50);
@@ -412,7 +406,7 @@ router.get('/eliminarCredito', function(req, res) {
 	    tarj.cargar();
 	    setTimeout(function(){
 	    	console.log(tarj);
-	      	res.render('eliminarCredito', { user : req.user,datoscredito:tarj});
+	     	res.render('eliminarCredito', { user : req.user, datoscredito:tarj});
 	    }, 1000);
 	  }, 1000);
 	}else{
