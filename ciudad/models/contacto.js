@@ -90,10 +90,10 @@ Contacto.prototype.actualizar = function(){
     if (err) {console.log(err)};
     // execute a query on our database
     console.log("antes del query");
-    client.query("update ciudad_de_los_niños_development.contacto set fecha_primer_contacto='"+fecha_primer_contacto+"',fecha_alta='"+fecha_alta+",fecha_baja='"+fecha_baja+"',fecha_rechazo_adhesion='"+fecha_rechazo_adhesion+"',estado='"+estado+"',dni_recomendador='"+dni_recomendador+"',comentario='"+comentario+"',relacion='"+relacion+"' where dni='" + dni + "'", function (err, result) {
+    client.query("update ciudad_de_los_niños_development.contacto set fecha_primer_contacto='"+fecha_primer_contacto+"',fecha_alta='"+fecha_alta+"',fecha_baja='"+fecha_baja+"',fecha_rechazo_adhesion='"+fecha_rechazo_adhesion+"',estado='"+estado+"',dni_recomendador='"+dni_recomendador+"',comentario='"+comentario+"',relacion='"+relacion+"' where dni='" + dni + "'", function (err, result) {
       if (err){console.log(err)}
       console.log("query update");
-      console.log("update ciudad_de_los_niños_development.contacto set fecha_primer_contacto='"+fecha_primer_contacto+"',fecha_alta='"+fecha_alta+",fecha_baja='"+fecha_baja+"',fecha_rechazo_adhesion='"+fecha_rechazo_adhesion+"',estado='"+estado+"',dni_recomendador='"+dni_recomendador+"',comentario='"+comentario+"',relacion='"+relacion+"' where dni='" + dni + "'");
+      console.log("update ciudad_de_los_niños_development.contacto set fecha_primer_contacto='"+fecha_primer_contacto+"',fecha_alta='"+fecha_alta+"',fecha_baja='"+fecha_baja+"',fecha_rechazo_adhesion='"+fecha_rechazo_adhesion+"',estado='"+estado+"',dni_recomendador='"+dni_recomendador+"',comentario='"+comentario+"',relacion='"+relacion+"' where dni='" + dni + "'");
       client.end(function (err) {
         if (err){ console.log(err)};
       });
