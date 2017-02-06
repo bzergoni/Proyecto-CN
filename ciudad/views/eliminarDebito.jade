@@ -20,11 +20,11 @@ block content
               .form-group
                 input.form-control(type='text', name="id", placeholder='ID',value=datosdebito.id,readonly="true")
                 input.form-control(type='text', name="cbu", placeholder='DNI',value=datosdebito.cbu,readonly="true")
-                input.form-control(type='text', name="nro_cuenta", placeholder='NUMERO DE CUENTA',value=datosdebito.nro_cuenta,readonly="true")
-                input.form-control(type='text', name="nombre_titular", placeholder='NOMBRE DEL TITULAR',value=datosdebito.nombre_titular,readonly="true")
-                input.form-control(type='text', name="codigo_verificacion", placeholder='CODIGO DE VERIFIACION',value=datosdebito.codigo_verificacion,readonly="true")
-                input.form-control(type='text', name="tipo_cuenta", placeholder='TIPO DE CUENTA',value=datosdebito.tipo_cuenta,readonly="true")
-                input.form-control(type='text', name="nombre_banco", placeholder='NOMBRE DEL BANCO',value=datosdebito.nombre_banco,readonly="true")
-                input.form-control(type='text', name="sucursal_banco", placeholder='SUCURSAL DEL BANCO',value=datosdebito.sucursal_banco,readonly="true")
+                input.form-control(type='text', name="nro_cuenta", placeholder='NUMERO DE CUENTA',value=datosdebito.numero_cuenta,readonly="true")
+                input.form-control(type='text', name="nombre_titular", placeholder='NOMBRE DEL TITULAR',value=datosdebito.titular,readonly="true")
+                input.form-control(type='text', name="codigo_verificacion", placeholder='CODIGO DE VERIFIACION',value=datosdebito.codigo,readonly="true")
+                input.form-control(type='text', name="tipo_cuenta", placeholder='TIPO DE CUENTA',value=datosdebito.cuenta,readonly="true")
+                input.form-control(type='text', name="nombre_banco", placeholder='NOMBRE DEL BANCO',value=datosdebito.banco,readonly="true")
+                input.form-control(type='text', name="sucursal_banco", placeholder='SUCURSAL DEL BANCO',value=datosdebito.sucursal,readonly="true")
               button(type='submit',class="boton") Eliminar
               a(href="/register",class='.link') Cancelar

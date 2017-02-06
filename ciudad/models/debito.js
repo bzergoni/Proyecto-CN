@@ -24,10 +24,11 @@ Debito.prototype.cargar = function(){
 
   var cbu=this.cbu;
   var thisrespaldo=this;
+  client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err){console.log(err);}
     // execute a query on our database
-    
+
     console.log("SELECT * FROM ciudad_de_los_niños_development.debito where cbu='"+cbu+"'");
   //  console.log(thisrespaldo)
     client.query("SELECT * FROM ciudad_de_los_niños_development.debito where cbu='"+cbu+"'", function (err, result) {
@@ -63,18 +64,36 @@ Debito.prototype.insertar = function(){
 
 
   client = new pg.Client(connectionString);
+  // client.connect(function (err) {
+  //   if (err) {console.log(err)};
+  //   // execute a query on our database
+  //   client.query("insert into ciudad_de_los_niños_development.debito values (lastval(),'"+numero_cuenta+"','"+cbu+"','"+titular+"','"+codigo+"','"+cuenta+"','"+banco+"','"+sucursal+"');", function (err, result) {
+  //     if (err){console.log(err)}
+  //
+  //
+  //     client.end(function (err) {
+  //       if (err){ console.log(err)};
+  //     });
+  //   });
+  // });
+
   client.connect(function (err) {
     if (err) {console.log(err)};
     // execute a query on our database
-    client.query("insert into ciudad_de_los_niños_development.debito values (lastval(),'"+numero_cuenta+"','"+cbu+"','"+titular+"','"+codigo+"','"+cuenta+"','"+banco+"','"+sucursal+"');", function (err, result) {
+    client.query("insert into ciudad_de_los_niños_development.medio_de_pago values (default);", function (err, result) {
       if (err){console.log(err)}
-
-
+      if(result){
+        client.query("insert into ciudad_de_los_niños_development.debito values (lastval(),'"+numero_cuenta+"','"+cbu+"','"+titular+"','"+codigo+"','"+cuenta+"','"+banco+"','"+sucursal+"');", function (err, result) {
+          if (err){console.log(err)}
+          if(result){console.log("SE INSERTO EL DEBITO CORRECTAMENTE")}
+        });
+      }
       client.end(function (err) {
         if (err){ console.log(err)};
       });
-    });
+    })
   });
+
 };
 
 //la funcion actualizar, subiria los cambios luego de una modificacion!
@@ -126,7 +145,7 @@ Debito.prototype.eliminar= function(){
 Debito.prototype.exist = function(){
   var cbu=this.cbu;
   var thisrespaldo=this;
-
+  client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err){console.log(err);}
     client.query("SELECT * FROM ciudad_de_los_niños_development.debito where cbu='"+cbu+"'", function (err, result) {

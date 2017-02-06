@@ -373,11 +373,17 @@ router.post('/insertarDebito', function(req, res) {
 router.get('/modificarDebito', function(req, res) {
     var cbu =req.query.cbu;
     if(cbu){
-      var debit = new Debito(cbu);
+      var debit = new Debito()
+      debit.cbu=cbu
       debit.cargar();
       setTimeout(function(){
-        res.render('modificarDebito', { user : req.user,datosdebito:debit});
-      }, 50);
+        debit.exist()
+
+        setTimeout(function(){
+          console.log(debit)
+          res.render('modificarDebito', { user : req.user,datosdebito:debit});
+        }, 500);
+      }, 500);
 
 
     }else{res.render('modificarDebito', { user : req.user });}
@@ -392,11 +398,15 @@ router.post('/modificarDebitoRedir', function(req, res) {
 
 router.post('/modificarDebito', function(req, res) {
   var debit = new Debito(req.body.nro_cuenta,req.body.cbu,req.body.nombre_titular,req.body.codigo_verificacion,req.body.tipo_cuenta,req.body.nombre_banco,req.body.sucursal_banco);
+  debit.id=req.body.id
+  console.log("dentro del post")
   console.log(debit.show())
   var cbu=req.body.cbu
   debit.actualizar()
   setTimeout(function(){
-    res.redirect('/modificarDebito?cbu='+cbu);
+    setTimeout(function(){
+      res.redirect('/modificarDebito?cbu='+cbu);
+    }, 50);
   }, 50);
 
 });

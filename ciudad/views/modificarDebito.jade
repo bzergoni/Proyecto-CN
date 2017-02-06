@@ -4,14 +4,14 @@ block content
         if(!datosdebito)  
           form(role='form', action="/modificarDebitoRedir",method="post", style='max-width: 300px;')
             .form-group
-              input.form-control(type='text', name="dniRedir", placeholder='DNI')
+              input.form-control(type='text', name="cbuRedir", placeholder='CBU')
             button(type='submit',class="boton") Aceptar
         
         if(datosdebito)  
           if(!(datosdebito.existe)) 
-            form(role='form', action="/eliminarDebitoRedir",method="post", style='max-width: 300px;')
+            form(role='form', action="/modificarDebitoRedir",method="post", style='max-width: 300px;')
               .form-group
-                input.form-control(type='text', name="cbuRedir", placeholder='DNI')
+                input.form-control(type='text', name="cbuRedir", placeholder='CBU')
             button(type='submit',class="boton") Aceptar
             p el cbu que ingreso no corresponde a ningun debito en servicio
           if(datosdebito.existe) 
@@ -20,11 +20,11 @@ block content
             form(role='form', action="/modificarDebito",method="post", style='max-width: 300px;')
               .form-group
                 input.form-control(type='text', name="id", placeholder='ID',value=datosdebito.id,readonly="true")
-                input.form-control(type='text', name="cbu", placeholder='DNI',value=datosdebito.cbu,readonly="true")
-                input.form-control(type='text', name="nro_cuenta", placeholder='NUMERO DE CUENTA',value=datosdebito.nro_cuenta)
-                input.form-control(type='text', name="nombre_titular", placeholder='NOMBRE DEL TITULAR',value=datosdebito.nombre_titular)
-                input.form-control(type='text', name="codigo_verificacion", placeholder='CODIGO DE VERIFIACION',value=datosdebito.codigo_verificacion)
-                input.form-control(type='text', name="tipo_cuenta", placeholder='TIPO DE CUENTA',value=datosdebito.tipo_cuenta)
-                input.form-control(type='text', name="nombre_banco", placeholder='NOMBRE DEL BANCO',value=datosdebito.nombre_banco)
-                input.form-control(type='text', name="sucursal_banco", placeholder='SUCURSAL DEL BANCO',value=datosdebito.sucursal_banco)
+                input.form-control(type='text', name="cbu", placeholder='cbu',value=datosdebito.cbu,readonly="true")
+                input.form-control(type='text', name="nro_cuenta", placeholder='NUMERO DE CUENTA',value=datosdebito.numero_cuenta)
+                input.form-control(type='text', name="nombre_titular", placeholder='NOMBRE DEL TITULAR',value=datosdebito.titular)
+                input.form-control(type='text', name="codigo_verificacion", placeholder='CODIGO DE VERIFIACION',value=datosdebito.codigo)
+                input.form-control(type='text', name="tipo_cuenta", placeholder='TIPO DE CUENTA',value=datosdebito.cuenta)
+                input.form-control(type='text', name="nombre_banco", placeholder='NOMBRE DEL BANCO',value=datosdebito.banco)
+                input.form-control(type='text', name="sucursal_banco", placeholder='SUCURSAL DEL BANCO',value=datosdebito.sucursal)
               button(type='submit',class="boton") Aceptar
