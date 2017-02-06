@@ -340,6 +340,95 @@ router.post('/eliminarPrograma', function(req, res) {
     res.redirect('/')
   }, 50);
 });
+//////////////////////////////////////////////////////////////////////////////////////////
+
+router.get('/insertarDebito', function(req, res) {
+    res.render('insertarDebito', { user : req.user });
+});
+
+router.post('/insertarDebito', function(req, res) {
+   var debit = new Debito(req.body.nro_cuenta,req.body.cbu,req.body.nombre_titular,req.body.codigo_verificacion,req.body.tipo_cuenta,req.body.nombre_banco,req.body.sucursal_banco);
+   var mediopag=new MedioPago();
+//setTimeout(function(){}, 1000);
+   var cbu=req.body.cbu
+   debit.exist();
+   setTimeout(function(){
+     if(!debit.existe){
+       mediopag.insertar()
+       setTimeout(function(){
+         debit.insertar()
+         setTimeout(function(){
+           res.redirect('/modificarDebito?cbu='+cbu);
+
+         }, 1000);
+       }, 1000);
+     }else{
+       res.redirect('/modificarDebito?cbu='+cbu);
+     }
+
+   }, 1000);
+});
+
+
+router.get('/modificarDebito', function(req, res) {
+    var cbu =req.query.cbu;
+    if(cbu){
+      var debit = new Debito(cbu);
+      debit.cargar();
+      setTimeout(function(){
+        res.render('modificarDebito', { user : req.user,datosdebito:debit});
+      }, 50);
+
+
+    }else{res.render('modificarDebito', { user : req.user });}
+
+
+});
+
+router.post('/modificarDebitoRedir', function(req, res) {
+  res.redirect('/modificarDebito?cbu='+req.body.cbuRedir);
+
+});
+
+router.post('/modificarDebito', function(req, res) {
+  var debit = new Debito(req.body.nro_cuenta,req.body.cbu,req.body.nombre_titular,req.body.codigo_verificacion,req.body.tipo_cuenta,req.body.nombre_banco,req.body.sucursal_banco);
+  console.log(debit.show())
+  var cbu=req.body.cbu
+  debit.actualizar()
+  setTimeout(function(){
+    res.redirect('/modificarDebito?cbu='+cbu);
+  }, 50);
+
+});
+
+router.get('/eliminarDebito', function(req, res) {
+    var cbu =req.query.cbu;
+    if(cbu){
+      console.log("entro al if de cbu")
+      var debit = new Debito(cbu);
+      debit.cargar();
+      setTimeout(function(){
+        console.log(debit)
+        res.render('eliminarDebito', { user : req.user,datosdebito:debit });
+      }, 1000);
+
+    }else{
+      console.log("entro al else")
+      res.render('eliminarDebito', { user : req.user });}
+});
+
+router.post('/eliminarDebitoRedir', function(req, res) {
+  res.redirect('/eliminarDebito?cbu='+req.body.cbuRedir);
+});
+
+router.post('/eliminarDebito', function(req, res) {
+  var debit = new Debito(req.body.cbu);
+  var cbu =req.body.cbu
+  debit.eliminar()
+  setTimeout(function(){
+    res.redirect('/modificarDebito?cbu='+cbu)
+  }, 50);
+});
 
 
 router.get('/login', function(req, res) {
