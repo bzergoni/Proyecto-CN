@@ -1,0 +1,39 @@
+extends layout
+block content
+      center eliminar Aporte
+        if(!datosaporte)
+          form(role='form', action="/eliminarAporteRedir",method="post", style='max-width: 300px;')
+            .form-group
+              input.form-control(type='text', name="dniRedir", placeholder='DNI')
+              input.form-control(type='text', name="nombre_programaRedir", placeholder='nombre_programa')
+            button(type='submit',class="boton") Aceptar
+        
+        if(datosaporte)
+          if(!datosaporte.existe)
+            form(role='form', action="/eliminarAporteRedir",method="post", style='max-width: 300px;')
+              .form-group
+                input.form-control(type='text', name="dniRedir", placeholder='DNI')
+                input.form-control(type='text', name="nombre_programaRedir", placeholder='nombre_programa')
+              button(type='submit',class="boton") Aceptar
+            p el aporte que selecciono no existe actualmente  
+          
+          if(datosaporte.existe)
+            p SEGURO QUE QUIERE ELIMINAR EL SIGUIENTE APORTE?
+            form(role='form', action="/eliminarAporte",method="post", style='max-width: 300px;')
+              .form-group
+                input.form-control(type='text', name="dni", placeholder='DNI',value=datosaporte.dni,readonly="true")
+                input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',value=datospersona.n_y_ap,readonly="true")
+                input.form-control(type='text', name="monto", placeholder='MONTO',value=datosaporte.monto,readonly="true")
+                input.form-control(type='text', name="frecuencia", placeholder='FRECUENCIA',value=datosaporte.frecuencia,readonly="true")
+                input.form-control(type='text', name="nombre_programa", placeholder='NOMBRE DEL PROGRAMA',value=datosaporte.nombre_programa,readonly="true")
+                //debito
+                if(datosdebito)
+                  input.form-control(type='text', name="cbu", placeholder='CBU',value=datosdebito.cbu,readonly="true")
+                  input.form-control(type='text', name="nombre_titular", placeholder='NOMBRE DEL TITULAR',value=datosdebito.nombre_titular,readonly="true")
+                if(datoscredito)
+                  input.form-control(type='text', name="nro", placeholder='NUMERO DE TARJETA',value=datoscredito.nro,readonly="true")
+                  input.form-control(type='text', name="nombre_titular", placeholder='NOMBRE DEL TITULAR',value=datoscredito.nombre_titular,readonly="true")
+                  input.form-control(type='text', name="nombre_tarjeta", placeholder='TIPO DE TARJETA',value=datoscredito.nombre_tarjeta,readonly="true")
+              button(type='submit',class="boton") Eliminar
+              a(href="/register",class='.link') Cancelar
+              

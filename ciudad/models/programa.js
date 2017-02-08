@@ -168,5 +168,29 @@ Programa.prototype.exist = function() {
 
 };
 
+Programa.prototype.listaProgramas=function(){
+  var thisrespaldo = this;
+
+  client.connect(function(err) {
+      if (err) {
+          console.log(err);
+      }
+      client.query("SELECT DISTINCT nombre_programa FROM ciudad_de_los_niños_development.programa ", function(err, result) {
+          if (err) throw err;
+          if (result.rows[0]) {
+              thisrespaldo.lista = result.rows;
+          }
+          client.end(function(err) {
+              if (err) {
+                  console.log(err)
+              };
+          });
+      });
+
+  });
+
+}
+
+
 
 module.exports.programa = Programa;

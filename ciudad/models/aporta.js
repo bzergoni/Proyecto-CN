@@ -25,18 +25,20 @@ Aporta.prototype.cargar = function() {
     var nombre_programa = this.nombre_programa;
     var id = this.id;
     var thisrespaldo = this;
+    client = new pg.Client(connectionString);
     client.connect(function(err) {
         if (err) {
             console.log(err);
         }
 
-        client.query("SELECT * FROM ciudad_de_los_niños_development.aporta where dni='" + dni + "' and nombre_programa='"+nombre_programa+"' and id="+id, function(err, result) {
+        client.query("SELECT * FROM ciudad_de_los_niños_development.aporta where dni='" + dni + "' and nombre_programa='"+nombre_programa+"'", function(err, result) {
             if (err) throw err;
             if (result.rows[0]) {
-
+                thisrespaldo.id=result.rows[0].id
                 thisrespaldo.monto = result.rows[0].monto;
                 thisrespaldo.frecuencia = result.rows[0].frecuencia;
                 console.log(thisrespaldo);
+                thisrespaldo.existe=true;
             }
             console.log(thisrespaldo)
             client.end(function(err) {
@@ -61,7 +63,7 @@ Aporta.prototype.insertar = function() {
         if (err) {
             console.log(err)
         };
-        
+        console.log("insert into ciudad_de_los_niños_development.aporta values ('" + dni + "','" + nombre_programa + "'," + monto + ",'" + frecuencia + "'," + id + ");")
         client.query("insert into ciudad_de_los_niños_development.aporta values ('" + dni + "','" + nombre_programa + "'," + monto + ",'" + frecuencia + "'," + id + ");", function(err, result) {
             if (err) {
                 console.log(err)
@@ -143,12 +145,12 @@ Aporta.prototype.exist = function() {
     var nombre_programa = this.nombre_programa;
     var id = this.id
     var thisrespaldo = this;
-
+    client = new pg.Client(connectionString);
     client.connect(function(err) {
         if (err) {
             console.log(err);
         }
-        client.query("SELECT * FROM ciudad_de_los_niños_development.aporta where dni='" + dni + "' and id="+id+" and nombre_programa='"+nombre_programa+"'" , function(err, result) {
+        client.query("SELECT * FROM ciudad_de_los_niños_development.aporta where dni='" + dni + "' and nombre_programa='"+nombre_programa+"'" , function(err, result) {
             if (err) throw err;
             if (result.rows[0]) {
                 thisrespaldo.existe = true;

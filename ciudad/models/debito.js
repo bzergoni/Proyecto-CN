@@ -21,14 +21,12 @@ Debito.prototype.show = function(){
 
 
 Debito.prototype.cargar = function(){
-
   var cbu=this.cbu;
   var thisrespaldo=this;
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err){console.log(err);}
     // execute a query on our database
-
     console.log("SELECT * FROM ciudad_de_los_niños_development.debito where cbu='"+cbu+"'");
   //  console.log(thisrespaldo)
     client.query("SELECT * FROM ciudad_de_los_niños_development.debito where cbu='"+cbu+"'", function (err, result) {
@@ -43,7 +41,37 @@ Debito.prototype.cargar = function(){
         thisrespaldo.cuenta=result.rows[0].tipo_cuenta;
         thisrespaldo.banco=result.rows[0].nombre_banco;
         thisrespaldo.sucursal=result.rows[0].sucursal_banco;
+        thisrespaldo.existe =true;
+      }
+      client.end(function (err) {
+        if (err) {console.log(err)};
+      });
+    });
+  });
+};
 
+
+Debito.prototype.cargarPorId = function(){
+  var id=this.id;
+  var thisrespaldo=this;
+  client = new pg.Client(connectionString);
+  client.connect(function (err) {
+    if (err){console.log(err);}
+    // execute a query on our database
+
+    client.query("SELECT * FROM ciudad_de_los_niños_development.debito where id="+id, function (err, result) {
+      if (err) throw err;
+      if(result.rows[0]){
+        //repetirse para todos los campos
+        thisrespaldo.id=result.rows[0].id;
+        thisrespaldo.numero_cuenta=result.rows[0].nro_cuenta;
+        thisrespaldo.cbu=result.rows[0].cbu;
+        thisrespaldo.titular=result.rows[0].nombre_titular;
+        thisrespaldo.codigo=result.rows[0].codigo_verificacion;
+        thisrespaldo.cuenta=result.rows[0].tipo_cuenta;
+        thisrespaldo.banco=result.rows[0].nombre_banco;
+        thisrespaldo.sucursal=result.rows[0].sucursal_banco;
+        thisrespaldo.existe =true;
       }
       client.end(function (err) {
         if (err) {console.log(err)};

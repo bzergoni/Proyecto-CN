@@ -84,18 +84,11 @@ router.post('/register', function(req, res) {
 
 		 	});
 
-
 	});
-
-
-
-
-
-
 
 })});
 
-//   var id =req.query.idgame;
+
 
 
 
@@ -340,7 +333,7 @@ router.post('/eliminarPrograma', function(req, res) {
     res.redirect('/')
   }, 50);
 });
-//////////////////////////////////////////////////////////////////////////////////////////
+
 
 router.get('/insertarDebito', function(req, res) {
     res.render('insertarDebito', { user : req.user });
@@ -526,6 +519,11 @@ router.post('/eliminarCredito', function(req, res) {
 });
 //----------------------------------------------------
 
+
+
+
+
+
 router.get('/login', function(req, res) {
     res.render('login', { user : req.user });
 });
@@ -670,6 +668,175 @@ router.post('/eliminarContacto', function(req, res) {
     res.redirect('/')
   }, 50);
 });
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+router.get('/insertarAporte', function(req, res) {
+  var prog = new Programa()
+  var cred= new Credito()
+  prog.listaProgramas()
+  cred.tiposTarjeta()
+  setTimeout(function(){
+      res.render('insertarAporte', { user : req.user,listaprogramas:prog.lista,listatarjetas:cred.listatarjetas });
+  }, 1000);
+});
+
+router.post('/insertarAporte', function(req, res) {
+   var dni=req.body.dni
+   var donant = new Donante(req.body.dni)
+   var tipo_pago=req.body.tipo_pago
+   var debit = new Debito()
+   debit.cbu=req.body.cbu
+   var credit = new Credito(req.body.nro)
+   credit.nombre_tarjeta=req.body.nombre_tarjeta
+   var id=undefined
+   var aport = new Aporta(req.body.dni,req.body.nombre_programa,req.body.monto,req.body.frecuencia,req.body.id)
+//setTimeout(function(){}, 1000);
+
+  donant.cargar()
+  setTimeout(function(){
+    if(donant.existeLogico){
+      console.log("El donante existe logico!")
+      if(tipo_pago=="DEBITO"){
+
+        debit.cargar();
+      }else {
+        console.log("el tipo de pago es credito!")
+        credit.cargar();
+      }
+      setTimeout(function(){
+
+        if(debit.existe){
+          id=debit.id
+        }
+        if(credit.existe) {
+          console.log("El credito existe!")
+          id=credit.id
+        }
+        if(id){
+          console.log("El id existe!")
+          setTimeout(function(){
+            aport.exist()
+            setTimeout(function(){
+              if(!aport.existe){
+                console.log("El aporte no existe! se insertara!")
+                aport.id=id
+                aport.insertar()
+                setTimeout(function(){
+                  res.redirect('/modificarAporte?nombre_programa='+req.body.nombre_programa+'&dni='+dni);
+                }, 1000);
+              }
+            }, 1000);
+
+          }, 1000);
+        }
+
+      }, 1000);
+
+    };
+
+  }, 1000);
+
+
+
+
+});
+
+router.get('/modificarAporte', function(req, res) {
+    var dni =req.query.dni;
+    var nombre_programa=req.query.nombre_programa
+    if(dni &&  nombre_programa){
+      console.log()
+      var aport = new Aporta(dni,nombre_programa)
+      aport.cargar()
+      setTimeout(function(){
+        res.render('modificarAporte', { user : req.user,datosaporte:aport });
+      }, 50);
+    }else{res.render('modificarAporte', { user : req.user });}
+
+
+});
+
+router.post('/modificarAporteRedir', function(req, res) {
+  res.redirect('/modificarAporte?nombre_programa='+req.body.nombre_programaRedir+'&dni='+req.body.dniRedir);
+
+});
+
+router.post('/modificarAporte', function(req, res) {
+  var aport = new Aporta()
+  console.log(req.body)
+  aport.nombre_programa = req.body.nombre_programa
+  aport.dni= req.body.dni
+  aport.cargar()
+  setTimeout(function(){
+    aport.frecuencia=req.body.frecuencia
+    aport.monto=req.body.monto
+    aport.actualizar()
+    setTimeout(function(){
+      console.log("el nombre programa que viene del query es"+req.body.nombre_programa)
+      console.log("el dni que viene del query es"+req.body.dni)
+      res.redirect('/modificarAporte?nombre_programa='+req.body.nombre_programa+'&dni='+req.body.dni);
+    }, 500);
+  }, 50);
+
+
+});
+
+
+router.get('/eliminarAporte', function(req, res) {
+    var dni =req.query.dni;
+    var nombre_programa=req.query.nombre_programa
+    if(dni &&  nombre_programa){
+      var aport = new Aporta(dni,nombre_programa);
+      aport.cargar()
+      setTimeout(function(){
+        var pers = new Persona(dni)
+        pers.cargar()
+        setTimeout(function(){
+          var debit = new Debito()
+          debit.id=aport.id
+          debit.cargarPorId()
+          setTimeout(function(){
+            var credit = new Credito()
+            credit.id=aport.id
+            credit.cargarPorId()
+            setTimeout(function(){
+              console.log(donant)
+              res.render('eliminarAporte', { user : req.user,datospersona:pers,datoscredito:credit,datosdebito:debit,datosaporte:aport });
+            }, 1000);
+          }, 1000);
+        }, 1000);
+      }, 1000);
+    }else{
+      console.log("entro al else")
+      res.render('eliminarAporte', { user : req.user });}
+
+
+});
+router.post('/eliminarAporteRedir', function(req, res) {
+  res.redirect('/eliminarAporte?nombre_programa='+req.body.nombre_programaRedir+'&dni='+req.body.dniRedir);
+
+});
+
+router.post('/eliminarAporte', function(req, res) {
+  var aporte = new Aporte(req.body.dni,req.body.nombre_programa);
+  aporte.eliminar()
+  setTimeout(function(){
+    res.redirect('/')
+  }, 50);
+
+
+});
+// router.get('/PRUEBALISTA', function(req, res) {
+//   var prog = new Programa()
+//   prog.listaProgramas()
+//   setTimeout(function(){
+//     console.log(prog.lista)
+//     res.render('/')
+//   }, 50);
+//});
+
+
+
 
 
 module.exports = router;

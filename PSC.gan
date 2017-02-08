@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-01-06" view-index="0" gantt-divider-location="353" resource-divider-location="300" version="2.8.1" locale="es">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-01-15" view-index="0" gantt-divider-location="353" resource-divider-location="300" version="2.8.1" locale="es">
     <description/>
     <view zooming-state="default:3" id="gantt-chart">
-        <field id="tpd3" name="Nombre" width="195" order="0"/>
-        <field id="tpd4" name="Fecha de inicio" width="77" order="1"/>
-        <field id="tpd5" name="Fecha de fin" width="77" order="2"/>
+        <field id="tpd3" name="Nombre" width="186" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="74" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="74" order="2"/>
     </view>
     <view id="resource-table">
         <field id="0" name="Nombre" width="210" order="0"/>
@@ -14,7 +14,7 @@
         <day-types>
             <day-type id="0"/>
             <day-type id="1"/>
-            <default-week id="1" name="default" sun="0" mon="0" tue="0" wed="0" thu="0" fri="0" sat="0"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
             <only-show-weekends value="false"/>
             <overriden-day-types/>
             <days/>
@@ -38,106 +38,106 @@
             <task id="146" name="Captura de requerimientos" color="#8cb6ce" meeting="false" start="2017-01-06" duration="7" complete="0" expand="true">
                 <depend id="1" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="1" name="inicializacion del proyecto" color="#8cb6ce" meeting="false" start="2017-01-13" duration="2" complete="0" expand="true">
+            <task id="1" name="inicializacion del proyecto" color="#8cb6ce" meeting="false" start="2017-01-17" duration="2" complete="0" expand="true">
                 <depend id="2" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="2" name="configurar passport para usar postgres" color="#8cb6ce" meeting="false" start="2017-01-15" duration="3" complete="0" expand="true">
+            <task id="2" name="configurar passport para usar postgres" color="#8cb6ce" meeting="false" start="2017-01-19" duration="3" complete="0" expand="true">
                 <depend id="3" type="2" difference="0" hardness="Strong"/>
                 <depend id="4" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="3" name="registrarse" color="#8cb6ce" meeting="false" start="2017-01-18" duration="1" complete="0" expand="true">
+            <task id="3" name="registrarse" color="#8cb6ce" meeting="false" start="2017-01-24" duration="1" complete="0" expand="true">
                 <depend id="5" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="4" name="logearse" meeting="false" start="2017-01-18" duration="1" complete="0" expand="true"/>
-            <task id="5" name="encript password" meeting="false" start="2017-01-19" duration="1" complete="0" expand="true"/>
+            <task id="4" name="logearse" meeting="false" start="2017-01-24" duration="1" complete="0" expand="true"/>
+            <task id="5" name="encript password" meeting="false" start="2017-01-25" duration="1" complete="0" expand="true"/>
         </task>
-        <task id="6" name="modelo" meeting="false" start="2017-01-24" duration="8" complete="0" expand="false">
+        <task id="6" name="modelo" meeting="false" start="2017-01-26" duration="8" complete="0" expand="false">
             <depend id="16" type="2" difference="0" hardness="Strong"/>
-            <task id="8" name="persona" color="#8cb6ce" meeting="false" start="2017-01-24" duration="1" complete="0" expand="true">
+            <task id="8" name="persona" color="#8cb6ce" meeting="false" start="2017-01-26" duration="1" complete="0" expand="true">
                 <depend id="78" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="78" name="padrino" meeting="false" start="2017-01-25" duration="1" complete="0" expand="true">
+            <task id="78" name="padrino" meeting="false" start="2017-01-27" duration="1" complete="0" expand="true">
                 <depend id="9" type="2" difference="0" hardness="Strong"/>
                 <depend id="10" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="9" name="donante" color="#8cb6ce" meeting="false" start="2017-01-26" duration="3" complete="0" expand="true">
+            <task id="9" name="donante" color="#8cb6ce" meeting="false" start="2017-01-30" duration="3" complete="0" expand="true">
                 <depend id="12" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="10" name="contacto" color="#8cb6ce" meeting="false" start="2017-01-26" duration="2" complete="0" expand="true"/>
-            <task id="81" name="programa" color="#8cb6ce" meeting="false" start="2017-01-24" duration="2" complete="0" expand="true">
+            <task id="10" name="contacto" color="#8cb6ce" meeting="false" start="2017-01-30" duration="2" complete="0" expand="true"/>
+            <task id="81" name="programa" color="#8cb6ce" meeting="false" start="2017-01-26" duration="2" complete="0" expand="true">
                 <depend id="12" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="76" name="medio de pago" color="#8cb6ce" meeting="false" start="2017-01-24" duration="1" complete="0" expand="true">
+            <task id="76" name="medio de pago" color="#8cb6ce" meeting="false" start="2017-01-26" duration="1" complete="0" expand="true">
                 <depend id="11" type="2" difference="0" hardness="Strong"/>
                 <depend id="84" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="11" name="tarjeta cred" color="#8cb6ce" meeting="false" start="2017-01-25" duration="2" complete="0" expand="true">
+            <task id="11" name="tarjeta cred" color="#8cb6ce" meeting="false" start="2017-01-27" duration="2" complete="0" expand="true">
                 <depend id="12" type="2" difference="0" hardness="Strong"/>
                 <depend id="84" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="84" name="tarj debito" color="#8cb6ce" meeting="false" start="2017-01-27" duration="2" complete="0" expand="true">
+            <task id="84" name="tarj debito" color="#8cb6ce" meeting="false" start="2017-01-31" duration="2" complete="0" expand="true">
                 <depend id="12" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="12" name="aporta" color="#8cb6ce" meeting="false" start="2017-01-29" duration="3" complete="0" expand="true"/>
+            <task id="12" name="aporta" color="#8cb6ce" meeting="false" start="2017-02-02" duration="3" complete="0" expand="true"/>
         </task>
-        <task id="16" name="abms" meeting="false" start="2017-02-01" duration="11" complete="0" expand="false">
+        <task id="16" name="abms" meeting="false" start="2017-02-07" duration="11" complete="0" expand="true">
             <depend id="132" type="2" difference="0" hardness="Strong"/>
-            <task id="17" name="insertar contacto" meeting="false" start="2017-02-01" duration="1" complete="0" expand="true">
+            <task id="17" name="insertar contacto" meeting="false" start="2017-02-07" duration="1" complete="0" expand="true">
                 <depend id="96" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="93" name="insertar programa" meeting="false" start="2017-02-01" duration="1" complete="0" expand="true">
+            <task id="93" name="insertar programa" meeting="false" start="2017-02-07" duration="1" complete="0" expand="true">
                 <depend id="98" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="18" name="insertar donante" color="#8cb6ce" meeting="false" start="2017-02-01" duration="2" complete="0" expand="true">
+            <task id="18" name="insertar donante" color="#8cb6ce" meeting="false" start="2017-02-07" duration="2" complete="0" expand="true">
                 <depend id="100" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="96" name="insertar tarj credito" color="#8cb6ce" meeting="false" start="2017-02-02" duration="2" complete="0" expand="true">
+            <task id="96" name="insertar tarj credito" color="#8cb6ce" meeting="false" start="2017-02-08" duration="2" complete="0" expand="true">
                 <depend id="110" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="98" name="insertar tarj debito" color="#8cb6ce" meeting="false" start="2017-02-02" duration="2" complete="0" expand="true">
+            <task id="98" name="insertar tarj debito" color="#8cb6ce" meeting="false" start="2017-02-08" duration="2" complete="0" expand="true">
                 <depend id="106" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="100" name="insertar aporte" color="#8cb6ce" meeting="false" start="2017-02-03" duration="2" complete="0" expand="true">
+            <task id="100" name="insertar aporte" color="#8cb6ce" meeting="false" start="2017-02-09" duration="2" complete="0" expand="true">
                 <depend id="112" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="110" name="modificar donante" color="#8cb6ce" meeting="false" start="2017-02-04" duration="2" complete="0" expand="true">
+            <task id="110" name="modificar donante" color="#8cb6ce" meeting="false" start="2017-02-10" duration="2" complete="0" expand="true">
                 <depend id="114" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="106" name="modificar contacto" color="#8cb6ce" meeting="false" start="2017-02-04" duration="2" complete="0" expand="true">
+            <task id="106" name="modificar contacto" color="#8cb6ce" meeting="false" start="2017-02-10" duration="2" complete="0" expand="true">
                 <depend id="116" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="112" name="modificar tarj credito" color="#8cb6ce" meeting="false" start="2017-02-05" duration="2" complete="0" expand="true">
+            <task id="112" name="modificar tarj credito" color="#8cb6ce" meeting="false" start="2017-02-13" duration="2" complete="0" expand="true">
                 <depend id="119" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="114" name="modificar tarj debito" color="#8cb6ce" meeting="false" start="2017-02-06" duration="2" complete="0" expand="true">
+            <task id="114" name="modificar tarj debito" color="#8cb6ce" meeting="false" start="2017-02-14" duration="2" complete="0" expand="true">
                 <depend id="121" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="116" name="modificar aporte" color="#8cb6ce" meeting="false" start="2017-02-06" duration="2" complete="0" expand="true">
+            <task id="116" name="modificar aporte" color="#8cb6ce" meeting="false" start="2017-02-14" duration="2" complete="0" expand="true">
                 <depend id="123" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="119" name="eliminar contacto" color="#8cb6ce" meeting="false" start="2017-02-07" duration="2" complete="0" expand="true">
+            <task id="119" name="eliminar contacto" color="#8cb6ce" meeting="false" start="2017-02-15" duration="2" complete="0" expand="true">
                 <depend id="125" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="121" name="eliminar programa" color="#8cb6ce" meeting="false" start="2017-02-08" duration="2" complete="0" expand="true">
+            <task id="121" name="eliminar programa" color="#8cb6ce" meeting="false" start="2017-02-16" duration="2" complete="0" expand="true">
                 <depend id="127" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="123" name="eliminar donante" color="#8cb6ce" meeting="false" start="2017-02-08" duration="2" complete="0" expand="true">
+            <task id="123" name="eliminar donante" color="#8cb6ce" meeting="false" start="2017-02-16" duration="2" complete="0" expand="true">
                 <depend id="129" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="125" name="eliminar tarj credito" color="#8cb6ce" meeting="false" start="2017-02-09" duration="2" complete="0" expand="true"/>
-            <task id="127" name="eliminar tarj debito" color="#8cb6ce" meeting="false" start="2017-02-10" duration="2" complete="0" expand="true"/>
-            <task id="129" name="eliminar aporte" color="#8cb6ce" meeting="false" start="2017-02-10" duration="2" complete="0" expand="true"/>
+            <task id="125" name="eliminar tarj credito" color="#8cb6ce" meeting="false" start="2017-02-17" duration="2" complete="0" expand="true"/>
+            <task id="127" name="eliminar tarj debito" color="#8cb6ce" meeting="false" start="2017-02-20" duration="2" complete="0" expand="true"/>
+            <task id="129" name="eliminar aporte" color="#8cb6ce" meeting="false" start="2017-02-20" duration="2" complete="0" expand="true"/>
         </task>
-        <task id="132" name="listados" meeting="false" start="2017-02-12" duration="3" complete="0" expand="false">
+        <task id="132" name="listados" meeting="false" start="2017-02-22" duration="3" complete="0" expand="true">
             <depend id="145" type="2" difference="0" hardness="Strong"/>
-            <task id="133" name="donante x programa" color="#8cb6ce" meeting="false" start="2017-02-12" duration="2" complete="0" expand="true">
+            <task id="133" name="donante x programa" color="#8cb6ce" meeting="false" start="2017-02-22" duration="2" complete="0" expand="true">
                 <depend id="136" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="134" name="donante x banco" color="#8cb6ce" meeting="false" start="2017-02-12" duration="2" complete="0" expand="true"/>
-            <task id="135" name="informacion de donante" color="#8cb6ce" meeting="false" start="2017-02-12" duration="2" complete="0" expand="true"/>
-            <task id="136" name="todos los donantes" meeting="false" start="2017-02-14" duration="1" complete="0" expand="true"/>
+            <task id="134" name="donante x banco" color="#8cb6ce" meeting="false" start="2017-02-22" duration="2" complete="0" expand="true"/>
+            <task id="135" name="informacion de donante" color="#8cb6ce" meeting="false" start="2017-02-22" duration="2" complete="0" expand="true"/>
+            <task id="136" name="todos los donantes" meeting="false" start="2017-02-24" duration="1" complete="0" expand="true"/>
         </task>
-        <task id="145" name="mejoras en la interfaz" color="#8cb6ce" meeting="false" start="2017-02-15" duration="8" complete="0" expand="true"/>
+        <task id="145" name="mejoras en la interfaz" color="#8cb6ce" meeting="false" start="2017-02-27" duration="8" complete="0" expand="true"/>
     </tasks>
     <resources/>
     <allocations/>

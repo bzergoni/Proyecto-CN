@@ -1,0 +1,40 @@
+extends layout
+block content
+      center modificar contacto
+        
+        if(!datosaporte)
+          form(role='form', action="/modificarAporteRedir",method="post", style='max-width: 300px;')
+            .form-group
+              input.form-control(type='text', name="dniRedir", placeholder='DNI')
+              input.form-control(type='text', name="nombre_programaRedir", placeholder='nombre_programa')
+            button(type='submit',class="boton") Aceptar
+      
+        if(datosaporte)
+          if(!datosaporte.existe)
+            form(role='form', action="/modificarAporteRedir",method="post", style='max-width: 300px;')
+              .form-group
+                input.form-control(type='text', name="dniRedir", placeholder='DNI')
+                input.form-control(type='text', name="nombre_programaRedir", placeholder='nombre_programa')
+              button(type='submit',class="boton") Aceptar
+            p el aporte que selecciono no existe actualmente  
+        
+          if(datosaporte.existe)
+            p se cargo el aporte!
+            form(role='form', action="/modificarAporte",method="post", style='max-width: 300px;')
+              .form-group
+                input.form-control(type='text', name="dni", placeholder='DNI',value=datosaporte.dni,readonly="true")
+                
+                input.form-control(type='text', name="nombre_programa", placeholder='NOMBRE DEL PROGRAMA',value=datosaporte.nombre_programa,readonly="true")
+                
+                input.form-control(type='text', name="monto", placeholder='monto',value=datosaporte.monto)
+                select(name='frecuencia')
+                  if (datosaporte.frecuencia == "Semestral")
+                    option(value='Semestral',selected="true") Semestral
+                  else
+                    option(value='Semestral') Semestral
+                  if (datosaporte.frecuencia == "Semestral")
+                    option(value='Mensual',selected="true") Mensual
+                  else
+                    option(value='Mensual') Mensual
+              
+              button(type='submit',class="boton") Aceptar

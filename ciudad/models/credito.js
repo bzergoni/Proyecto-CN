@@ -18,16 +18,13 @@ Credito.prototype.show = function(){
 
 
 Credito.prototype.cargar = function(){
-
   var nro = this.nro;
   var nombre_tarjeta=this.nombre_tarjeta;
   var thisrespaldo = this;
-
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err){console.log(err);}
-
-    client.query("SELECT * FROM ciudad_de_los_niños_development.tarjeta where nro='"+nro+"'", function (err, result) {
+    client.query("SELECT * FROM ciudad_de_los_niños_development.tarjeta where nro='"+nro+"' and nombre_tarjeta='"+nombre_tarjeta+"'", function (err, result) {
       if (err) throw err;
       if(result.rows[0]){
         //repetirse para todos los campos
@@ -35,9 +32,10 @@ Credito.prototype.cargar = function(){
         thisrespaldo.nro=result.rows[0].nro;
         thisrespaldo.nombre_tarjeta=result.rows[0].nombre_tarjeta;
         thisrespaldo.nombre_titular=result.rows[0].nombre_titular;
-        thisrespaldo.fecha_vencimiento=result.rows[0].fecha_vencimiento;
+        thisrespaldo.fecha_vencimiento=result.rows[0].fecha_vencimiento.toLocaleDateString();
         thisrespaldo.codigo_verificacion=result.rows[0].codigo_verificacion;
         console.log(thisrespaldo);
+        thisrespaldo.existe =true;
       }
 
     //console.log(thisrespaldo)
@@ -48,6 +46,36 @@ Credito.prototype.cargar = function(){
 
   });
 };
+
+Credito.prototype.cargarPorId = function(){
+  var thisrespaldo = this;
+  client = new pg.Client(connectionString);
+  var id = this.id
+  client.connect(function (err) {
+    if (err){console.log(err);}
+    client.query("SELECT * FROM ciudad_de_los_niños_development.tarjeta where id="+id, function (err, result) {
+      if (err) throw err;
+      if(result.rows[0]){
+        //repetirse para todos los campos
+        thisrespaldo.id=result.rows[0].id;
+        thisrespaldo.nro=result.rows[0].nro;
+        thisrespaldo.nombre_tarjeta=result.rows[0].nombre_tarjeta;
+        thisrespaldo.nombre_titular=result.rows[0].nombre_titular;
+        thisrespaldo.fecha_vencimiento=result.rows[0].fecha_vencimiento.toLocaleDateString();
+        thisrespaldo.codigo_verificacion=result.rows[0].codigo_verificacion;
+        console.log(thisrespaldo);
+        thisrespaldo.existe =true;
+      }
+
+    //console.log(thisrespaldo)
+    client.end(function (err) {
+      if (err) {console.log(err)};
+    });
+    });
+
+  });
+};
+
 ///Esta funcion se supone que inserte o actualize la tabla
 Credito.prototype.insertar = function(){
   var nro = this.nro;
@@ -139,7 +167,7 @@ Credito.prototype.exist = function(){
   var nombre_tarjeta=this.nombre_tarjeta;
   var nro = this.nro;
   var thisrespaldo=this;
-
+  client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err){console.log(err);}
     client.query("SELECT * FROM ciudad_de_los_niños_development.tarjeta where nro='"+nro+"'", function (err, result) {
@@ -160,6 +188,28 @@ Credito.prototype.exist = function(){
 
 Credito.prototype.obtenerId=function(){
   return this.id;
+}
+
+Credito.prototype.tiposTarjeta = function(){
+  var thisrespaldo=this
+  client = new pg.Client(connectionString);
+  client.connect(function (err) {
+    if (err) {console.log(err)};
+    // execute a query on our database
+    client.query("select * from ciudad_de_los_niños_development.tipotarjeta ", function (err, result) {
+      if (err){console.log(err)}
+      if(result.rows){
+        thisrespaldo.listatarjetas = result.rows
+      }
+
+      client.end(function (err) {
+        if (err){ console.log(err)};
+      });
+
+
+    });
+  });
+
 }
 
 module.exports.credito = Credito;
