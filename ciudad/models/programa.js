@@ -170,7 +170,7 @@ Programa.prototype.exist = function() {
 
 Programa.prototype.listaProgramas=function(){
   var thisrespaldo = this;
-
+    client = new pg.Client(connectionString);
   client.connect(function(err) {
       if (err) {
           console.log(err);

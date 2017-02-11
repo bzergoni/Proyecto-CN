@@ -240,7 +240,11 @@ router.post('/eliminarDonante', function(req, res) {
   var dni=req.body.dni
   donant.eliminar()
   setTimeout(function(){
-    res.redirect('/')
+    var aport = new Aporta(dni)
+    aport.eliminarPorDni()
+    setTimeout(function(){
+      res.redirect('/')
+    }, 50);
   }, 50);
 
 
@@ -835,8 +839,41 @@ router.post('/eliminarAporte', function(req, res) {
 //   }, 50);
 //});
 
+router.get('/donantesPorPrograma', function(req, res) {
+    var nombre_programa=req.query.nombre_programa
+    var prog = new Programa()
+    prog.listaProgramas()
+    setTimeout(function(){
+      if(nombre_programa){
+        client = new pg.Client(connectionString);
+
+        client.connect(function (err) {
+          if (err){console.log(err);}
+          var query = "select * from  (Select dni from ciudad_de_los_niños_development.aporta where nombre_programa = '"+nombre_programa+"') ap  natural join (select * from ciudad_de_los_niños_development.persona ) per"
+          console.log(query);
+
+          client.query(query, function (err, result) {
+            if (err) throw err;
+            if(result.rows[0]){
+              res.render('donantesPorPrograma', { user : req.user,lista:result.rows, listaprogramas:prog.lista  });
+            }
+            client.end(function (err) {
+              if (err) {console.log(err)};
+            });
+          });
+        });
+      }else{
+        res.render('donantesPorPrograma', { user : req.user, listaprogramas:prog.lista });
+      }
+    }, 1000);
 
 
+});
+
+router.post('/donantesPorProgramaRedir', function(req, res) {
+  res.redirect('/donantesPorPrograma?nombre_programa='+req.body.nombre_programaRedir);
+
+});
 
 
 module.exports = router;

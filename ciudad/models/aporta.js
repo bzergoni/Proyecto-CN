@@ -139,6 +139,33 @@ Aporta.prototype.eliminar = function() {
 
 };
 
+Aporta.prototype.eliminarPorDni = function() {
+    var dni = this.dni;
+    client = new pg.Client(connectionString);
+    client.connect(function(err) {
+        if (err) {
+            console.log(err)
+        };
+        // execute a query on our database
+        client.query("delete from ciudad_de_los_niños_development.aporta  where dni='" + dni + "'", function(err, result) {
+            if (err) {
+                console.log(err)
+            }
+
+            client.end(function(err) {
+                if (err) {
+                    console.log(err)
+                };
+            });
+
+
+        });
+    });
+
+};
+
+
+
 
 Aporta.prototype.exist = function() {
     var dni = this.dni;

@@ -1,0 +1,24 @@
+extends layout
+block content
+      center 
+        
+      
+        form(role='form', action="/donantesPorProgramaRedir",method="post", style='max-width: 300px;')
+          .form-group
+            select(name="nombre_programaRedir")
+              each programa, i in listaprogramas
+                option(value=programa.nombre_programa)  #{programa.nombre_programa}
+          button(type='submit',class="boton") Aceptar
+        br
+        br
+        if(lista)
+          table.egt
+            tr
+              th Dni
+              th Nombre y apellido
+            each elemento, i in lista
+              tr
+                td #{elemento.dni}
+                td #{elemento.n_y_ap}
+              
+            
