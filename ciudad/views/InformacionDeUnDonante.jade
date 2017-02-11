@@ -1,0 +1,29 @@
+extends layout
+block content
+      center Informacion de un Donante
+        if(!infoDonante)
+          form(role='form', action="/InformacionDeUnDonanteRedir",method="post", style='max-width: 300px;')
+            .form-group
+              input.form-control(type='text', name="dniRedir", placeholder='DNI')
+            button(type='submit',class="boton") Aceptar
+            p el dni que ingreso no corresponde a ningun donante en servicio
+        if(infoDonante)
+          p El Dni corresponde a:
+          form(role='form', action="/InformacionDeUnDonanteRedir",method="post", style='max-width: 300px;')
+            .form-group
+              input.form-control(type='text', name="dni", placeholder='DNI',value=infoDonante.dni,readonly="true")
+              input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',value=infoDonante.n_y_ap,readonly="true")
+              input.form-control(type='text', name="email", placeholder='EMAIL',value=infoDonante.email,readonly="true")
+              input.form-control(type='text', name="tel_fijo", placeholder='TELEFONO FIJO',value=infoDonante.tel_fijo,readonly="true")
+              input.form-control(type='text', name="direccion", placeholder='DIRECCION',value=infoDonante.direccion,readonly="true")
+              input.form-control(type='text', name="celular", placeholder='CELULAR',value=infoDonante.celular,readonly="true")
+              input.form-control(type='text', name="fecha_nac", placeholder='FECHA DE NACIMIENTO',value=infoDonante.fecha_nac,readonly="true")
+              input.form-control(type='text', name="cod_postal", placeholder='CODIGO POSTAL',value=infoDonante.cod_postal,readonly="true")
+              input.form-control(type='text', name="ocupacion", placeholder='OCUPACION',value=infoDonante.ocupacion,readonly="true")
+              input.form-control(type='text', name="cuil_cuit", placeholder='CUIL-CUIT',value=infoDonante.cuil_cuit,readonly="true")
+              p Este donante aporta a los siguentes programas:
+              each programa, i in listaProgramas
+                  p Nombre:#{programa.nombre_programa}.
+                  P Descripcion:.
+            button(type='submit',class="boton") Aceptar
+            a(href="/",class='.link') Cancelar
