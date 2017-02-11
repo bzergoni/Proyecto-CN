@@ -240,7 +240,7 @@ router.post('/eliminarDonante', function(req, res) {
   var dni=req.body.dni
   donant.eliminar()
   setTimeout(function(){
-    var aport = new Aporta(dni)
+    var aport = new Aporte(dni)
     aport.eliminarPorDni()
     setTimeout(function(){
       res.redirect('/')
@@ -866,8 +866,6 @@ router.get('/donantesPorPrograma', function(req, res) {
         res.render('donantesPorPrograma', { user : req.user, listaprogramas:prog.lista });
       }
     }, 1000);
-
-
 });
 
 router.post('/donantesPorProgramaRedir', function(req, res) {
@@ -875,5 +873,25 @@ router.post('/donantesPorProgramaRedir', function(req, res) {
 
 });
 
+router.get('/listadoDonantes', function(req, res) {
+  client = new pg.Client(connectionString);
+
+  client.connect(function (err) {
+    if (err){console.log(err);}
+    var query = "select * from ciudad_de_los_niños_development.donante  natural join ciudad_de_los_niños_development.persona  "
+    console.log(query);
+
+    client.query(query, function (err, result) {
+      if (err) throw err;
+      if(result.rows[0]){
+        res.render('listadoDonantes', { user : req.user,lista:result.rows});
+      }
+      client.end(function (err) {
+        if (err) {console.log(err)};
+      });
+    });
+  });
+
+});
 
 module.exports = router;
