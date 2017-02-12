@@ -894,4 +894,8 @@ router.get('/listadoDonantes', function(req, res) {
 
 });
 
+router.get('/prueba', function(req, res) {
+
+        res.render('prueba', { user : req.user,lista:result.rows});
+  });
 module.exports = router;
