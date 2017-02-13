@@ -875,5 +875,44 @@ router.post('/donantesPorProgramaRedir', function(req, res) {
 
 });
 
+//--------------------------------------------------------------------------
+
+router.get('/donantesPorBanco', function(req, res) {
+    var nombre_banco=req.query.nombre_banco
+    var banco = new Debito();
+    banco.listaBancos()   
+    setTimeout(function(){
+      if(nombre_banco){
+        client = new pg.Client(connectionString);
+
+        client.connect(function (err) {
+          if (err){console.log(err);}
+         	var query="select * from (select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.persona) per) aper natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco='"+nombre_banco+"') banc"
+         //	var query = "﻿select * from (select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb) apdeb natural join (select * from ciudad_de_los_niños_development.persona) per"
+          console.log(query);
+          client.query(query, function (err, result) {
+            if (err) throw err;
+            if(result.rows[0]){
+            	console.log(result.rows)
+              res.render('donantesPorBanco', { user : req.user,lista:result.rows, listabancos:banco.lista  });
+            }
+            client.end(function (err) {
+              if (err) {console.log(err)};
+            });
+          });
+        });
+      }else{
+        res.render('donantesPorBanco', { user : req.user, listabancos:banco.lista });
+      }
+    }, 1000);
+
+
+});
+
+router.post('/donantesPorBancoRedir', function(req, res) {
+  res.redirect('/donantesPorBanco?nombre_banco='+req.body.nombre_bancoRedir);
+
+});
+
 
 module.exports = router;
