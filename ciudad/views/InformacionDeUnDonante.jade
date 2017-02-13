@@ -6,7 +6,7 @@ block content
             .form-group
               input.form-control(type='text', name="dniRedir", placeholder='DNI')
             button(type='submit',class="boton") Aceptar
-            p Ingrese un Dni correspondiente a un Donante en servicio.
+            p Ingrese un Dni correspondiente a un donante en servi
         if(infoDonante)
           p El Dni corresponde a:
           form(role='form', action="/InformacionDeUnDonanteRedir2",method="post", style='max-width: 300px;')
@@ -23,7 +23,8 @@ block content
               input.form-control(type='text', name="cuil_cuit", placeholder='CUIL-CUIT',value=infoDonante[0].cuil_cuit,readonly="true")
               p Este donante aporta a los siguentes programas:
               each programa, i in listaProgramas
-                  p Nombre:#{programa.nombre_programa}.
-                  P Descripcion:#{programa.descripcion}.
+                ur
+                    li Nombre:#{programa.nombre_programa}.
+                    P Descripcion:#{programa.descripcion}.
             button(type='submit',class="boton") Aceptar
             a(href="/",class='.link') Cancelar
