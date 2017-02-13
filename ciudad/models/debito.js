@@ -194,4 +194,22 @@ Debito.prototype.obtenerId=function(){
   return this.id;
 }
 
+Debito.prototype.listaBancos = function(){
+  var thisrespaldo = this;
+  client = new pg.Client(connectionString);
+  client.connect(function (err) {
+    if (err){console.log(err);}
+    client.query("SELECT DISTINCT nombre_banco FROM ciudad_de_los_niños_development.debito", function (err, result) {
+      if (err) throw err;
+      if(result.rows[0]){
+        //repetirse para todos los campos
+        thisrespaldo.lista=result.rows;
+      }
+      client.end(function (err) {
+        if (err) {console.log(err)};
+      });
+    });
+  });
+};
+
 module.exports.debito = Debito;
