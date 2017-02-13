@@ -6,10 +6,7 @@
 5 info lifecycle ciudad@1.0.0~prestart: ciudad@1.0.0
 6 silly lifecycle ciudad@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle ciudad@1.0.0~start: ciudad@1.0.0
-8 verbose lifecycle ciudad@1.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle ciudad@1.0.0~start: PATH: /usr/share/npm/bin/node-gyp-bin:/home/vale/Escritorio/Proyecto-CN/ciudad/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/home/vale/.rvm/bin
-10 verbose lifecycle ciudad@1.0.0~start: CWD: /home/vale/Escritorio/Proyecto-CN/ciudad
-11 silly lifecycle ciudad@1.0.0~start: Args: [ '-c', 'NODE_ENV=development node ./bin/www' ]
+ ciudad@1.0.0~start: Args: [ '-c', 'NODE_ENV=development node ./bin/www' ]
 12 silly lifecycle ciudad@1.0.0~start: Returned: code: 143  signal: null
 13 info lifecycle ciudad@1.0.0~start: Failed to exec start script
 14 verbose stack Error: ciudad@1.0.0 start: `NODE_ENV=development node ./bin/www`
@@ -23,8 +20,8 @@
 14 verbose stack     at maybeClose (internal/child_process.js:821:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
 15 verbose pkgid ciudad@1.0.0
-16 verbose cwd /home/vale/Escritorio/Proyecto-CN/ciudad
-17 error Linux 4.4.0-45-generic
+16 verbose cwd /home/bruno/Escritorio/Git/Proyecto-CN/ciudad
+17 error Linux 4.4.0-34-generic
 18 error argv "/usr/bin/nodejs" "/usr/bin/npm" "start"
 19 error node v4.2.6
 20 error npm  v3.5.2
