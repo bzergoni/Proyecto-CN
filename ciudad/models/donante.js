@@ -7,7 +7,8 @@ function Donante(doc,ocup,cuit_cuil){
   this.ocupacion=ocup;
   this.cuil_cuit=cuit_cuil;
   this.existe=false;
-  this.existeLogico=undefined
+  this.existeLogico=undefined;
+  this.listaProgramasAporta=undefined;
 };
 
 
@@ -163,6 +164,25 @@ Donante.prototype.existLOGIC = function(){
   });
 
 };
-
+//--------------------------------------------------------------------------------------------------------
+Donante.prototype.programasQueAporta = function(){
+  client = new pg.Client(connectionString);
+  var dni=this.dni;
+    console.log("el dni de los programas es "+dni);
+  var thisrespaldo=this;
+  client.connect(function (err) {
+    if (err){console.log(err);}
+    console.log("select nombre_programa,descripcion from ciudad_de_los_niños_development.aporta where dni='"+dni+"'");
+    client.query("select nombre_programa,descripcion from ((select nombre_programa from ciudad_de_los_niños_development.aporta where dni='"+dni+"') prog natural join ciudad_de_los_niños_development.programa dprog)", function (err, result) {
+      if (err) throw err;
+      if(result.rows[0]){
+        thisrespaldo.listaProgramasAporta=result.rows;
+      }
+      client.end(function (err) {
+        if (err) {console.log(err)};
+      });
+    });
+  });
+};
 
 module.exports.donante = Donante;

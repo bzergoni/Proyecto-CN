@@ -872,7 +872,45 @@ router.post('/donantesPorProgramaRedir', function(req, res) {
   res.redirect('/donantesPorPrograma?nombre_programa='+req.body.nombre_programaRedir);
 
 });
+//-----------------------------------------------------------------------------------------------------------------------
+router.get('/InformacionDeUnDonante', function(req, res) {
+    var dni=req.query.dni;
+    var donant = new Donante(dni);
+    donant.cargar();
+    donant.programasQueAporta();
+    setTimeout(function(){
+      if(dni){
+        client = new pg.Client(connectionString);
+        client.connect(function (err) {
+          if (err){console.log(err);}
+          var query = "select * from (select dni,ocupacion,cuil_cuit from ciudad_de_los_niños_development.donante where dni='"+dni+"' and existe=true) don natural join ciudad_de_los_niños_development.padrino padr natural join ciudad_de_los_niños_development.persona per";
+          console.log(query);
+          client.query(query, function (err, result) {
+            if (err) throw err;
+            if(result.rows[0]){
+                console.log("INFODONANTE ES  "+result.rows[0].ocupacion+" y "+result.rows[0].cuil_cuit);
+              res.render('InformacionDeUnDonante', { user : req.user,infoDonante:result.rows, listaProgramas:donant.listaProgramasAporta, datosdonante:donant  });
+            }
+            client.end(function (err) {
+              if (err) {console.log(err)};
+            });
+          });
+        });
+      }else{
+        res.render('InformacionDeUnDonante', { user : req.user});
+      }
+    }, 1000);
 
+
+});
+
+router.post('/InformacionDeUnDonanteRedir', function(req, res) {
+    res.redirect('/InformacionDeUnDonante?dni='+req.body.dniRedir);
+});
+
+router.post('/InformacionDeUnDonanteRedir2', function(req, res) {
+    res.redirect('/InformacionDeUnDonante');
+});
 
 router.get('/donantesPorBanco', function(req, res) {
     var nombre_banco=req.query.nombre_banco
