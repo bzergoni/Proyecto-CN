@@ -10,8 +10,13 @@ block content
           button(type='submit',class="boton") Aceptar
         br
         br
+        
+        
         if(lista)
-          table.egt
+          form
+            p  Buscar
+            input#searchTerm(type='text', onkeyup='doSearch()')
+          table#datos.display(cellspacing='0' class="sortable")
             tr
               th Dni
               th Nombre y apellido

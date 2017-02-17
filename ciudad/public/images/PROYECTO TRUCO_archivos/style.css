@@ -2,20 +2,16 @@
 {
     font-family: 'Open Sans', sans-serif;
 
-    font-family: 'Roboto', sans-serif;}
-.tabla {
-	width: 70%;
+    font-family: 'Roboto', sans-serif;
+
+
+
 }
 th, td {
     border: 2px solid;
     padding: 6px;
 }
-.contenedor{
-  
-}
-.celdacorta{
-  width: 5%;
-}
+
 
  table.sortable thead {
 

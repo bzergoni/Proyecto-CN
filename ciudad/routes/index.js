@@ -915,7 +915,7 @@ router.post('/InformacionDeUnDonanteRedir2', function(req, res) {
 router.get('/donantesPorBanco', function(req, res) {
     var nombre_banco=req.query.nombre_banco
     var banco = new Debito();
-    banco.listaBancos()   
+    banco.listaBancos()
     setTimeout(function(){
       if(nombre_banco){
         client = new pg.Client(connectionString);
@@ -971,6 +971,6 @@ router.get('/listadoDonantes', function(req, res) {
 });
 
 router.get('/prueba', function(req, res) {
-        res.render('prueba', { user : req.user,lista:result.rows});
+        res.render('prueba', { user : req.user});
   });
 module.exports = router;

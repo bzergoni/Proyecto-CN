@@ -1,7 +1,0 @@
-0 info it worked if it ends with ok
-1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'start' ]
-2 info using npm@3.5.2
-3 info using node@v4.2.6
-4 verbose run-script [ 'prestart', 'start', 'poststart' ]
-5 info lifecycle ciudad@1.0.0~prestart: ciudad@1.0.0
-6 silly lifecycle ciudad@1.0.0~prestart: no script for prestart, continuing

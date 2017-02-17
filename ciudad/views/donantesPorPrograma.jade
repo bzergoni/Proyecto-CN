@@ -12,13 +12,14 @@ block content
         br
         br
         if(lista)
-          table.egt
-            tr
-              th Dni
-              th Nombre y apellido
-            each elemento, i in lista
+          .tabla
+            table#datos.display(cellspacing='0' class="sortable")
               tr
-                td #{elemento.dni}
-                td #{elemento.n_y_ap}
+                th Dni
+                th Nombre y apellido
+              each elemento, i in lista
+                tr
+                  td #{elemento.dni}
+                  td #{elemento.n_y_ap}
               
             

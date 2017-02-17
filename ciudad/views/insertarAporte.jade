@@ -1,27 +1,80 @@
 extends layout
 block content
-      center insertar aporte
-        form(role='form', action="/insertarAporte",method="post", style='max-width: 300px;')
-          .form-group
-            input.form-control(type='text', name="dni", placeholder='DNI')
-            select(name="nombre_programa")
-              each programa, i in listaprogramas
-                option(value=programa.nombre_programa)  #{programa.nombre_programa}
-            
-            select(name='tipo_pago')
-              option(value='CREDITO') TARJETA DE CREDITO
-              option(value='DEBITO') DEBITO
-            
-            input.form-control(type='text', name="cbu", placeholder='CBU')
-            
-            input.form-control(type='text', name="nro", placeholder='Numero de tarjeta de credito')
-            select(name="nombre_tarjeta")
-              each tarjeta, i in listatarjetas
-                option(value=tarjeta.nombre_tarjeta)  #{tarjeta.nombre_tarjeta}
-
-            input.form-control(type='text', name="monto", placeholder='monto')
-            select(name='frecuencia')
-              option(value='Semestral') Semestral
-              option(value='Mensual') Mensual
+      .contenedor  
+        
+          |insertar aporte
+          form(role='form', action="/insertarAporte",method="post", style='max-width: 300px;')
+            .form-group
+              input.form-control(type='text', name="dni", placeholder='DNI')
+              select(name="nombre_programa")
+                each programa, i in listaprogramas
+                  option(value=programa.nombre_programa)  #{programa.nombre_programa}
               
-          button(type='submit',class="boton") Aceptar
+              
+              input.form-control(type='text', name="cbu", placeholder='CBU')
+              
+              input.form-control(type='text', name="nro", placeholder='Numero de tarjeta de credito')
+              select(name="nombre_tarjeta")
+                each tarjeta, i in listatarjetas
+                  option(value=tarjeta.nombre_tarjeta)  #{tarjeta.nombre_tarjeta}
+
+              input.form-control(type='text', name="monto", placeholder='monto')
+              select(name='frecuencia')
+              
+                option(value='Semestral') Semestral
+                option(value='Mensual') Mensual
+              br
+              | Seleccione el tipo de medio de pago:
+              select(name='tipo_pago')
+                option(value='CREDITO',onclick="mostrarcredito()") TARJETA DE CREDITO
+                option(value='DEBITO',onclick="mostrardebito()") DEBITO
+              
+              br
+              br
+              | Fue registrado con anterioridad el medio de pago?
+              //- input(type='checkbox', name='yaRegistrado', value=true, checked='',onclick='medioregistrado()') 
+              br
+              //- input(type='radio', name='yaRegistrado', value=true, checked='',onclick='medioregistrado()')
+              //- |  Si
+              //- 
+              //- input(type='radio', name='yaRegistrado', value=false,onclick='medioregistrado()')
+              //- |  No
+              select(name='yaRegistrado')
+                option(value='si',onclick="ocultarnuevos()") Si
+                option(value='no',onclick="mostrarnuevos()") No
+              
+
+              div#formulariocredito          
+                div#formularionuevocredito(style='display:none')
+                    |nuevo credito
+              div#formulariodebito(style='display:none')          
+                |SOY EL FORMULARIO DE debito!
+                div#formularionuevodebito(style='display:none')
+                  |nuevo debito
+
+            button(type='submit',class="boton") Aceptar
+
+        script(languague='javascript').
+          function mostrarcredito() {
+          div = document.getElementById('formulariocredito');
+          div.style.display = '';
+          div = document.getElementById('formulariodebito');
+          div.style.display = 'none';
+          };
+          function mostrardebito() {
+          div = document.getElementById('formulariodebito');
+          div.style.display = '';
+          div2 = document.getElementById('formulariocredito');
+          div2.style.display = 'none';
+          }
+          function mostrarnuevos() {
+          document.getElementById('formularionuevocredito').style.display = '';
+          document.getElementById('formularionuevodebito').style.display = '';
+          }
+          function ocultarnuevos() {
+            document.getElementById('formularionuevocredito').style.display = 'none';
+            document.getElementById('formularionuevodebito').style.display = 'none';
+          };
+          
+            
+            
