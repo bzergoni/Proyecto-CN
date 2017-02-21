@@ -72,27 +72,81 @@ html(lang='en')
         // /.navbar-collapse
       #page-wrapper
         .container-fluid
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
+          table#datos(border='1', frame='border', rules='groups')
+            caption Ejemplo de grupos de columnas y líneas
+            colgroup(align='center')
+              colgroup(align='left')
+                colgroup(align='center', span='2')
+                  colgroup(align='center', span='3')
+                    thead(valign='top')
+                      tr
+                        th Columna1
+                        th Columna2
+                        th Columna3
+                        th Columna4
+                        th Columna5
+                        th Columna6
+                        th Columna7
+                      tbody
+                        tr
+                          td C1L1
+                          td C2L1
+                          td C3L1
+                          td C4L1
+                          td C5L1
+                          td C6L1
+                          td C7L1
+                        tr
+                          td C1L2
+                          td C2L2
+                          td C3L2
+                          td C4L2
+                          td C5L2
+                          td C6L2
+                          td C7L2
+                        tr
+                          td C1L3
+                          td C2L3
+                          td C3L3
+                          td C4L3
+                          td C5L3
+                          td C6L3
+                          td C7L3
+                        tr
+                          td C1L4
+                          td C2L4
+                          td C3L4
+                          td C4L4
+                          td C5L4
+                          td C6L4
+                          td C7L4
+                        tbody
+                          tr
+                            td C1L5
+                            td C2L5
+                            td C3L5
+                            td C4L5
+                            td C5L5
+                            td C6L5
+                            td C7L5
+                          tr
+                            td C1L6
+                            td C2L6
+                            td C3L6
+                            td C4L6
+                            td C5L6
+                            td C6L6
+                            td C7L6
+                          tfoot
+                            tr
+                              td C1L7
+                              td C2L7
+                              td C3L7
+                              td C4L7
+                              td C5L7
+                              td C6L7
+                              td C7L7
+
 
           // /.row
         // /.container-fluid
@@ -103,6 +157,14 @@ html(lang='en')
     // Bootstrap Core JavaScript
     script(src='js/bootstrap.min.js')
     // Morris Charts JavaScript
-      script(src='js/plugins/morris/raphael.min.js')
-      script(src='js/plugins/morris/morris.min.js')
-      script(src='js/plugins/morris/morris-data.js')
+    link(rel='stylesheet', type='text/css', href='http://cdn.datatables.net/1.10.3/css/jquery.dataTables.css')
+    
+    script(src='http://cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js')
+    script(type='text/javascript').
+      $(document).ready(function() {
+        $('#datos').DataTable({
+          "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.13/i18n/Spanish.json"
+          }
+        });
+      });

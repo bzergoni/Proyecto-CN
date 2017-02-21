@@ -876,7 +876,7 @@ router.post('/donantesPorProgramaRedir', function(req, res) {
 router.get('/InformacionDeUnDonante', function(req, res) {
     var dni=req.query.dni;
     var donant = new Donante(dni);
-    donant.cargar();
+    // donant.cargar();
     donant.programasQueAporta();
     setTimeout(function(){
       if(dni){
@@ -889,6 +889,7 @@ router.get('/InformacionDeUnDonante', function(req, res) {
             if (err) throw err;
             if(result.rows[0]){
                 console.log("INFODONANTE ES  "+result.rows[0].ocupacion+" y "+result.rows[0].cuil_cuit);
+                result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
               res.render('InformacionDeUnDonante', { user : req.user,infoDonante:result.rows, listaProgramas:donant.listaProgramasAporta, datosdonante:donant  });
             }
             client.end(function (err) {
@@ -899,7 +900,7 @@ router.get('/InformacionDeUnDonante', function(req, res) {
       }else{
         res.render('InformacionDeUnDonante', { user : req.user});
       }
-    }, 1000);
+    },500);
 
 
 });
@@ -908,9 +909,7 @@ router.post('/InformacionDeUnDonanteRedir', function(req, res) {
     res.redirect('/InformacionDeUnDonante?dni='+req.body.dniRedir);
 });
 
-router.post('/InformacionDeUnDonanteRedir2', function(req, res) {
-    res.redirect('/InformacionDeUnDonante');
-});
+
 
 router.get('/donantesPorBanco', function(req, res) {
     var nombre_banco=req.query.nombre_banco
@@ -922,7 +921,7 @@ router.get('/donantesPorBanco', function(req, res) {
 
         client.connect(function (err) {
           if (err){console.log(err);}
-         	var query="select * from (select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.persona) per) aper natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco='"+nombre_banco+"') banc"
+         	var query="select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb"
          //	var query = "﻿select * from (select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb) apdeb natural join (select * from ciudad_de_los_niños_development.persona) per"
           console.log(query);
           client.query(query, function (err, result) {

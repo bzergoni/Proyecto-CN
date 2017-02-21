@@ -7,16 +7,6 @@ html(lang='en')
     meta(name='description', content='')
     meta(name='author', content='')
     title Proyecto Socio Comunitario - Ciudad de los niños
-    link(rel='stylesheet', href='/stylesheets/style.css')  
-    //- Hoja de estilos propia
-        
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css')
-    
-    link(rel='shortcut icon', href='./images/favicon.jpg', type='image/x-icon') 
-    //- script(src='http://code.jquery.com/jquery-1.11.1.min.js')
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js')
-
     // Bootstrap Core CSS
     link(href='css/bootstrap.min.css', rel='stylesheet')
     // Custom CSS
@@ -30,7 +20,6 @@ html(lang='en')
     //if lt IE 9
       script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
       script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
-      link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet', media='screen')
   body
     #wrapper
       // Navigation
@@ -53,7 +42,7 @@ html(lang='en')
         .collapse.navbar-collapse.navbar-ex1-collapse
           ul.nav.navbar-nav.side-nav
             li.active
-              a(href='/listadoDonantes')
+              a(href='index.html')
                 i.fa.fa-fw.fa-dashboard.fa-2x
                 |  Donantes
             li
@@ -84,8 +73,26 @@ html(lang='en')
       #page-wrapper
         .container-fluid
           br
-          block content
-          
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+          br
 
           // /.row
         // /.container-fluid
@@ -95,15 +102,7 @@ html(lang='en')
     script(src='js/jquery.js')
     // Bootstrap Core JavaScript
     script(src='js/bootstrap.min.js')
-    link(rel='stylesheet', type='text/css', href='http://cdn.datatables.net/1.10.3/css/jquery.dataTables.css')    
-    script(src='http://cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js')
-    script(type='text/javascript').
-      $(document).ready(function() {
-        $('#datos').DataTable({
-          "language": {
-            "url": "https://cdn.datatables.net/plug-ins/1.10.13/i18n/Spanish.json"
-          }
-        });
-      });
-
-	    
+    // Morris Charts JavaScript
+      script(src='js/plugins/morris/raphael.min.js')
+      script(src='js/plugins/morris/morris.min.js')
+      script(src='js/plugins/morris/morris-data.js')

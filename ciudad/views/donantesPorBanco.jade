@@ -1,5 +1,6 @@
 extends layout
 block content
+      br
       center 
         p Selecciona un Banco
         form(role='form', action="/donantesPorBancoRedir",method="post", style='max-width: 300px;')
@@ -13,16 +14,27 @@ block content
         
         
         if(lista)
-          form
-            p  Buscar
-            input#searchTerm(type='text', onkeyup='doSearch()')
-          table#datos.display(cellspacing='0' class="sortable")
-            tr
+          table#datos.display(cellspacing='0')
+            thead
               th Dni
-              th Nombre y apellido
+              th Nombre Titular
+              th Cbu
+              th nro de cuenta
+              th cod. verif
+              th Programa
+              th Monto
+              th Frecuencia
+              th Sucursal
             each elemento, i in lista
               tr
-                td #{elemento.dni}
-                td #{elemento.n_y_ap}
-              
+                td 
+                  a(href='/Informaciondeundonante?dni=#{elemento.dni}')#{elemento.dni}
+                td #{elemento.nombre_titular}
+                td #{elemento.cbu}
+                td #{elemento.nro_cuenta}
+                td #{elemento.codigo_verificacion}
+                td #{elemento.nombre_programa}
+                td #{elemento.monto}
+                td #{elemento.frecuencia}
+                td #{elemento.sucursal_banco}
             

@@ -1,8 +1,7 @@
 extends layout
 block content
       center 
-        
-      
+        br
         form(role='form', action="/donantesPorProgramaRedir",method="post", style='max-width: 300px;')
           .form-group
             select(name="nombre_programaRedir")
@@ -14,12 +13,18 @@ block content
         if(lista)
           .tabla
             table#datos.display(cellspacing='0' class="sortable")
-              tr
+              thead
                 th Dni
                 th Nombre y apellido
+                th
+                th
               each elemento, i in lista
                 tr
-                  td #{elemento.dni}
+                  td 
+                    a(href='/Informaciondeundonante?dni=#{elemento.dni}') #{elemento.dni}
                   td #{elemento.n_y_ap}
-              
+                  td(class='celdacorta')
+                    a(href='/modificarDonante?dni=#{elemento.dni}') modificar
+                  td(class='celdacorta')
+                    a(href='/eliminarDonante?dni=#{elemento.dni}') eliminar
             

@@ -1,0 +1,44 @@
+doctype html
+html
+  head
+    title= "PROYECTO TRUCO"
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet', media='screen')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css')
+    
+    link(rel='shortcut icon', href='./images/favicon.jpg', type='image/x-icon') 
+    script(src='http://code.jquery.com/jquery-1.11.1.min.js')
+  
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='/javascript/sorttable.js')
+    script(src='/javascript/busqueda-datos.js')
+    link(rel='stylesheet', type='text/css', href='https://fonts.googleapis.com/css?family=Open+Sans|Roboto:700')
+    
+    link(rel='stylesheet', type='text/css', href='http://cdn.datatables.net/1.10.3/css/jquery.dataTables.css')
+    
+    script(src='http://cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js')
+    script(type='text/javascript').
+      $(document).ready(function() {
+        $('#datos').DataTable({
+          "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.13/i18n/Spanish.json"
+          }
+        });
+      });
+    
+    
+  
+       
+  body
+    .logo 
+      |Ciudad de los niños
+    .barraLateral
+      .separadorBarra
+        |Donante
+      .separadorBarra
+        |Contacto
+            
+        //- if(user)
+    block content
