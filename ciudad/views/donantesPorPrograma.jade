@@ -21,7 +21,7 @@ block content
               each elemento, i in lista
                 tr
                   td 
-                    a(href='/Informaciondeundonante?dni=#{elemento.dni}') #{elemento.dni}
+                    a(href='/infoDonante?dni=#{elemento.dni}') #{elemento.dni}
                   td #{elemento.n_y_ap}
                   td(class='celdacorta')
                     a(href='/modificarDonante?dni=#{elemento.dni}') modificar

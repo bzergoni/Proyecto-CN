@@ -2,14 +2,14 @@ extends layout
 block content
       center Informacion de un Donante
         if(!infoDonante)
-          form(role='form', action="/InformacionDeUnDonanteRedir",method="post", style='max-width: 300px;')
+          form(role='form', action="/infoDonanteRedir",method="post", style='max-width: 300px;')
             .form-group
               input.form-control(type='text', name="dniRedir", placeholder='DNI')
             button(type='submit',class="boton") Aceptar
             p Ingrese un Dni correspondiente a un donante en servi
         if(infoDonante)
           p El Dni corresponde a:
-          form(role='form', action="/InformacionDeUnDonanteRedir2",method="post", style='max-width: 300px;')
+          form(role='form', action="/infoDonanteRedir2",method="post", style='max-width: 300px;')
             .form-group
               input.form-control(type='text', name="dni", placeholder='DNI',value=infoDonante[0].dni,readonly="true")
               input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',value=infoDonante[0].n_y_ap,readonly="true")
@@ -21,9 +21,10 @@ block content
               input.form-control(type='text', name="cod_postal", placeholder='CODIGO POSTAL',value=infoDonante[0].cod_postal,readonly="true")
               input.form-control(type='text', name="ocupacion", placeholder='OCUPACION',value=infoDonante[0].ocupacion,readonly="true")
               input.form-control(type='text', name="cuil_cuit", placeholder='CUIL-CUIT',value=infoDonante[0].cuil_cuit,readonly="true")
-              p Este donante aporta a los siguentes programas:
-              each programa, i in listaProgramas
-                ur
-                    li Nombre:#{programa.nombre_programa}.
-                    P Descripcion:#{programa.descripcion}.
+              if(listaProgramas)
+                p Este donante aporta a los siguentes programas:
+                each programa, i in listaProgramas
+                  ur
+                      li Nombre:#{programa.nombre_programa}.
+                      P Descripcion:#{programa.descripcion}.
             a(href='javascript:history.back()') Volver
