@@ -972,4 +972,26 @@ router.get('/listadoDonantes', function(req, res) {
 router.get('/prueba', function(req, res) {
         res.render('prueba', { user : req.user});
   });
+
+router.get('/listadoContactos', function(req, res) {
+  client = new pg.Client(connectionString);
+
+  client.connect(function (err) {
+    if (err){console.log(err);}
+    var query = "select * from ciudad_de_los_niños_development.contacto natural join ciudad_de_los_niños_development.persona"
+    console.log(query);
+
+    client.query(query, function (err, result) {
+      if (err) throw err;
+      if(result.rows[0]){
+        res.render('listadoContactos', { user : req.user, lista:result.rows});
+      }
+      client.end(function (err) {
+        if (err) {console.log(err)};
+      });
+    });
+  });
+
+});
+
 module.exports = router;
