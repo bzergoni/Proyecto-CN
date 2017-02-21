@@ -295,15 +295,15 @@ router.get('/modificarPrograma', function(req, res) {
 });
 
 router.post('/modificarProgramaRedir', function(req, res) {
-  res.redirect('/modificarPrograma?dni='+req.body.nombre_programaRedir);
+  res.redirect('/modificarPrograma?nombre_programa='+req.body.nombre_programaRedir);
 
 });
 
 router.post('/modificarPrograma', function(req, res) {
-  var program = new Program(req.body.nombre_programa,req.body.descripcion);
-  console.log(program.show())
-  var nombre_programa=req.body.nombre_programa
-  program.actualizar()
+  var program = new Programa(req.body.nombre_programa,req.body.descripcion);
+  console.log(program.show());
+  var nombre_programa=req.body.nombre_programa;
+  program.actualizar();
   setTimeout(function(){
     res.redirect('/modificarPrograma?nombre_programa='+nombre_programa);
   }, 50);
@@ -947,7 +947,7 @@ router.post('/donantesPorBancoRedir', function(req, res) {
   res.redirect('/donantesPorBanco?nombre_banco='+req.body.nombre_bancoRedir);
 
 });
-
+////-----------$$$$$$$$$$
 router.get('/listadoDonantes', function(req, res) {
   client = new pg.Client(connectionString);
 
@@ -971,5 +971,30 @@ router.get('/listadoDonantes', function(req, res) {
 
 router.get('/prueba', function(req, res) {
         res.render('prueba', { user : req.user});
+  });
+
+  //---------------------------------------------------------------------------------------------------------------------
+  router.get('/listadoProgramas', function(req, res) {
+    client = new pg.Client(connectionString);
+    var prog=new Programa();
+    prog.listaProgramas();
+    setTimeout(function(){
+      //client.connect(function (err) {
+      //  if (err){console.log(err);}
+      //  var query = "select * from ciudad_de_los_niños_development.donante  natural join ciudad_de_los_niños_development.persona  "
+      //  console.log(query);
+
+      //  client.query(query, function (err, result) {
+      //    if (err) throw err;
+          if(prog.lista[0]){
+            console.log("la lista es:  "+prog.lista[0].nombre_programa)
+            res.render('listadoProgramas', { user : req.user,lista:prog.lista});
+          }
+      //    client.end(function (err) {
+        //    if (err) {console.log(err)};
+    //      });
+      //  });
+    //  });
+    }, 500);
   });
 module.exports = router;

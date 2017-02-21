@@ -4,19 +4,15 @@ block content
   br
   br
   if(lista)
-    
+  
       table#datos.display(cellspacing='0')
         thead
           th Nombre
           th Descripción
           th 
-          th 
         each elemento, i in lista
           tr
             td  #{elemento.nombre_programa}
             td #{elemento.descripcion}
-    //        td(class='celdacorta')    
             td(class='celdacorta')
-              a(href='/eliminarPrograma?dni=#{elemento.dni}') eliminar
-                
-//a(href='/Informaciondeundonante?dni=#{elemento.dni}') #{elemento.dni}
+              a(href='/eliminarPrograma?nombre_programa=#{elemento.nombre_programa}') eliminar
