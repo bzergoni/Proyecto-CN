@@ -873,7 +873,7 @@ router.post('/donantesPorProgramaRedir', function(req, res) {
 
 });
 //-----------------------------------------------------------------------------------------------------------------------
-router.get('/InformacionDeUnDonante', function(req, res) {
+router.get('/infoDonante', function(req, res) {
     var dni=req.query.dni;
     var donant = new Donante(dni);
     // donant.cargar();
@@ -890,7 +890,7 @@ router.get('/InformacionDeUnDonante', function(req, res) {
             if(result.rows[0]){
                 console.log("INFODONANTE ES  "+result.rows[0].ocupacion+" y "+result.rows[0].cuil_cuit);
                 result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
-              res.render('InformacionDeUnDonante', { user : req.user,infoDonante:result.rows, listaProgramas:donant.listaProgramasAporta, datosdonante:donant  });
+              res.render('infoDonante', { user : req.user,infoDonante:result.rows, listaProgramas:donant.listaProgramasAporta, datosdonante:donant  });
             }
             client.end(function (err) {
               if (err) {console.log(err)};
@@ -898,15 +898,15 @@ router.get('/InformacionDeUnDonante', function(req, res) {
           });
         });
       }else{
-        res.render('InformacionDeUnDonante', { user : req.user});
+        res.render('infoDonante', { user : req.user});
       }
     },500);
 
 
 });
 
-router.post('/InformacionDeUnDonanteRedir', function(req, res) {
-    res.redirect('/InformacionDeUnDonante?dni='+req.body.dniRedir);
+router.post('/infoDonanteRedir', function(req, res) {
+    res.redirect('/infoDonante?dni='+req.body.dniRedir);
 });
 
 
@@ -994,7 +994,29 @@ router.get('/prueba', function(req, res) {
         res.render('prueba', { user : req.user});
   });
 
-  //---------------------------------------------------------------------------------------------------------------------
+
+router.get('/listadoContactos', function(req, res) {
+  client = new pg.Client(connectionString);
+
+  client.connect(function (err) {
+    if (err){console.log(err);}
+    var query = "select * from ciudad_de_los_niños_development.contacto natural join ciudad_de_los_niños_development.persona"
+    console.log(query);
+
+    client.query(query, function (err, result) {
+      if (err) throw err;
+      if(result.rows[0]){
+        res.render('listadoContactos', { user : req.user, lista:result.rows});
+      }
+      client.end(function (err) {
+        if (err) {console.log(err)};
+      });
+    });
+  });
+
+});
+
+//---------------------------------------------------------------------------------------------------------------------
   router.get('/listadoProgramas', function(req, res) {
     client = new pg.Client(connectionString);
     client.connect(function (err) {
@@ -1013,5 +1035,6 @@ router.get('/prueba', function(req, res) {
      });
    });
   });
+
 
 module.exports = router;

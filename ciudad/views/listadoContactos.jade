@@ -1,8 +1,9 @@
 extends layout
 block content
-  a(href='/insertarDonante',class="btn btn-primary aladerecha", role = "button") Nuevo 
+  a(href='/insertarContacto',class="btn btn-primary aladerecha", role = "button") Nuevo 
   br
-  br
+  center
+    font(color='#5882FA', size='20') Contactos:
   if(lista)
     
       table#datos.display(cellspacing='0')
@@ -14,10 +15,10 @@ block content
         each elemento, i in lista
           tr
             td 
-              a(href='/infoDonante?dni=#{elemento.dni}') #{elemento.dni}
+              a(href='/infoContacto?dni=#{elemento.dni}') #{elemento.dni}
             td #{elemento.n_y_ap}
             td(class='celdacorta')
-              a(href='/modificarDonante?dni=#{elemento.dni}') modificar              
+              
             td(class='celdacorta')
-              a(href='/eliminarDonante?dni=#{elemento.dni}') eliminar
+              a(href='/eliminarContacto?dni=#{elemento.dni}') eliminar
                 
