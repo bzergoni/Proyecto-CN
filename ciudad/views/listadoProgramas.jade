@@ -1,0 +1,18 @@
+extends layout
+block content
+  a(href='/insertarPrograma',class="btn btn-primary aladerecha", role = "button") Nuevo 
+  br
+  br
+  if(lista)
+  
+      table#datos.display(cellspacing='0')
+        thead
+          th Nombre
+          th Descripción
+          th 
+        each elemento, i in lista
+          tr
+            td  #{elemento.nombre_programa}
+            td #{elemento.descripcion}
+            td(class='celdacorta')
+              a(href='/eliminarPrograma?nombre_programa=#{elemento.nombre_programa}') eliminar

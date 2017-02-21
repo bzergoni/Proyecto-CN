@@ -36,7 +36,7 @@ Programa.prototype.cargar = function() {
                 //repetirse para todos los campos
                 thisrespaldo.descripcion = result.rows[0].descripcion;
                 thisrespaldo.existe=true;
-                thisrespaldo.existeLogico=result.rows[0].existe;
+              //  thisrespaldo.existeLogico=result.rows[0].existe;
             }
             client.end(function(err) {
                 if (err) {
