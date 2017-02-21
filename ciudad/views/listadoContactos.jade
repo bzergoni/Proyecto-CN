@@ -1,9 +1,11 @@
 extends layout
 block content
+  center
+    p.title Contactos:
+  br
   a(href='/insertarContacto',class="btn btn-primary aladerecha", role = "button") Nuevo 
   br
-  center
-    font(color='#5882FA', size='20') Contactos:
+  br
   if(lista)
     
       table#datos.display(cellspacing='0')
@@ -18,7 +20,7 @@ block content
               a(href='/infoContacto?dni=#{elemento.dni}') #{elemento.dni}
             td #{elemento.n_y_ap}
             td(class='celdacorta')
-              
+              a(href='/modificarContacto?dni=#{elemento.dni}') modificar              
             td(class='celdacorta')
               a(href='/eliminarContacto?dni=#{elemento.dni}') eliminar
                 

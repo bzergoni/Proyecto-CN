@@ -16,6 +16,11 @@ th, td {
 .celdacorta{
   width: 5%;
 }
+.title{
+  color: #5882FA;
+  font-size: xx-large;
+  float: left;
+}
 
  table.sortable thead {
 

@@ -1,21 +1,23 @@
 extends layout
 block content
-        br   
-        a(href='/insertarAporte',class="btn btn-primary aladerecha", role = "button") Nuevo 
-        
-        if(lista)
-          table#datos.display(cellspacing='0')
-            thead
-              th Dni
-              th Nombre y apellido
-              th Programa
-              th Monto
-              th Frecuencia
-            each elemento, i in lista
-              tr
-                td 
-                  a(href='/Informaciondeundonante?dni=#{elemento.dni}') #{elemento.dni}
-                td #{elemento.n_y_ap}
-                td #{elemento.nombre_programa}
-                td #{elemento.monto}
-                td #{elemento.frecuencia}
+  p.title Aportes:
+  br   
+  a(href='/insertarAporte',class="btn btn-primary aladerecha", role = "button") Nuevo 
+  br
+  br
+  if(lista)
+    table#datos.display(cellspacing='0')
+      thead
+        th Dni
+        th Nombre y apellido
+        th Programa
+        th Monto
+        th Frecuencia
+      each elemento, i in lista
+        tr
+          td 
+            a(href='/infoDonante?dni=#{elemento.dni}') #{elemento.dni}
+          td #{elemento.n_y_ap}
+          td #{elemento.nombre_programa}
+          td #{elemento.monto}
+          td #{elemento.frecuencia}
