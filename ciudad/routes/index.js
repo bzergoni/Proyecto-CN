@@ -976,25 +976,21 @@ router.get('/prueba', function(req, res) {
   //---------------------------------------------------------------------------------------------------------------------
   router.get('/listadoProgramas', function(req, res) {
     client = new pg.Client(connectionString);
-    var prog=new Programa();
-    prog.listaProgramas();
-    setTimeout(function(){
-      //client.connect(function (err) {
-      //  if (err){console.log(err);}
-      //  var query = "select * from ciudad_de_los_niños_development.donante  natural join ciudad_de_los_niños_development.persona  "
-      //  console.log(query);
-
-      //  client.query(query, function (err, result) {
-      //    if (err) throw err;
-          if(prog.lista[0]){
-            console.log("la lista es:  "+prog.lista[0].nombre_programa)
-            res.render('listadoProgramas', { user : req.user,lista:prog.lista});
-          }
-      //    client.end(function (err) {
-        //    if (err) {console.log(err)};
-    //      });
-      //  });
-    //  });
-    }, 500);
+    client.connect(function (err) {
+     if (err){console.log(err);}
+     var query = "select nombre_programa,descripcion from ciudad_de_los_niños_development.programa "
+     console.log(query);
+     client.query(query, function (err, result) {
+       if (err) throw err;
+        if(result.rows[0]){
+          console.log("la lista es:  "+result.rows[0].descripcion)
+          res.render('listadoProgramas', { user : req.user,lista:result.rows});
+        }
+       client.end(function (err) {
+         if (err) {console.log(err)};
+       });
+     });
+   });
   });
+
 module.exports = router;
