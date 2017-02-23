@@ -13,6 +13,8 @@ block content
         th Programa
         th Monto
         th Frecuencia
+        th
+        th
       each elemento, i in lista
         tr
           td 
@@ -21,3 +23,7 @@ block content
           td #{elemento.nombre_programa}
           td #{elemento.monto}
           td #{elemento.frecuencia}
+          td(class='celdacorta')
+            a(href='/modificarAporte?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}') modificar              
+          td(class='celdacorta')
+            a(href='/eliminarAporte?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}') eliminar

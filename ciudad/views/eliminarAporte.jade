@@ -27,10 +27,10 @@ block content
                 input.form-control(type='text', name="frecuencia", placeholder='FRECUENCIA',value=datosaporte.frecuencia,readonly="true")
                 input.form-control(type='text', name="nombre_programa", placeholder='NOMBRE DEL PROGRAMA',value=datosaporte.nombre_programa,readonly="true")
                 //debito
-                if(datosdebito)
+                if(datosdebito.existe)
                   input.form-control(type='text', name="cbu", placeholder='CBU',value=datosdebito.cbu,readonly="true")
                   input.form-control(type='text', name="nombre_titular", placeholder='NOMBRE DEL TITULAR',value=datosdebito.nombre_titular,readonly="true")
-                if(datoscredito)
+                if(datoscredito.existe)
                   input.form-control(type='text', name="nro", placeholder='NUMERO DE TARJETA',value=datoscredito.nro,readonly="true")
                   input.form-control(type='text', name="nombre_titular", placeholder='NOMBRE DEL TITULAR',value=datoscredito.nombre_titular,readonly="true")
                   input.form-control(type='text', name="nombre_tarjeta", placeholder='TIPO DE TARJETA',value=datoscredito.nombre_tarjeta,readonly="true")

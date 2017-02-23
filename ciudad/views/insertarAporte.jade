@@ -1,7 +1,7 @@
 extends layout
 block content
-      .contenedor  
-        
+      
+        center
           |insertar aporte
           form(role='form', action="/insertarAporte",method="post", style='max-width: 300px;')
             .form-group
@@ -9,14 +9,7 @@ block content
               select(name="nombre_programa")
                 each programa, i in listaprogramas
                   option(value=programa.nombre_programa)  #{programa.nombre_programa}
-              
-              
-              input.form-control(type='text', name="cbu", placeholder='CBU')
-              
-              input.form-control(type='text', name="nro", placeholder='Numero de tarjeta de credito')
-              select(name="nombre_tarjeta")
-                each tarjeta, i in listatarjetas
-                  option(value=tarjeta.nombre_tarjeta)  #{tarjeta.nombre_tarjeta}
+              input.form-control(type='number', name="id_mediodepago", placeholder='ID',value="0")
 
               input.form-control(type='text', name="monto", placeholder='monto')
               select(name='frecuencia')
@@ -31,27 +24,26 @@ block content
               
               br
               br
-              | Fue registrado con anterioridad el medio de pago?
-              //- input(type='checkbox', name='yaRegistrado', value=true, checked='',onclick='medioregistrado()') 
-              br
-              //- input(type='radio', name='yaRegistrado', value=true, checked='',onclick='medioregistrado()')
-              //- |  Si
-              //- 
-              //- input(type='radio', name='yaRegistrado', value=false,onclick='medioregistrado()')
-              //- |  No
-              select(name='yaRegistrado')
-                option(value='si',onclick="ocultarnuevos()") Si
-                option(value='no',onclick="mostrarnuevos()") No
               
-
-              div#formulariocredito          
-                div#formularionuevocredito(style='display:none')
-                    |nuevo credito
+              br
+              
+              
+              input.form-control(type='text', name="nombre_titular", placeholder='NOMBRE DEL TITULAR')
+              div#formulariocredito
+                input.form-control(type='text', name="nro", placeholder='NUMERO DE TARJETA')
+                input.form-control(type='text', name="nombre_tarjeta", placeholder='nombre de la tarjeta', list="tarjetas")
+                datalist#tarjetas
+                  each tarjeta, i in listatarjetas
+                    option(value=tarjeta.nombre_tarjeta)
+              
+                input.form-control(type='text', name="fecha_vencimiento", placeholder='FECHA DE VENCIMIENTO (DD/MM/AAA)')
               div#formulariodebito(style='display:none')          
-                |SOY EL FORMULARIO DE debito!
-                div#formularionuevodebito(style='display:none')
-                  |nuevo debito
-
+                input.form-control(type='text', name="cbu", placeholder='CBU')
+                input.form-control(type='text', name="nro_cuenta", placeholder='NUMERO DE CUENTA')
+                input.form-control(type='text', name="tipo_cuenta", placeholder='TIPO DE CUENTA')
+                input.form-control(type='text', name="nombre_banco", placeholder='NOMBRE DEL BANCO')
+                input.form-control(type='text', name="sucursal_banco", placeholder='SUCURSAL DEL BANCO')
+              input.form-control(type='text', name="codigo_verificacion", placeholder='CODIGO DE VERIFIACION')
             button(type='submit',class="boton") Aceptar
 
         script(languague='javascript').
