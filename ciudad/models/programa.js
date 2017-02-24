@@ -126,7 +126,7 @@ Programa.prototype.eliminar = function() {
             console.log(err)
         };
         // execute a query on our database
-        client.query("update ciudad_de_los_niños_development.programa set existe=false where nombre_programa='"+nombre+"'", function(err, result) {
+        client.query("delete from ciudad_de_los_niños_development.programa where nombre_programa='"+nombre+"'", function(err, result) {
             if (err) {
                 console.log(err)
             }

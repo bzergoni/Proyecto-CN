@@ -21,10 +21,18 @@ block content
               input.form-control(type='text', name="cod_postal", placeholder='CODIGO POSTAL',value=infoDonante[0].cod_postal,readonly="true")
               input.form-control(type='text', name="ocupacion", placeholder='OCUPACION',value=infoDonante[0].ocupacion,readonly="true")
               input.form-control(type='text', name="cuil_cuit", placeholder='CUIL-CUIT',value=infoDonante[0].cuil_cuit,readonly="true")
-              if(listaProgramas)
-                p Este donante aporta a los siguentes programas:
-                each programa, i in listaProgramas
-                  ur
-                      li Nombre:#{programa.nombre_programa}.
-                      P Descripcion:#{programa.descripcion}.
+              if(listaAportes)
+                p Este donante posee los siguentes aportes
+                table
+                  thead
+                    th  Programa:
+                    th  ID MP:
+                    th  Frecuencia: 
+                    th  Monto: 
+                  each aporte, i in listaAportes
+                    tr
+                      td #{aporte.nombre_programa} 
+                      td #{aporte.id} 
+                      td #{aporte.frecuencia}  
+                      td #{aporte.monto} 
             a(href='javascript:history.back()') Volver

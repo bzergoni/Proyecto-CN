@@ -117,20 +117,33 @@ Aporta.prototype.eliminar = function() {
     var nombre_programa = this.nombre_programa;
     var id = this.id
     client = new pg.Client(connectionString);
+    var query=undefined
     client.connect(function(err) {
         if (err) {
             console.log(err)
         };
-        // execute a query on our database
-        client.query("delete from ciudad_de_los_niños_development.aporta  where dni='" + dni + "' and nombre_programa='"+nombre_programa+"' and id="+id, function(err, result) {
+        // execute a query on our database  - "delete from ciudad_de_los_niños_development.aporta  where dni='" + dni + "' and nombre_programa='"+nombre_programa+"' and id="+id
+        client.query("select count (id) from ciudad_de_los_niños_development.aporta where id="+id, function(err, result) {
             if (err) {
                 console.log(err)
-            }
 
+            }
+            if(result){
+              if(result.rows[0].count < 2){
+                query = "delete from ciudad_de_los_niños_development.medio_de_pago where id="+id
+              }else{
+                query ="delete from ciudad_de_los_niños_development.aporta  where dni='" + dni + "' and nombre_programa='"+nombre_programa+"' and id="+id
+              }
+              client.query(query, function (err, result) {
+                if (err){console.log(err)}
+                if(result){console.log("Se elimino el aporte!")}
+              });
+            }
             client.end(function(err) {
-                if (err) {
-                    console.log(err)
-                };
+              if (err) {
+                console.log(err)
+                console.log("se cerro el client de eliminaraporte!")
+              };
             });
 
 

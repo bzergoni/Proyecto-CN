@@ -1,0 +1,23 @@
+extends layout
+block content
+  a(href='/insertarDonante',class="btn btn-primary aladerecha", role = "button") Nuevo 
+  br
+  br
+  if(lista)
+    
+      table#datos.display(cellspacing='0')
+        thead
+          th Dni
+          th Nombre y apellido
+          th 
+          th 
+        each elemento, i in lista
+          tr
+            td 
+              a(href='/Informaciondeundonante?dni=#{elemento.dni}') #{elemento.dni}
+            td #{elemento.n_y_ap}
+            td(class='celdacorta')
+              
+            td(class='celdacorta')
+              a(href='/eliminarDonante?dni=#{elemento.dni}') eliminar
+                

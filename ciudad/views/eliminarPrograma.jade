@@ -8,13 +8,13 @@ block content
             button(type='submit',class="boton") Aceptar
         
         if(datosprograma)  
-          if(!(datosprograma.existeLogico)) 
+          if(!(datosprograma.existe)) 
             form(role='form', action="/eliminarProgramaRedir",method="post", style='max-width: 300px;')
               .form-group
                 input.form-control(type='text', name="nombre_programaRedir", placeholder='Nombre del Programa')
             button(type='submit',class="boton") Aceptar
             p el nombre de programa no corresponde a ningun programa existente
-          if(datosprograma.existeLogico) 
+          if(datosprograma.existe) 
             p SEGURO QUE QUIERE ELIMINAR EL SIGUIENTE PROGRAMA?
             form(role='form', action="/eliminarPrograma",method="post", style='max-width: 300px;')
               .form-group

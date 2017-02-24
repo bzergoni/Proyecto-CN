@@ -3,15 +3,16 @@ block content
       center insertar donante 
         form(role='form', action="/insertarDonante",method="post", style='max-width: 300px;')
           .form-group
-            input.form-control(type='text', name="dni", placeholder='DNI')
-            input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO')
-            input.form-control(type='text', name="email", placeholder='EMAIL')
+            input.form-control(type='text', name="dni", placeholder='DNI',required)
+            input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',required)
+            input.form-control(type='text', name="email", placeholder='EMAIL',required)
             input.form-control(type='text', name="tel_fijo", placeholder='TELEFONO FIJO')
-            input.form-control(type='text', name="direccion", placeholder='DIRECCION')
-            input.form-control(type='text', name="celular", placeholder='CELULAR')
-            input.form-control(type='text', name="fecha_nac", placeholder='FECHA DE NACIMIENTO DD/MM/AAAA')
-            input.form-control(type='text', name="cod_postal", placeholder='CODIGO POSTAL')
+            input.form-control(type='text', name="direccion", placeholder='DIRECCION',required)
+            
+            input.form-control(type='text', name="celular", placeholder='CELULAR',required)
+            input.form-control(type='text', name="fecha_nac", placeholder='FECHA DE NACIMIENTO DD/MM/AAAA',required)
+            input.form-control(type='text',value="5800", name="cod_postal", placeholder='CODIGO POSTAL')
             input.form-control(type='text', name="ocupacion", placeholder='OCUPACION')
-            input.form-control(type='text', name="cuil_cuit", placeholder='CUIL/CUIT')
+            input.form-control(type='text', name="cuil_cuit", placeholder='CUIL/CUIT',required)
           button(type='submit',class="boton") Aceptar
           

@@ -10,6 +10,9 @@ var pg = require('pg');
 var connectionString = "pg://postgres:postgres@localhost:5432/postgres";
 
 
+const time=1000;
+
+
 var client = new pg.Client(connectionString);
 var User = require('../models/user');
 
@@ -460,8 +463,10 @@ router.post('/insertarCredito', function(req, res) {
 
 router.get('/modificarCredito', function(req, res) {
     var nro =req.query.nro;
-    if(nro){
+    var nombre_tarjeta=req.query.nombre_tarjeta
+    if(nro && nombre_tarjeta){
       var tarj = new Credito(nro);
+      tarj.nombre_tarjeta=nombre_tarjeta;
       setTimeout(function(){
         tarj.cargar();
         setTimeout(function(){
@@ -688,57 +693,42 @@ router.post('/insertarAporte', function(req, res) {
    var dni=req.body.dni
    var donant = new Donante(req.body.dni)
    var tipo_pago=req.body.tipo_pago
-   var debit = new Debito()
-   debit.cbu=req.body.cbu
-   var credit = new Credito(req.body.nro)
-   credit.nombre_tarjeta=req.body.nombre_tarjeta
-   var id=undefined
-   var aport = new Aporta(req.body.dni,req.body.nombre_programa,req.body.monto,req.body.frecuencia,req.body.id)
+   var debit = new Debito(req.body.nro_cuenta,req.body.cbu, req.body.nombre_titular, req.body.codigo_verificacion, req.body.tipo_cuenta, req.body.nombre_banco,req.body.sucursal_banco)
+   var credit = new Credito(req.body.nro, req.body.nombre_tarjeta, req.body.nombre_titular,req.body.fecha_vencimiento,req.body.codigo_verificacion)
+   var id_mediodepago = req.body.id_mediodepago
+   var aport = new Aporta(req.body.dni,req.body.nombre_programa,req.body.monto,req.body.frecuencia,req.body.id_mediodepago)
 //setTimeout(function(){}, 1000);
-
+  console.log(req.body)
   donant.cargar()
   setTimeout(function(){
-    if(donant.existeLogico){
-      console.log("El donante existe logico!")
-      if(tipo_pago=="DEBITO"){
+    if(donant.existe){
+      console.log("el donante existe")
+      if(id_mediodepago > 0 ){
+        aport.insertar()
+        setTimeout(function(){res.redirect('/listadoAportes');}, time)
+         //ver si funciona sino ponr timmeout
+      }else{
+        if(tipo_pago=="DEBITO"){debit.insertar()}else {credit.insertar();console.log(credit)}
+        setTimeout(function(){
 
-        debit.cargar();
-      }else {
-        console.log("el tipo de pago es credito!")
-        credit.cargar();
-      }
-      setTimeout(function(){
-
-        if(debit.existe){
-          id=debit.id
-        }
-        if(credit.existe) {
-          console.log("El credito existe!")
-          id=credit.id
-        }
-        if(id){
-          console.log("El id existe!")
+          if(tipo_pago=="DEBITO"){debit.cargar()}else {credit.cargar();console.log(credit)}
           setTimeout(function(){
-            aport.exist()
-            setTimeout(function(){
-              if(!aport.existe){
-                console.log("El aporte no existe! se insertara!")
-                aport.id=id
-                aport.insertar()
-                setTimeout(function(){
-                  res.redirect('/modificarAporte?nombre_programa='+req.body.nombre_programa+'&dni='+dni);
-                }, 1000);
-              }
-            }, 1000);
+            if(tipo_pago=="DEBITO"){id_mediodepago=debit.id}else {id_mediodepago=credit.id}
+            console.log("id medio de pago ="+id_mediodepago)
+            aport.id=id_mediodepago
+            console.log(aport)
+            aport.insertar()
+            setTimeout(function(){res.redirect('/listadoAportes');}, time)
+          }, time);
+        }, time);
+      }
 
-          }, 1000);
-        }
 
-      }, 1000);
 
-    };
 
-  }, 1000);
+  }else{res.redirect('/insertarAporte');}
+
+  }, time);
 
 
 
@@ -804,7 +794,7 @@ router.get('/eliminarAporte', function(req, res) {
             credit.id=aport.id
             credit.cargarPorId()
             setTimeout(function(){
-              console.log(donant)
+
               res.render('eliminarAporte', { user : req.user,datospersona:pers,datoscredito:credit,datosdebito:debit,datosaporte:aport });
             }, 1000);
           }, 1000);
@@ -822,11 +812,15 @@ router.post('/eliminarAporteRedir', function(req, res) {
 });
 
 router.post('/eliminarAporte', function(req, res) {
-  var aporte = new Aporte(req.body.dni,req.body.nombre_programa);
-  aporte.eliminar()
+  var aporte = new Aporta(req.body.dni,req.body.nombre_programa);
+  aporte.cargar()
   setTimeout(function(){
-    res.redirect('/')
-  }, 50);
+    aporte.eliminar()
+    setTimeout(function(){
+      res.redirect('/')
+    }, time);
+  }, time);
+
 
 
 });
@@ -876,7 +870,6 @@ router.post('/donantesPorProgramaRedir', function(req, res) {
 router.get('/infoDonante', function(req, res) {
     var dni=req.query.dni;
     var donant = new Donante(dni);
-    // donant.cargar();
     donant.programasQueAporta();
     setTimeout(function(){
       if(dni){
@@ -890,7 +883,7 @@ router.get('/infoDonante', function(req, res) {
             if(result.rows[0]){
                 console.log("INFODONANTE ES  "+result.rows[0].ocupacion+" y "+result.rows[0].cuil_cuit);
                 result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
-              res.render('infoDonante', { user : req.user,infoDonante:result.rows, listaProgramas:donant.listaProgramasAporta, datosdonante:donant  });
+                res.render('infoDonante', { user : req.user,infoDonante:result.rows, listaAportes:donant.listaAportes, datosdonante:donant  });
             }
             client.end(function (err) {
               if (err) {console.log(err)};
@@ -1035,6 +1028,46 @@ router.get('/listadoContactos', function(req, res) {
      });
    });
   });
+
+
+  router.get('/donantesPorTarjeta', function(req, res) {
+      var nombre_tarjeta=req.query.nombre_tarjeta
+      var tarjeta = new Credito();
+      tarjeta.tiposTarjeta()
+      setTimeout(function(){
+        if(nombre_tarjeta){
+          client = new pg.Client(connectionString);
+
+          client.connect(function (err) {
+            if (err){console.log(err);}
+           	var query="select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.tarjeta where nombre_tarjeta = '"+nombre_tarjeta+"') deb"
+           //	var query = "﻿select * from (select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb) apdeb natural join (select * from ciudad_de_los_niños_development.persona) per"
+            console.log(query);
+            client.query(query, function (err, result) {
+              if (err) throw err;
+              if(result.rows[0]){
+              	console.log(result.rows)
+                res.render('donantesPorTarjeta', { user : req.user,lista:result.rows, listatarjetas:tarjeta.listatarjetas  });
+              }
+              client.end(function (err) {
+                if (err) {console.log(err)};
+              });
+            });
+          });
+        }else{
+          res.render('donantesPorTarjeta', { user : req.user, listatarjetas:tarjeta.listatarjetas });
+        }
+      }, 1000);
+
+
+  });
+
+  router.post('/donantesPorTarjetaRedir', function(req, res) {
+    res.redirect('/donantesPorTarjeta?nombre_tarjeta='+req.body.nombre_tarjetaRedir);
+
+  });
+
+
 
 
 module.exports = router;
