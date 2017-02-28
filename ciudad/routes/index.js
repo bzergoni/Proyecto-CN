@@ -581,7 +581,7 @@ router.post('/insertarContacto', function(req, res) {
           setTimeout(function(){
             console.log("existe de contact: "+contact.existe);
             if(!contact.existe){
-              console.log("entro al if de existe contact");
+              console.log("entro al if de existe contact"+" ... con estado: "+req.body.estado);
               contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_alta,req.body.fecha_baja,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion);
               contact.insertar()
             }
@@ -951,6 +951,9 @@ router.get('/listadoDonantes', function(req, res) {
 
     client.query(query, function (err, result) {
       if (err) throw err;
+      if(!err && !result.rows[0]){
+          res.render('listadoDonantes', { user : req.user});
+      }
       if(result.rows[0]){
         res.render('listadoDonantes', { user : req.user,lista:result.rows});
       }
@@ -972,6 +975,7 @@ router.get('/listadoAportes', function(req, res) {
 
     client.query(query, function (err, result) {
       if (err) throw err;
+      if(!err && !result.rows[0]){res.render('listadoAportes', { user : req.user});}
       if(result.rows[0]){
         res.render('listadoAportes', { user : req.user,lista:result.rows});
       }
@@ -998,9 +1002,13 @@ router.get('/listadoContactos', function(req, res) {
 
     client.query(query, function (err, result) {
       if (err) throw err;
+      if(!err && !result.rows[0]){
+        res.render('listadoContactos', { user : req.user});
+      }
       if(result.rows[0]){
         res.render('listadoContactos', { user : req.user, lista:result.rows});
       }
+      //if (!err) {  res.render('listadoContactos', { user : req.user});};
       client.end(function (err) {
         if (err) {console.log(err)};
       });
@@ -1018,7 +1026,10 @@ router.get('/listadoContactos', function(req, res) {
      console.log(query);
      client.query(query, function (err, result) {
        if (err) throw err;
-        if(result.rows[0]){
+       if(!err && !result.rows[0]){
+           res.render('listadoProgramas', { user : req.user});
+       }
+       if(result.rows[0]){
           console.log("la lista es:  "+result.rows[0].descripcion)
           res.render('listadoProgramas', { user : req.user,lista:result.rows});
         }
