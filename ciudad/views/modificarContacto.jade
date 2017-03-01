@@ -1,39 +1,96 @@
 extends layout
 block content
-      center modificar contacto
+        
+        p.title Modificar contacto
+        br
+        br
+        br
         if(!datoscontacto)
           form(role='form', action="/modificarContactoRedir",method="post", style='max-width: 300px;')
             .form-group
               input.form-control(type='text', name="dniRedir", placeholder='DNI')
             button(type='submit',class="boton") Aceptar
         if(datoscontacto)
-          p se cargo el contacto!
-          form(role='form', action="/modificarContacto",method="post", style='max-width: 300px;')
+          
+          form(role='form', action="/modificarContacto",method="post")
             .form-group
+              label(for='dni') Dni:  
               input.form-control(type='text', name="dni", placeholder='DNI',value=datospersona.dni,readonly="true")
+              br
+              label(for="n_y_ap") Nombre y apellido:
               input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',value=datospersona.n_y_ap)
+              br
+              label(for='dni') Email:
               input.form-control(type='text', name="email", placeholder='EMAIL',value=datospadrino.email)
+              br
+              label(for='dni') Telefono Fijo:
               input.form-control(type='text', name="tel_fijo", placeholder='TELEFONO FIJO',value=datospadrino.tel_fijo)
+              br
+              label(for='dni') Direccion:
               input.form-control(type='text', name="direccion", placeholder='DIRECCION',value=datospadrino.direccion)
+              br
+              label(for='dni') Celular:
               input.form-control(type='text', name="celular", placeholder='CELULAR',value=datospadrino.celular)
+              br
+              label(for='dni') Fecha de nacimiento:
               input.form-control(type='text', name="fecha_nac", placeholder='FECHA DE NACIMIENTO',value=datospadrino.fecha_nac)
+              br
+              label(for='dni') Codigo Postal:
               input.form-control(type='text', name="cod_postal", placeholder='CODIGO POSTAL',value=datospadrino.cod_postal)
+              br
+              label(for='dni') Fecha de primer contacto:
               input.form-control(type='text', name="fecha_primer_contacto", placeholder='FECHA DE PRIMER CONTACTO',value=datoscontacto.fecha_primer_contacto)
+              br
+              label(for='dni') Fecha de alta:
               input.form-control(type='text', name="fecha_alta", placeholder='FECHA DE ALTA',value=datoscontacto.fecha_alta)
+              br
+              label(for='dni') Fecha de baja:
               input.form-control(type='text', name="fecha_baja", placeholder='FECHA DE BAJA',value=datoscontacto.fecha_baja)
+              br
+              label(for='dni') Fecha Rechazo de adhesion:
               input.form-control(type='text', name="fecha_rechazo_adhesion", placeholder='FECHA DE RECHAZO DE ADHESION',value=datoscontacto.fecha_rechazo_adhesion)
-              //- input.form-control(type='text', name="estado", placeholder='ESTADO',value=datoscontacto.estado)
-              //corregir seleccion anteriormente cargada
               
+              label(for='dni') Estado:
               select(name='estado')
-                option(value='Sin llamar') SIN LLAMAR
-                option(value='ERROR') ERROR
-                option(value='No acepta') NO ACEPTA
-                option(value='Gestion') GESTION
-                option(value='Adherido') ADHERIDO
-                option(value='Amigo') AMIGO
-                option(value='Baja') BAJA
-              input.form-control(type='text', name="dni_recomendador", placeholder='DNI DEL RECOMENDADOR',value=datoscontacto.dni_recomendador)
+                if (datoscontacto.estado =='Sin llamar')
+                  option(value='Sin llamar', selected='') SIN LLAMAR
+                else
+                  option(value='Sin llamar') SIN LLAMAR
+                
+                if (datoscontacto.estado =='Sin llamar')
+                  option(value='ERROR', selected='') ERROR
+                else
+                  option(value='ERROR') ERROR
+                
+                if (datoscontacto.estado =='No acepta')
+                  option(value='No acepta', selected='') NO ACEPTA
+                else
+                  option(value='No acepta') NO ACEPTA
+                
+                if (datoscontacto.estado =='Gestion')
+                  option(value='Gestion', selected='') GESTION
+                else
+                  option(value='Gestion') GESTION
+                  
+                if (datoscontacto.estado =='Adherido')
+                  option(value='Adherido', selected='') ADHERIDO
+                else
+                  option(value='Adherido') ADHERIDO
+                
+                if (datoscontacto.estado =='Amigo')
+                  option(value='Amigo', selected='') AMIGO
+                else
+                  option(value='Amigo') AMIGO
+                    
+                if (datoscontacto.estado =='Baja')
+                  option(value='Baja', selected='') BAJA
+                else
+                  option(value='Baja') BAJA
+                      
+              label(for='dni') Dni del recomendador:
+              input.form-control(type='text', name="dni_recomendador", placeholder='DNI DEL RECOMENDADOR',value=datoscontacto.dni_recomendador,required)
+              label(for='dni') Comentario:
               input.form-control(type='text', name="comentario", placeholder='COMENTARIO',value=datoscontacto.comentario)
+              label(for='dni') Relacion:
               input.form-control(type='text', name="relacion", placeholder='RELACION CON RECOMENDADOR',value=datoscontacto.relacion)
             button(type='submit',class="boton") Aceptar

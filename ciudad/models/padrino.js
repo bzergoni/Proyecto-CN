@@ -47,7 +47,7 @@ Padrino.prototype.cargar = function() {
                 thisrespaldo.tel_fijo = result.rows[0].tel_fijo;
                 thisrespaldo.direccion = result.rows[0].direccion;
                 thisrespaldo.celular = result.rows[0].celular;
-                thisrespaldo.fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
+                thisrespaldo.fecha_nac = stringFecha(result.rows[0].fecha_nac);
                 thisrespaldo.cod_postal = result.rows[0].cod_postal;
 
                 console.log(thisrespaldo);
@@ -71,7 +71,7 @@ Padrino.prototype.insertar = function() {
     var tel_fijo=this.tel_fijo;
     var direccion=this.direccion;
     var celular=this.celular;
-    var fecha_nac=this.fecha_nac;
+    var fecha_nac=fechaToQuery(this.fecha_nac);
     var cod_postal=this.cod_postal;
 
     client = new pg.Client(connectionString);
@@ -80,8 +80,8 @@ Padrino.prototype.insertar = function() {
             console.log(err)
         };
         // execute a query on our database
-        console.log("insert into ciudad_de_los_niños_development.padrino values (" + dni + ",'" + email + "','" + tel_fijo + "','" + direccion + "','" + celular + "','" + fecha_nac + "'," + cod_postal + ");")
-        client.query("insert into ciudad_de_los_niños_development.padrino values (" + dni + ",'" + email + "','" + tel_fijo + "','" + direccion + "','" + celular + "','" + fecha_nac + "'," + cod_postal + ");", function(err, result) {
+        console.log("insert into ciudad_de_los_niños_development.padrino values (" + dni + ",'" + email + "','" + tel_fijo + "','" + direccion + "','" + celular + "'," + fecha_nac + "," + cod_postal + ");")
+        client.query("insert into ciudad_de_los_niños_development.padrino values (" + dni + ",'" + email + "','" + tel_fijo + "','" + direccion + "','" + celular + "'," + fecha_nac + "," + cod_postal + ");", function(err, result) {
             if (err) {
                 console.log(err)
             }
@@ -106,7 +106,7 @@ Padrino.prototype.actualizar = function() {
     var tel_fijo=this.tel_fijo;
     var direccion=this.direccion;
     var celular=this.celular;
-    var fecha_nac=this.fecha_nac;
+    var fecha_nac = fechaToQuery(this.fecha_nac);
     var cod_postal=this.cod_postal;
     client = new pg.Client(connectionString);
     client.connect(function(err) {
@@ -114,7 +114,7 @@ Padrino.prototype.actualizar = function() {
             console.log(err)
         };
         // execute a query on our database
-        client.query("update ciudad_de_los_niños_development.padrino set email='" + email + "', direccion='" + direccion + "', tel_fijo='" + tel_fijo + "', celular='" + celular + "', fecha_nac='" + fecha_nac + "', cod_postal=" + cod_postal + " where dni='" + dni + "'", function(err, result) {
+        client.query("update ciudad_de_los_niños_development.padrino set email='" + email + "', direccion='" + direccion + "', tel_fijo='" + tel_fijo + "', celular='" + celular + "', fecha_nac=" + fecha_nac + ", cod_postal=" + cod_postal + " where dni='" + dni + "'", function(err, result) {
             if (err) {
                 console.log(err)
             }
@@ -185,5 +185,18 @@ Padrino.prototype.exist = function() {
 
 };
 
-
+function stringFecha(a){
+  if(a){
+    return a.toLocaleDateString();
+  }else{
+    return a
+  }
+}
+function fechaToQuery(a){
+  if(a == ""){
+    return ("null");
+  }else{
+    return ("'"+a+"'");
+  }
+}
 module.exports.padrino = Padrino;

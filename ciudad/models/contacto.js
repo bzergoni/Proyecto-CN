@@ -37,10 +37,10 @@ Contacto.prototype.cargar = function(){
         //repetirse para todos los campos
 
         thisrespaldo.dni = result.rows[0].dni;
-        thisrespaldo.fecha_primer_contacto = result.rows[0].fecha_primer_contacto.toLocaleDateString();
-        thisrespaldo.fecha_alta = result.rows[0].fecha_alta.toLocaleDateString();
-        thisrespaldo.fecha_baja = result.rows[0].fecha_baja.toLocaleDateString();
-        thisrespaldo.fecha_rechazo_adhesion = result.rows[0].fecha_rechazo_adhesion.toLocaleDateString();
+        thisrespaldo.fecha_primer_contacto =stringFecha( result.rows[0].fecha_primer_contacto);
+        thisrespaldo.fecha_alta = stringFecha(result.rows[0].fecha_alta);
+        thisrespaldo.fecha_baja = stringFecha(result.rows[0].fecha_baja);
+        thisrespaldo.fecha_rechazo_adhesion = stringFecha(result.rows[0].fecha_rechazo_adhesion);
         thisrespaldo.estado = result.rows[0].estado;
         thisrespaldo.dni_recomendador = result.rows[0].dni_recomendador;
         thisrespaldo.comentario = result.rows[0].comentario;
@@ -60,7 +60,7 @@ Contacto.prototype.insertar = function(){
   client.connect(function (err) {
     if (err) {console.log(err)};
     // execute a query on our database
-    client.query("insert into ciudad_de_los_niños_development.contacto values ('"+thisrespaldo.dni+"','"+thisrespaldo.fecha_primer_contacto+"','"+thisrespaldo.fecha_alta+"','"+thisrespaldo.fecha_baja+"','"+thisrespaldo.fecha_rechazo_adhesion+"','"+thisrespaldo.estado+"','"+thisrespaldo.dni_recomendador+"','"+thisrespaldo.comentario+"','"+thisrespaldo.relacion+"');", function (err, result) {
+    client.query("insert into ciudad_de_los_niños_development.contacto values ('"+thisrespaldo.dni+"',"+fechaToQuery(thisrespaldo.fecha_primer_contacto)+","+fechaToQuery(thisrespaldo.fecha_alta)+","+fechaToQuery(thisrespaldo.fecha_baja)+","+fechaToQuery(thisrespaldo.fecha_rechazo_adhesion)+",'"+thisrespaldo.estado+"','"+thisrespaldo.dni_recomendador+"','"+thisrespaldo.comentario+"','"+thisrespaldo.relacion+"');", function (err, result) {
       if (err){console.log(err)}
 
 
@@ -74,11 +74,37 @@ Contacto.prototype.insertar = function(){
 //la funcion actualizar, subiria los cambios luego de una modificacion!
 Contacto.prototype.actualizar = function(){
   var dni=this.dni;
-  var fecha_primer_contacto=this.fecha_primer_contacto;
-  var fecha_alta=this.fecha_alta;
-  var fecha_baja=this.fecha_baja;
-  var fecha_rechazo_adhesion=this.fecha_rechazo_adhesion;
+
+  var fecha_primer_contacto
+  if(this.fecha_primer_contacto == ""){
+    fecha_primer_contacto="null";
+  }else{
+    fecha_primer_contacto="'"+this.fecha_primer_contacto+"'";
+  }
+
+  var fecha_alta
+  if(this.fecha_alta == ""){
+    fecha_alta="null";
+  }else{
+    fecha_alta="'"+this.fecha_alta+"'";
+  }
+
+  var fecha_baja
+  if(this.fecha_baja == ""){
+    fecha_baja="null";
+  }else{
+    fecha_baja="'"+this.fecha_baja+"'";
+  }
+
+  var fecha_rechazo_adhesion
+  if(this.fecha_rechazo_adhesion == ""){
+    fecha_rechazo_adhesion="null";
+  }else{
+    fecha_rechazo_adhesion="'"+this.fecha_rechazo_adhesion+"'";
+  }
+
   var estado=this.estado;
+
   var dni_recomendador=this.dni_recomendador;
   var comentario =this.comentario;
   var relacion=this.relacion;
@@ -90,10 +116,10 @@ Contacto.prototype.actualizar = function(){
     if (err) {console.log(err)};
     // execute a query on our database
     console.log("antes del query");
-    client.query("update ciudad_de_los_niños_development.contacto set fecha_primer_contacto='"+fecha_primer_contacto+"',fecha_alta='"+fecha_alta+"',fecha_baja='"+fecha_baja+"',fecha_rechazo_adhesion='"+fecha_rechazo_adhesion+"',estado='"+estado+"',dni_recomendador='"+dni_recomendador+"',comentario='"+comentario+"',relacion='"+relacion+"' where dni='" + dni + "'", function (err, result) {
+    client.query("update ciudad_de_los_niños_development.contacto set fecha_primer_contacto="+fecha_primer_contacto+",fecha_alta="+fecha_alta+",fecha_baja="+fecha_baja+",fecha_rechazo_adhesion="+fecha_rechazo_adhesion+",estado='"+estado+"',dni_recomendador='"+dni_recomendador+"',comentario='"+comentario+"',relacion='"+relacion+"' where dni='" + dni + "'", function (err, result) {
       if (err){console.log(err)}
       console.log("query update");
-      console.log("update ciudad_de_los_niños_development.contacto set fecha_primer_contacto='"+fecha_primer_contacto+"',fecha_alta='"+fecha_alta+"',fecha_baja='"+fecha_baja+"',fecha_rechazo_adhesion='"+fecha_rechazo_adhesion+"',estado='"+estado+"',dni_recomendador='"+dni_recomendador+"',comentario='"+comentario+"',relacion='"+relacion+"' where dni='" + dni + "'");
+      console.log("update ciudad_de_los_niños_development.contacto set fecha_primer_contacto="+fecha_primer_contacto+",fecha_alta="+fecha_alta+",fecha_baja="+fecha_baja+",fecha_rechazo_adhesion="+fecha_rechazo_adhesion+",estado='"+estado+"',dni_recomendador='"+dni_recomendador+"',comentario='"+comentario+"',relacion='"+relacion+"' where dni='" + dni + "'");
       client.end(function (err) {
         if (err){ console.log(err)};
       });
@@ -141,5 +167,18 @@ Contacto.prototype.exist = function(){
 
 };
 
-
+function stringFecha(a){
+  if(a){
+    return a.toLocaleDateString();
+  }else{
+    return a
+  }
+}
+function fechaToQuery(a){
+  if(a == ""){
+    return ("null");
+  }else{
+    return ("'"+a+"'");
+  }
+}
 module.exports.contacto = Contacto;

@@ -30,10 +30,11 @@ th, td {
    cursor: default;
 
 }
-table{
-  
+.form-group {
+	margin-bottom: 15px;
+	width: 31%;
+	text-align: left;
 }
-
 .logo {
 	font-family: 'Roboto', sans-serif;
 	float: left;

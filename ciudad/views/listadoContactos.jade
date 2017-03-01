@@ -12,6 +12,7 @@ block content
         thead
           th Dni
           th Nombre y apellido
+          th Estado
           th 
           th 
         each elemento, i in lista
@@ -19,6 +20,7 @@ block content
             td 
               a(href='/infoContacto?dni=#{elemento.dni}') #{elemento.dni}
             td #{elemento.n_y_ap}
+            td #{elemento.estado}
             td(class='celdacorta')
               a(href='/modificarContacto?dni=#{elemento.dni}') modificar              
             td(class='celdacorta')

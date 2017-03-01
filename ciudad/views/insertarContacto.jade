@@ -1,22 +1,50 @@
 extends layout
 block content
-      center insertar contacto
-        form(role='form', action="/insertarContacto",method="post", style='max-width: 300px;')
+        p.title Insertar contacto
+        br
+        br
+        br
+        form(role='form', action="/insertarContacto",method="post")
           .form-group
+            label(for='dni') Dni:  
             input.form-control(type='text', name="dni", placeholder='DNI')
+            br
+            label(for="n_y_ap") Nombre y apellido:
             input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO')
+            br
+            label(for='dni') Email:
             input.form-control(type='text', name="email", placeholder='EMAIL')
-            input.form-control(type='tel', name="tel_fijo", placeholder='TELEFONO FIJO')
+            br
+            label(for='dni') Telefono Fijo:
+            input.form-control(type='text', name="tel_fijo", placeholder='TELEFONO FIJO')
+            br
+            label(for='dni') Direccion:
             input.form-control(type='text', name="direccion", placeholder='DIRECCION')
+            br
+            label(for='dni') Celular:
             input.form-control(type='text', name="celular", placeholder='CELULAR')
-            input.form-control(type='date', name="fecha_nac", placeholder='FECHA DE NACIMIENTO DD/MM/AAAA')
+            br
+            label(for='dni') Fecha de nacimiento:
+            input.form-control(type='text', name="fecha_nac", placeholder='FECHA DE NACIMIENTO')
+            br
+            label(for='dni') Codigo Postal:
             input.form-control(type='text', name="cod_postal", placeholder='CODIGO POSTAL')
+            br
+            label(for='dni') Fecha de primer contacto:
             input.form-control(type='text', name="fecha_primer_contacto", placeholder='FECHA DE PRIMER CONTACTO')
+            br
+            label(for='dni') Fecha de alta:
             input.form-control(type='text', name="fecha_alta", placeholder='FECHA DE ALTA')
-            input.form-control(type='text', name="fecha_baja", placeholder=' FECHA DE BAJA')
+            br
+            label(for='dni') Fecha de baja:
+            input.form-control(type='text', name="fecha_baja", placeholder='FECHA DE BAJA')
+            br
+            label(for='dni') Fecha Rechazo de adhesion:
             input.form-control(type='text', name="fecha_rechazo_adhesion", placeholder='FECHA DE RECHAZO DE ADHESION')
-            
+            br
             //input.form-control(type='text', name="estado", placeholder='ESTADO(Sin llamar,ERROR, No acepta, En gestion, Adherido, Amigo, Baja)')
+            label(for='dni') Estado:
+            br
             select(name='estado')
               option(value='Sin llamar') SIN LLAMAR
               option(value='ERROR') ERROR
@@ -25,8 +53,14 @@ block content
               option(value='Adherido') ADHERIDO
               option(value='Amigo') AMIGO
               option(value='Baja') BAJA
-              
-            input.form-control(type='text', name="dni_recomendador", placeholder='DNI DEL RECOMENDADOR')
+            br
+            br
+            label(for='dni') Dni del recomendador:
+            input.form-control(type='text', name="dni_recomendador", placeholder='DNI DEL RECOMENDADOR',required)
+            br
+            label(for='dni') Comentario:
             input.form-control(type='text', name="comentario", placeholder='COMENTARIO')
+            br
+            label(for='dni') Relacion:
             input.form-control(type='text', name="relacion", placeholder='RELACION CON EL RECOMENDADOR')
           button(type='submit',class="boton") Aceptar

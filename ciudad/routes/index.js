@@ -1056,6 +1056,7 @@ router.get('/listadoContactos', function(req, res) {
             console.log(query);
             client.query(query, function (err, result) {
               if (err) throw err;
+
               if(result.rows[0]){
               	console.log(result.rows)
                 res.render('donantesPorTarjeta', { user : req.user,lista:result.rows, listatarjetas:tarjeta.listatarjetas  });

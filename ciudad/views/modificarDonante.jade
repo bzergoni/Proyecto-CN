@@ -1,6 +1,6 @@
 extends layout
 block content 
-      center modificar donante 
+      p.title Modificar donante 
         if(!datosdonante)  
           form(role='form', action="/modificarDonanteRedir",method="post", style='max-width: 300px;')
             .form-group
@@ -8,16 +8,16 @@ block content
             button(type='submit',class="boton") Aceptar
         if(datosdonante)  
           p se cargo el donante!
-          form(role='form', action="/modificarDonante",method="post", style='max-width: 300px;')
+          form(role='form', action="/modificarDonante",method="post")
             .form-group
-              input.form-control(type='text', name="dni", placeholder='Dni',value=datospersona.dni,readonly="true")
-              input.form-control(type='text', name="n_y_ap", placeholder='Nombre y apellido',value=datospersona.n_y_ap)
-              input.form-control(type='text', name="email", placeholder='Correo Electronico',value=datospadrino.email)
+              input.form-control(type='text', name="dni", placeholder='Dni',value=datospersona.dni,readonly="true",required)
+              input.form-control(type='text', name="n_y_ap", placeholder='Nombre y apellido',value=datospersona.n_y_ap,required)
+              input.form-control(type='text', name="email", placeholder='Correo Electronico',value=datospadrino.email,required)
               input.form-control(type='text', name="tel_fijo", placeholder='Telefono fijo',value=datospadrino.tel_fijo)
-              input.form-control(type='text', name="direccion", placeholder='Direccion',value=datospadrino.direccion)
-              input.form-control(type='text', name="celular", placeholder='Telefono Celular',value=datospadrino.celular)
-              input.form-control(type='text', name="fecha_nac", placeholder='Fecha de Nacimiento',value=datospadrino.fecha_nac)
-              input.form-control(type='text', name="cod_postal", placeholder='Cod. Postal',value=datospadrino.cod_postal)
+              input.form-control(type='text', name="direccion", placeholder='Direccion',value=datospadrino.direccion,required)
+              input.form-control(type='text', name="celular", placeholder='Telefono Celular',value=datospadrino.celular,required)
+              input.form-control(type='text', name="fecha_nac", placeholder='Fecha de Nacimiento',value=datospadrino.fecha_nac,required)
+              input.form-control(type='text', name="cod_postal", placeholder='Cod. Postal',value=datospadrino.cod_postal,required)
               input.form-control(type='text', name="ocupacion", placeholder='Ocupacion',value=datosdonante.ocupacion)
-              input.form-control(type='text', name="cuil_cuit", placeholder='Cuil/Cuit',value=datosdonante.cuil_cuit)
+              input.form-control(type='text', name="cuil_cuit", placeholder='Cuil/Cuit',value=datosdonante.cuil_cuit,required)
             button(type='submit',class="boton") Aceptar

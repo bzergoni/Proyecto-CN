@@ -1,170 +1,139 @@
+//- 
+  doctype html
+  html(lang='en')
+    head
+      meta(charset='utf-8')
+      meta(http-equiv='X-UA-Compatible', content='IE=edge')
+      meta(name='viewport', content='width=device-width, initial-scale=1')
+      meta(name='description', content='')
+      meta(name='author', content='')
+      title Proyecto Socio Comunitario - Ciudad de los niños
+      // Bootstrap Core CSS
+      link(href='css/bootstrap.min.css', rel='stylesheet')
+      // Custom CSS
+      link(href='css/sb-admin.css', rel='stylesheet')
+      // Morris Charts CSS
+      link(href='css/plugins/morris.css', rel='stylesheet')
+      // Custom Fonts
+      link(href='font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+      // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+      // WARNING: Respond.js doesn't work if you view the page via file://
+      //if lt IE 9
+        script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+        script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+    body
+      #wrapper
+        // Navigation
+        nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+          // Brand and toggle get grouped for better mobile display
+          .navbar-header
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-ex1-collapse')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand(href='/') PSC - Proyecto CN
+          // Top Menu Items
+          ul.nav.navbar-right.top-nav
+            li
+              a(href='#')
+                i.fa.fa-fw.fa-power-off.fa-2x
+                |  Log Out
+          // Sidebar Menu Items - These collapse to the responsive navigation menu on small screens
+          .collapse.navbar-collapse.navbar-ex1-collapse
+            ul.nav.navbar-nav.side-nav
+              li.active
+                a(href='index.html')
+                  i.fa.fa-fw.fa-dashboard.fa-2x
+                  |  Donantes
+              li
+                a(href='charts.html')
+                  i.fa.fa-fw.fa-file-o.fa-2x
+                  |  Contactos
+              li
+                a(href='tables.html')
+                  i.fa.fa-fw.fa-table.fa-2x
+                  |  Programas
+              li
+                a(href='forms.html')
+                  i.fa.fa-fw.fa-usd.fa-2x
+                  |  Aportes
+              
+              li
+                a(href='javascript:;', data-toggle='collapse', data-target='#demo')
+                  i.fa.fa-fw.fa-file-text.fa-2x
+                  |  Listados
+                  i.fa.fa-fw.fa-caret-down
+                ul#demo.collapse
+                  li
+                    a(href='#') Listado 1
+                  li
+                    a(href='#') Listado 2
+              
+          // /.navbar-collapse
+        #page-wrapper
+          .container-fluid
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+            br
+
+            // /.row
+          // /.container-fluid
+        // /#page-wrapper
+      // /#wrapper
+      // jQuery
+      script(src='js/jquery.js')
+      // Bootstrap Core JavaScript
+      script(src='js/bootstrap.min.js')
+      // Morris Charts JavaScript
+        script(src='js/plugins/morris/raphael.min.js')
+        script(src='js/plugins/morris/morris.min.js')
+        script(src='js/plugins/morris/morris-data.js')
 doctype html
-html(lang='en')
+html
   head
     meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    meta(name='description', content='')
-    meta(name='author', content='')
-    title Proyecto Socio Comunitario - Ciudad de los niños
-    // Bootstrap Core CSS
-    link(href='css/bootstrap.min.css', rel='stylesheet')
-    // Custom CSS
-    link(href='css/sb-admin.css', rel='stylesheet')
-    // Morris Charts CSS
-    link(href='css/plugins/morris.css', rel='stylesheet')
-    // Custom Fonts
-    link(href='font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
-    // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
-    // WARNING: Respond.js doesn't work if you view the page via file://
-    //if lt IE 9
-      script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
-      script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+    title Ejemplo del uso de formularios - aprenderaprogramar.com
   body
-    #wrapper
-      // Navigation
-      nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
-        // Brand and toggle get grouped for better mobile display
-        .navbar-header
-          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-ex1-collapse')
-            span.sr-only Toggle navigation
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.navbar-brand(href='/') PSC - Proyecto CN
-        // Top Menu Items
-        ul.nav.navbar-right.top-nav
-          li
-            a(href='#')
-              i.fa.fa-fw.fa-power-off.fa-2x
-              |  Log Out
-        // Sidebar Menu Items - These collapse to the responsive navigation menu on small screens
-        .collapse.navbar-collapse.navbar-ex1-collapse
-          ul.nav.navbar-nav.side-nav
-            li.active
-              a(href='index.html')
-                i.fa.fa-fw.fa-dashboard.fa-2x
-                |  Donantes
-            li
-              a(href='charts.html')
-                i.fa.fa-fw.fa-file-o.fa-2x
-                |  Contactos
-            li
-              a(href='tables.html')
-                i.fa.fa-fw.fa-table.fa-2x
-                |  Programas
-            li
-              a(href='forms.html')
-                i.fa.fa-fw.fa-usd.fa-2x
-                |  Aportes
-            
-            li
-              a(href='javascript:;', data-toggle='collapse', data-target='#demo')
-                i.fa.fa-fw.fa-file-text.fa-2x
-                |  Listados
-                i.fa.fa-fw.fa-caret-down
-              ul#demo.collapse
-                li
-                  a(href='#') Listado 1
-                li
-                  a(href='#') Listado 2
-            
-        // /.navbar-collapse
-      #page-wrapper
-        .container-fluid
-          table#datos(border='1', frame='border', rules='groups')
-            caption Ejemplo de grupos de columnas y líneas
-            colgroup(align='center')
-              colgroup(align='left')
-                colgroup(align='center', span='2')
-                  colgroup(align='center', span='3')
-                    thead(valign='top')
-                      tr
-                        th Columna1
-                        th Columna2
-                        th Columna3
-                        th Columna4
-                        th Columna5
-                        th Columna6
-                        th Columna7
-                      tbody
-                        tr
-                          td C1L1
-                          td C2L1
-                          td C3L1
-                          td C4L1
-                          td C5L1
-                          td C6L1
-                          td C7L1
-                        tr
-                          td C1L2
-                          td C2L2
-                          td C3L2
-                          td C4L2
-                          td C5L2
-                          td C6L2
-                          td C7L2
-                        tr
-                          td C1L3
-                          td C2L3
-                          td C3L3
-                          td C4L3
-                          td C5L3
-                          td C6L3
-                          td C7L3
-                        tr
-                          td C1L4
-                          td C2L4
-                          td C3L4
-                          td C4L4
-                          td C5L4
-                          td C6L4
-                          td C7L4
-                        tbody
-                          tr
-                            td C1L5
-                            td C2L5
-                            td C3L5
-                            td C4L5
-                            td C5L5
-                            td C6L5
-                            td C7L5
-                          tr
-                            td C1L6
-                            td C2L6
-                            td C3L6
-                            td C4L6
-                            td C5L6
-                            td C6L6
-                            td C7L6
-                          tfoot
-                            tr
-                              td C1L7
-                              td C2L7
-                              td C3L7
-                              td C4L7
-                              td C5L7
-                              td C6L7
-                              td C7L7
-
-
-          // /.row
-        // /.container-fluid
-      // /#page-wrapper
-    // /#wrapper
-    // jQuery
-    script(src='js/jquery.js')
-    // Bootstrap Core JavaScript
-    script(src='js/bootstrap.min.js')
-    // Morris Charts JavaScript
-    link(rel='stylesheet', type='text/css', href='http://cdn.datatables.net/1.10.3/css/jquery.dataTables.css')
-    
-    script(src='http://cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js')
-    script(type='text/javascript').
-      $(document).ready(function() {
-        $('#datos').DataTable({
-          "language": {
-            "url": "https://cdn.datatables.net/plug-ins/1.10.13/i18n/Spanish.json"
-          }
-        });
-      });
+    form(action='http://www.aprenderaprogramar.com', method='get')
+      p
+        label(for='nombre') Nombre: 
+        input#nombre(type='text', name='nombre')
+        br
+        br
+        label(for='apellido') Apellido: 
+        input#apellido(type='text', name='apellido')
+        br
+        br
+        label(for='email') Email: 
+        input#email(type='text', name='email')
+        br
+        br
+        input#varon(type='radio', name='sexo', value='Varón')
+        label(for='varon') Varón: 
+        br
+        br
+        input#mujer(type='radio', name='sexo', value='Mujer')
+        label(for='mujer') Mujer: 
+        br
+        br
+        input(type='submit', value='Enviar')
+        input(type='reset')
