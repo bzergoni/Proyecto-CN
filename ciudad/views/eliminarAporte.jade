@@ -19,7 +19,48 @@ block content
           
           if(datosaporte.existe)
             p SEGURO QUE QUIERE ELIMINAR EL SIGUIENTE APORTE?
-            form(role='form', action="/eliminarAporte",method="post", style='max-width: 300px;')
+            b Dni:
+            |#{datosaporte.dni}
+            br
+            b Nombre y apellido:
+            |#{datosaporte.n_y_ap}
+            br
+            b Frecuencia:
+            |#{datosaporte.frecuencia}
+            br
+            b Monto:
+            |#{datosaporte.monto}
+            br
+            b Programa:
+            |#{datosaporte.nombre_programa}
+            br
+            br
+            br
+            
+            if(datosdebito.existe)
+              b Metodo de pago:
+              |Debito
+              br
+              b Cbu:
+              |#{datosdebito.cbu}
+              br
+              b Nombre titular:
+              |#{datosdebito.nombre_titular}
+              br
+              
+            if(datoscredito.existe)
+              b Numero :
+              |#{datoscredito.dni}
+              br
+              b Nombre titular:
+              |#{datoscredito.nombre_titular}
+              br
+              b Tipo de tarjeta:
+              |#{datoscredito.nombre_tarjeta}
+              br
+            
+            
+            form(role='form', action="/eliminarAporte",method="post", style='display:none')
               .form-group
                 input.form-control(type='text', name="dni", placeholder='DNI',value=datosaporte.dni,readonly="true")
                 input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',value=datospersona.n_y_ap,readonly="true")

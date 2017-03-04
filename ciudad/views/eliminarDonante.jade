@@ -1,6 +1,6 @@
 extends layout
 block content 
-      center eliminar Donante 
+      center
         if(!datosdonante)  
           form(role='form', action="/eliminarDonanteRedir",method="post", style='max-width: 300px;')
             .form-group
@@ -15,8 +15,41 @@ block content
             button(type='submit',class="boton") Aceptar
             p el dni que ingreso no corresponde a ningun donante en servicio
           if(datosdonante.existeLogico) 
-            p SEGURO QUE QUIERE ELIMINAR EL SIGUIENTE DONANTE?
-            form(role='form', action="/eliminarDonante",method="post", style='max-width: 300px;')
+            |SEGURO QUE QUIERE ELIMINAR EL SIGUIENTE DONANTE?
+            br
+            b Dni:  
+            |#{datospersona.dni}
+            br
+            b Nombre y apellido: 
+            |#{datospersona.n_y_ap}
+            br
+            b Email: 
+            |#{datospadrino.email}
+            br
+            b Telefono fijo: 
+            |#{datospadrino.tel_fijo}
+            br
+            b Direccion: 
+            |#{datospadrino.direccion}
+            br
+            b Celular: 
+            |#{datospadrino.celular}
+            br
+            b Fecha de nacimiento: 
+            |#{datospadrino.fecha_nac}
+            br
+            b Cod. postal: 
+            |#{datospadrino.cod_postal}
+            br
+            b Ocupacion: 
+            |#{datosdonante.ocupacion}
+            br
+            b Cuil/Cuit: 
+            |#{datosdonante.cuil_cuit}
+            
+            
+            
+            form(role='form', action="/eliminarDonante",method="post", style='display :none')
               .form-group
                 input.form-control(type='text', name="dni", placeholder='DNI',value=datospersona.dni,readonly="true")
                 input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',value=datospersona.n_y_ap,readonly="true")

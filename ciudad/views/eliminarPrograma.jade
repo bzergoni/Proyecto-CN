@@ -16,7 +16,14 @@ block content
             p el nombre de programa no corresponde a ningun programa existente
           if(datosprograma.existe) 
             p SEGURO QUE QUIERE ELIMINAR EL SIGUIENTE PROGRAMA?
-            form(role='form', action="/eliminarPrograma",method="post", style='max-width: 300px;')
+            br
+            b Nombre: 
+            |#{datosprograma.nombre_programa}
+            br
+            b Descripcion: 
+            |#{datosprograma.descripcion}
+            
+            form(role='form', action="/eliminarPrograma",method="post", style='display:none')
               .form-group
                 input.form-control(type='text', name="nombre_programa", placeholder='NOMBRE DEL PROGRAMA',value=datosprograma.nombre_programa,readonly="true")
                 input.form-control(type='text', name="descripcion", placeholder='DESCRIPCION',value=datosprograma.descripcion,readonly="true")
