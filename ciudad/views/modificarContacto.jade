@@ -1,6 +1,5 @@
 extends layout
-block content
-        
+block content    
         p.title Modificar contacto
         br
         br
@@ -10,8 +9,7 @@ block content
             .form-group
               input.form-control(type='text', name="dniRedir", placeholder='DNI')
             button(type='submit',class="boton") Aceptar
-        if(datoscontacto)
-          
+        if(datoscontacto)  
           form(role='form', action="/modificarContacto",method="post")
             .form-group
               label(for='dni') Dni:  
@@ -49,7 +47,7 @@ block content
               br
               label(for='dni') Fecha Rechazo de adhesion:
               input.form-control(type='text', name="fecha_rechazo_adhesion", placeholder='FECHA DE RECHAZO DE ADHESION',value=datoscontacto.fecha_rechazo_adhesion)
-              
+              br
               label(for='dni') Estado:
               select(name='estado')
                 if (datoscontacto.estado =='Sin llamar')
@@ -86,7 +84,8 @@ block content
                   option(value='Baja', selected='') BAJA
                 else
                   option(value='Baja') BAJA
-                      
+              br        
+              br
               label(for='dni') Dni del recomendador:
               input.form-control(type='text', name="dni_recomendador", placeholder='DNI DEL RECOMENDADOR',value=datoscontacto.dni_recomendador,required)
               label(for='dni') Comentario:
