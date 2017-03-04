@@ -6,7 +6,7 @@ block content
         br
         br
         if(!datoscontacto)
-          form(role='form', action="/modificarContactoRedir",method="post", style='max-width: 300px;')
+          form(role='form', action="/modificarContactoRedir",method="post")
             .form-group
               input.form-control(type='text', name="dniRedir", placeholder='DNI')
             button(type='submit',class="boton") Aceptar

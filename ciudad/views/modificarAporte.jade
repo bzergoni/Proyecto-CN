@@ -1,9 +1,12 @@
 extends layout
 block content
-      center modificar contacto
+        p.title Modificar aporte
+        br
+        br
+        br
         
         if(!datosaporte)
-          form(role='form', action="/modificarAporteRedir",method="post", style='max-width: 300px;')
+          form(role='form', action="/modificarAporteRedir",method="post")
             .form-group
               input.form-control(type='text', name="dniRedir", placeholder='DNI')
               input.form-control(type='text', name="nombre_programaRedir", placeholder='nombre_programa')
@@ -11,7 +14,7 @@ block content
       
         if(datosaporte)
           if(!datosaporte.existe)
-            form(role='form', action="/modificarAporteRedir",method="post", style='max-width: 300px;')
+            form(role='form', action="/modificarAporteRedir",method="post")
               .form-group
                 input.form-control(type='text', name="dniRedir", placeholder='DNI')
                 input.form-control(type='text', name="nombre_programaRedir", placeholder='nombre_programa')
@@ -19,14 +22,18 @@ block content
             p el aporte que selecciono no existe actualmente  
         
           if(datosaporte.existe)
-            p se cargo el aporte!
-            form(role='form', action="/modificarAporte",method="post", style='max-width: 300px;')
+            form(role='form', action="/modificarAporte",method="post")
               .form-group
+                label(for='dni') Dni del donante:
                 input.form-control(type='text', name="dni", placeholder='DNI',value=datosaporte.dni,readonly="true")
-                
+                br
+                label(for="nombre_programa") Nombre del programa:
                 input.form-control(type='text', name="nombre_programa", placeholder='NOMBRE DEL PROGRAMA',value=datosaporte.nombre_programa,readonly="true")
-                
+                br
+                label(for='monto') Monto del aporte:
                 input.form-control(type='text', name="monto", placeholder='monto',value=datosaporte.monto)
+                br
+                label(for='frecuencia') Frecuencia con que aporta:
                 select(name='frecuencia')
                   if (datosaporte.frecuencia == "Semestral")
                     option(value='Semestral',selected="true") Semestral
