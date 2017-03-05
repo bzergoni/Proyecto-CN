@@ -902,6 +902,44 @@ router.post('/infoDonanteRedir', function(req, res) {
     res.redirect('/infoDonante?dni='+req.body.dniRedir);
 });
 
+//---------------------------------------------------------
+router.get('/infoContacto', function(req, res) {
+    var dni=req.query.dni;
+   // setTimeout(function(){
+      if(dni){
+        client = new pg.Client(connectionString);
+        client.connect(function (err) {
+          if (err){console.log(err);}
+          var query = "select * from (select * from ciudad_de_los_niños_development.contacto where dni='"+dni+"') don natural join (select * from ciudad_de_los_niños_development.padrino) padr natural join (select * from ciudad_de_los_niños_development.persona) per";
+          console.log(query);
+          client.query(query, function (err, result) {
+            if (err) throw err;
+            if(result.rows[0]){
+                console.log("INFOCONTACTO  "+result.rows[0]);
+                result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
+                if(result.rows[0].fecha_primer_contacto){result.rows[0].fecha_primer_contacto = result.rows[0].fecha_primer_contacto.toLocaleDateString();}
+                if(result.rows[0].fecha_alta){result.rows[0].fecha_alta = result.rows[0].fecha_alta.toLocaleDateString();}
+                if(result.rows[0].fecha_baja){result.rows[0].fecha_baja = result.rows[0].fecha_baja.toLocaleDateString();}
+                if(result.rows[0].fecha_rechazo_adhesion){result.rows[0].fecha_rechazo_adhesion = result.rows[0].fecha_rechazo_adhesion.toLocaleDateString();}
+
+                res.render('infoContacto', { user : req.user,infoContacto:result.rows});
+            }
+            client.end(function (err) {
+              if (err) {console.log(err)};
+            });
+          });
+        });
+      }else{
+        res.render('infoContacto', { user : req.user});
+      }
+    //},500);
+
+
+});
+
+router.post('/infoContactoRedir', function(req, res) {
+    res.redirect('/infoContacto?dni='+req.body.dniRedir);
+});
 
 
 router.get('/donantesPorBanco', function(req, res) {
