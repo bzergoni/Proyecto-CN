@@ -3,21 +3,27 @@ block content
       center 
         p.title Información del Contacto
         if(!infoContacto)
+          br
+          br
+          br
+          h3 Ingrese el DNI del contacto que desea visualizar:
+          br
           form(role='form', action="/infoContactoRedir",method="post")
             .form-group
               input.form-control(type='text', name="dniRedir", placeholder='DNI')
             button(type='submit',class="boton") Aceptar
-            p Ingrese un Dni correspondiente a un contacto activo
+
+            form
+              input(type='button', value='Volver', name='Volver', onclick='history.back()')
+          br
+
         if(infoContacto)
           br
           br
           br
-          | El DNI 
-          b #{infoContacto[0].dni} 
-          | corresponde a:
-        
-          br
-          
+          li
+            b DNI: 
+            |  #{infoContacto[0].dni}
           br
           li
             b Nombre y Apellido: 
@@ -83,4 +89,5 @@ block content
 
           br
           br
-          a(href='javascript:history.back()') Volver
+          form
+            input(type='button', value='Volver', name='Volver', onclick='history.back()')
