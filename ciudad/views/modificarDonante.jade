@@ -4,12 +4,13 @@ block content
         br
         br
         br
-        if(!datosdonante)  
+        if(!datosdonante || !datosdonante.existe)  
           form(role='form', action="/modificarDonanteRedir",method="post")
             .form-group
+              label(for='dniRedir') Dni del donante:
               input.form-control(type='text', name="dniRedir", placeholder='DNI')
             button(type='submit',class="boton") Aceptar
-        if(datosdonante)  
+        if(datosdonante && datosdonante.existe)  
           form(role='form', action="/modificarDonante",method="post")
             .form-group
               label(for='dni') Dni del donante:
@@ -42,3 +43,4 @@ block content
               label(for='cuil_cuit') Cuil/Cuit:
               input.form-control(type='text', name="cuil_cuit", placeholder='Cuil/Cuit',value=datosdonante.cuil_cuit,required)
             button(type='submit',class="boton") Aceptar
+//CAMBIO EN EL IF DE LA VISTA COMENTAR AL RESTO DEL GRUPO....

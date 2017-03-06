@@ -7,12 +7,13 @@ block content
         if(!datoscontacto)
           form(role='form', action="/modificarContactoRedir",method="post")
             .form-group
+              label(for='dniRedir') Dni del contacto:
               input.form-control(type='text', name="dniRedir", placeholder='DNI')
             button(type='submit',class="boton") Aceptar
         if(datoscontacto)  
           form(role='form', action="/modificarContacto",method="post")
             .form-group
-              label(for='dni') Dni:  
+              label(for='dni') Dni del contacto:  
               input.form-control(type='text', name="dni", placeholder='DNI',value=datospersona.dni,readonly="true")
               br
               label(for="n_y_ap") Nombre y apellido:
