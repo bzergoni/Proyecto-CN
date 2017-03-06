@@ -1,15 +1,21 @@
 extends layout
 block content 
-      center modificar programa
+        p.title Modificar programa 
+        br
+        br
+        br
         if(!datosprograma)  
           form(role='form', action="/modificarProgramaRedir",method="post", style='max-width: 300px;')
             .form-group
+              label(for='nombre_programaRedir') Nombre del programa:
               input.form-control(type='text', name="nombre_programaRedir", placeholder='NOMBRE DEL PROGRAMA')
             button(type='submit',class="boton") Aceptar
         if(datosprograma)  
-          p se cargo el programa!
           form(role='form', action="/modificarPrograma",method="post", style='max-width: 300px;')
             .form-group
+              label(for='nombre_programa') Nombre del programa:
               input.form-control(type='text', name="nombre_programa", placeholder='NOMBRE DEL PROGRAMA',value=datosprograma.nombre_programa,readonly="true")
+              br
+              label(for='descripcion') Descripción:
               input.form-control(type='text', name="descripcion", placeholder='DESCRIPCION',value=datosprograma.descripcion)
             button(type='submit',class="boton") Aceptar

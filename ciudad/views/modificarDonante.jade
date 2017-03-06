@@ -1,23 +1,46 @@
 extends layout
 block content 
-      p.title Modificar donante 
-        if(!datosdonante)  
-          form(role='form', action="/modificarDonanteRedir",method="post", style='max-width: 300px;')
+        p.title Modificar donante 
+        br
+        br
+        br
+        if(!datosdonante || !datosdonante.existe)  
+          form(role='form', action="/modificarDonanteRedir",method="post")
             .form-group
+              label(for='dniRedir') Dni del donante:
               input.form-control(type='text', name="dniRedir", placeholder='DNI')
             button(type='submit',class="boton") Aceptar
-        if(datosdonante)  
-          p se cargo el donante!
+        if(datosdonante && datosdonante.existe)  
           form(role='form', action="/modificarDonante",method="post")
             .form-group
+              label(for='dni') Dni del donante:
               input.form-control(type='text', name="dni", placeholder='Dni',value=datospersona.dni,readonly="true",required)
+              br
+              label(for='n_y_ap') Nombre y apellido:
               input.form-control(type='text', name="n_y_ap", placeholder='Nombre y apellido',value=datospersona.n_y_ap,required)
+              br
+              label(for='email') Correo Electronico:
               input.form-control(type='text', name="email", placeholder='Correo Electronico',value=datospadrino.email,required)
+              br
+              label(for='tel_fijo') Telefono fijo:
               input.form-control(type='text', name="tel_fijo", placeholder='Telefono fijo',value=datospadrino.tel_fijo)
+              br
+              label(for='direccion') Dirección:
               input.form-control(type='text', name="direccion", placeholder='Direccion',value=datospadrino.direccion,required)
+              br
+              label(for='celular') Celular:
               input.form-control(type='text', name="celular", placeholder='Telefono Celular',value=datospadrino.celular,required)
+              br
+              label(for='fecha_nac') Fecha de nacimiento:
               input.form-control(type='text', name="fecha_nac", placeholder='Fecha de Nacimiento',value=datospadrino.fecha_nac,required)
+              br
+              label(for='cod_postal') Codigo postal:
               input.form-control(type='text', name="cod_postal", placeholder='Cod. Postal',value=datospadrino.cod_postal,required)
+              br
+              label(for='ocupacion') Ocupación:
               input.form-control(type='text', name="ocupacion", placeholder='Ocupacion',value=datosdonante.ocupacion)
+              br
+              label(for='cuil_cuit') Cuil/Cuit:
               input.form-control(type='text', name="cuil_cuit", placeholder='Cuil/Cuit',value=datosdonante.cuil_cuit,required)
             button(type='submit',class="boton") Aceptar
+//CAMBIO EN EL IF DE LA VISTA COMENTAR AL RESTO DEL GRUPO....

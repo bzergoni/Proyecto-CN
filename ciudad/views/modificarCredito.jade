@@ -1,18 +1,33 @@
 extends layout
 block content 
-      center modificar credito 
+        p.title Modificar credito 
+        br
+        br
+        br
         if(!datoscredito)  
-          form(role='form', action="/modificarCreditoRedir",method="post", style='max-width: 300px;')
+          form(role='form', action="/modificarCreditoRedir",method="post")
             .form-group
+              label(for='nroRedir') Numero de tarjeta:
               input.form-control(type='text', name="nroRedir", placeholder='NUMERO DE TARJETA')
+              br
+              label(for='nombreTarRedir') Nombre de tarjeta:
+              input.form-control(type='text', name="nombreTarRedir", placeholder='NOMBRE DE LA TARJETA')
             button(type='submit',class="boton") Aceptar
         if(datoscredito)  
-          p se cargo la tarjeta de credito!
-          form(role='form', action="/modificarCredito",method="post", style='max-width: 300px;')
+          form(role='form', action="/modificarCredito",method="post")
             .form-group
+              label(for='nro') Numero de tarjeta:
               input.form-control(type='text', name="nro", placeholder='NUMERO DE TARJETA',value=datoscredito.nro)
+              br
+              label(for='nombre_tarjeta') Nombre de la tarjeta:
               input.form-control(type='text', name="nombre_tarjeta", placeholder='NOMBRE DE LA TARJETA',value=datoscredito.nombre_tarjeta)
+              br
+              label(for='nombre_titular') Nombre del titular:
               input.form-control(type='text', name="nombre_titular", placeholder='NOMBRE DEL TITULAR',value=datoscredito.nombre_titular)
-              input.form-control(type='text', name="fecha_vencimiento", placeholder='FECHA DE VENCIMIENTO (DD/MM/AAAA)',value=datoscredito.fecha_vencimiento)
+              br
+              label(for='fecha_vencimiento') Fecha de vencimiento:
+              input.form-control(type='text', name="fecha_vencimiento", placeholder='DD/MM/AAAA',value=datoscredito.fecha_vencimiento)
+              br
+              label(for='codigo_verificacion') Codigo de verificación:
               input.form-control(type='text', name="codigo_verificacion", placeholder='CODIGO VERIFICACION',value=datoscredito.codigo_verificacion)
             button(type='submit',class="boton") Aceptar

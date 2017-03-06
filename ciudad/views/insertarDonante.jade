@@ -1,18 +1,38 @@
 extends layout
 block content 
-      p.title Insertar donante 
+        p.title Insertar donante 
+        br
+        br
         form(role='form', action="/insertarDonante",method="post")
           .form-group
+            label(for='dni') Dni del donante:
             input.form-control(type='text', name="dni", placeholder='DNI',required)
+            br
+            label(for='n_y_ap') Nombre y apellido::
             input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',required)
+            br
+            label(for='email') Email
             input.form-control(type='text', name="email", placeholder='EMAIL',required)
+            br
+            label(for='tel_fijo') Telefono fijo:
             input.form-control(type='text', name="tel_fijo", placeholder='TELEFONO FIJO')
+            br
+            label(for='direccion') Dirección:
             input.form-control(type='text', name="direccion", placeholder='DIRECCION',required)
-            
+            br
+            label(for='celular') Celular:
             input.form-control(type='text', name="celular", placeholder='CELULAR',required)
-            input.form-control(type='text', name="fecha_nac", placeholder='FECHA DE NACIMIENTO DD/MM/AAAA',required)
+            br
+            label(for='fecha_nac') Fecha de nacimiento:
+            input.form-control(type='text', name="fecha_nac", placeholder='DD/MM/AAAA',required)
+            br
+            label(for='cod_postal') Codigo postal:
             input.form-control(type='text',value="5800", name="cod_postal", placeholder='CODIGO POSTAL',required)
+            br
+            label(for='ocupacion') Ocupación:
             input.form-control(type='text', name="ocupacion", placeholder='OCUPACION')
-            input.form-control(type='text', name="cuil_cuit", placeholder='CUIL/CUIT',required)
+            br
+            label(for='cuil_cuit') Cuit/Cuil:
+            input.form-control(type='text', name="cuil_cuit", placeholder='CUIT/CUIL',required)
           button(type='submit',class="boton") Aceptar
           
