@@ -1,10 +1,21 @@
 extends layout
 block content 
-      center insertar Programa 
-        form(role='form', action="/insertarPrograma",method="post", style='max-width: 300px;')
+      p.title Insertar un programa nuevo
+        br
+
+        form(role='form', action="/insertarPrograma",method="post")
           .form-group
+            br
+            br
+            br
+            label(for='nombre_programa') Nombre del programa:
             input.form-control(type='text', name="nombre_programa", placeholder='NOMBRE DEL PROGRAMA')
+            br
+            label(for='descripcion') Descripción:
             input.form-control(type='text', name="descripcion", placeholder='DESCRIPCION')
+            br
             
           button(type='submit',class="boton") Aceptar
+          form
+            input(type='button', value='Cancelar', name='Cancelar', onclick='history.back()')
           
