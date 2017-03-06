@@ -9,7 +9,59 @@ block content
 
         if(datoscontacto)
             p SEGURO QUE QUIERE ELIMINAR EL SIGUIENTE CONTACTO?
-            form(role='form', action="/eliminarContacto",method="post", style='max-width: 300px;')
+            br
+            b Dni: 
+            |#{datospersona.dni}
+            br
+            b Nombre y apellido: 
+            |#{datospersona.n_y_ap}
+            br
+            b Email: 
+            |#{datospadrino.email}
+            br
+            b Telefono fijo: 
+            |#{datospadrino.tel_fijo}
+            br
+            b Direccion: 
+            |#{datospadrino.direccion}
+            br
+            b Celular: 
+            |#{datospadrino.celular}
+            br
+            b Fecha de nacimiento: 
+            |#{datospadrino.fecha_nac}
+            br
+            b Cod. postal: 
+            |#{datospadrino.cod_postal}
+            br
+            b Fecha de primer contacto: 
+            |#{datoscontacto.fecha_primer_contacto}
+            br
+            b Fecha de alta: 
+            |#{datoscontacto.fecha_alta}
+            br
+            b Fecha de baja: 
+            |#{datoscontacto.fecha_baja}
+            br
+            b Fecha de rechazo de adhesion: 
+            |#{datoscontacto.fecha_rechazo_adhesion}
+            br
+            b Estado: 
+            |#{datoscontacto.estado}
+            br
+            b Dni recomendador: 
+            |#{datoscontacto.dni_recomendador}
+            br
+            
+        
+            
+            
+            
+            
+            
+            
+            
+            form(role='form', action="/eliminarContacto",method="post", style='display :none')
               .form-group
                 input.form-control(type='text', name="dni", placeholder='DNI',value=datospersona.dni,readonly="true")
                 input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',value=datospersona.n_y_ap,readonly="true")
