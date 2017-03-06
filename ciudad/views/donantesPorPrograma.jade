@@ -2,6 +2,8 @@ extends layout
 block content
       center 
         br
+        h3 Elija un programa:
+        br
         form(role='form', action="/donantesPorProgramaRedir",method="post", style='max-width: 300px;')
           .form-group
             select(name="nombre_programaRedir")
