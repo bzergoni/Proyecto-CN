@@ -80,6 +80,7 @@ app.use('/', routes);
     function(username, password, done){
 
       console.log("Login process:", username);
+      client = new pg.Client(connectionString);
       client.connect(function (err) {
       if (err) throw err;
         client.query("SELECT * from ciudad_de_los_niños_development.user WHERE username='"+username+"' limit 1",function(err,result){
@@ -127,6 +128,7 @@ passport.serializeUser((user, done)=>{
 passport.deserializeUser((id, done)=>{
   var client = new pg.Client(connectionString);
   console.log("deserialize ", id);
+  
   client.connect(function (err) {
     console.log(err);
     if (err) {throw err};

@@ -65,7 +65,7 @@ router.get('/register', function(req, res) {
 
 
 router.post('/register', function(req, res) {
-
+  client = new pg.Client(connectionString);
  	client.connect(function (err) {
 
 
@@ -1024,7 +1024,29 @@ router.get('/listadoAportes', function(req, res) {
   });
 
 });
+router.get('/listadoGraficoAportes', function(req, res) {
+  client = new pg.Client(connectionString);
 
+  client.connect(function (err) {
+    if (err){console.log(err);}
+    var query = "select nombre_programa as label,count(dni) as data from ciudad_de_los_niños_development.aporta group by nombre_programa"
+    console.log(query);
+
+    client.query(query, function (err, result) {
+      if (err) throw err;
+      if(!err && !result.rows[0]){res.render('listadoGraficoAportes', { user : req.user});}
+      if(result.rows[0]){
+        console.log(result.rows);
+
+        res.render('listadoGraficoAportes', { user : req.user,lista:result.rows});
+      }
+      client.end(function (err) {
+        if (err) {console.log(err)};
+      });
+    });
+  });
+
+});
 router.get('/prueba', function(req, res) {
         res.render('prueba', { user : req.user});
   });

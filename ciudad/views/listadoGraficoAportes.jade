@@ -1,0 +1,59 @@
+extends layout
+block content
+  
+  script.    
+    console.log(!{JSON.stringify(lista)})
+    console.log(!{JSON.stringify(lista).replace(/<\//g, '<\\/')})
+    var dataSet = !{JSON.stringify(lista).replace(/<\//g, '<\\/')}
+    
+    $(document).ready(function () {
+      $.plot('#placeholder', dataSet, {
+        series: {
+            pie: { 
+                show: true,
+                radius: 1,
+                label: {
+                    show: true,
+                    radius: 3/4,
+                    formatter: labelFormatter,
+                    background: { 
+                        opacity: 0.5,
+                        color: '#000'
+                    }
+                }
+            }
+        },
+        legend: {
+            show: false
+        },
+        grid: {
+        hoverable: true,
+        clickable: true
+        }
+      });
+    });
+  
+    
+    
+    
+    function labelFormatter(label, series) {
+      return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";}
+    
+  
+  p.title Grafico de personas por Programa:
+  br   
+  
+  br
+  br
+  if(lista)
+    .col-md-4
+        br
+        h4 
+          b Programas : cantidad de donantes
+        br
+        each elemento, i in lista
+          b #{elemento.label}: 
+          |#{elemento.data}
+          br
+    .col-md-6  
+      #placeholder(style='width:600px;height:300px')

@@ -17,7 +17,7 @@ function User(a) {
 };
 
 User.prototype.findOne = function(a, callback) {
-
+    client = new pg.Client(connectionString);
     var results = [];
 
     client.connect(function(err) {
