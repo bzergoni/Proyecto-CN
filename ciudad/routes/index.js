@@ -945,6 +945,7 @@ router.post('/infoContactoRedir', function(req, res) {
 router.get('/donantesPorBanco', function(req, res) {
     var nombre_banco=req.query.nombre_banco
     var banco = new Debito();
+    var nofiltro = req.query.nofiltro
     banco.listaBancos()
     setTimeout(function(){
       if(nombre_banco){
@@ -952,7 +953,17 @@ router.get('/donantesPorBanco', function(req, res) {
 
         client.connect(function (err) {
           if (err){console.log(err);}
-         	var query="select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb"
+          console.log("LO SIGUIENTE ES EL FILTROFECA")
+          var query
+          if(nofiltro=="true"){
+            query="select * from (select * from ciudad_de_los_niños_development.aporta ) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb"
+            console.log("no aplica el filtro")
+          }else{
+            query="select * from (select * from ciudad_de_los_niños_development.aporta where ((not(frecuencia='Semestral') OR MOD((extract(YEAR FROM age(fecha_aporte,now()))*12 + extract(MONTH FROM age (fecha_aporte,now() )))::integer,6)=0)and fecha_aporte <=now()::date )) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb"
+
+          }
+          console.log(nofiltro)
+
          //	var query = "﻿select * from (select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb) apdeb natural join (select * from ciudad_de_los_niños_development.persona) per"
           console.log(query);
           client.query(query, function (err, result) {
@@ -975,7 +986,7 @@ router.get('/donantesPorBanco', function(req, res) {
 });
 
 router.post('/donantesPorBancoRedir', function(req, res) {
-  res.redirect('/donantesPorBanco?nombre_banco='+req.body.nombre_bancoRedir);
+  res.redirect('/donantesPorBanco?nombre_banco='+req.body.nombre_bancoRedir+'&nofiltro='+req.body.filtrofecha);
 
 });
 ////-----------$$$$$$$$$$
@@ -1103,23 +1114,41 @@ router.get('/listadoContactos', function(req, res) {
 
   router.get('/donantesPorTarjeta', function(req, res) {
       var nombre_tarjeta=req.query.nombre_tarjeta
+      var nofiltro = req.query.nofiltro
       var tarjeta = new Credito();
+      var usuario = req.user
       tarjeta.tiposTarjeta()
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+      console.log(req.user)
+
+
       setTimeout(function(){
         if(nombre_tarjeta){
           client = new pg.Client(connectionString);
 
           client.connect(function (err) {
             if (err){console.log(err);}
-           	var query="select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.tarjeta where nombre_tarjeta = '"+nombre_tarjeta+"') deb"
+            var query
+            console.log(req.user)
+            if(nofiltro=="true"){
+              query="select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.tarjeta where nombre_tarjeta = '"+nombre_tarjeta+"') deb"
+              console.log("no aplica el filtro")
+            }else{
+              query="select * from (select * from ciudad_de_los_niños_development.aporta where ((not(frecuencia='Semestral') OR MOD((extract(YEAR FROM age(fecha_aporte,now()))*12 + extract(MONTH FROM age (fecha_aporte,now() )))::integer,6)=0)and fecha_aporte <=now()::date )) ap natural join (select * from ciudad_de_los_niños_development.tarjeta where nombre_tarjeta = '"+nombre_tarjeta+"') deb"
+
+            }
+
            //	var query = "﻿select * from (select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb) apdeb natural join (select * from ciudad_de_los_niños_development.persona) per"
             console.log(query);
             client.query(query, function (err, result) {
               if (err) throw err;
 
               if(result.rows[0]){
-              	console.log(result.rows)
-                res.render('donantesPorTarjeta', { user : req.user,lista:result.rows, listatarjetas:tarjeta.listatarjetas  });
+
+
+                res.render('donantesPorTarjeta', { user: req.user, listatarjetas:tarjeta.listatarjetas ,lista:result.rows });
+              }else{
+                res.render('donantesPorTarjeta', { user: req.user, listatarjetas:tarjeta.listatarjetas})
               }
               client.end(function (err) {
                 if (err) {console.log(err)};
@@ -1127,7 +1156,9 @@ router.get('/listadoContactos', function(req, res) {
             });
           });
         }else{
-          res.render('donantesPorTarjeta', { user : req.user, listatarjetas:tarjeta.listatarjetas });
+          console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"+req.user)
+        //  res.render('donantesPorTarjeta', {user:req.user, });
+          res.render('donantesPorTarjeta', { user : usuario,listatarjetas:tarjeta.listatarjetas });
         }
       }, 1000);
 
@@ -1135,7 +1166,7 @@ router.get('/listadoContactos', function(req, res) {
   });
 
   router.post('/donantesPorTarjetaRedir', function(req, res) {
-    res.redirect('/donantesPorTarjeta?nombre_tarjeta='+req.body.nombre_tarjetaRedir);
+    res.redirect('/donantesPorTarjeta?nombre_tarjeta='+req.body.nombre_tarjetaRedir+'&nofiltro='+req.body.filtrofecha);
 
   });
 

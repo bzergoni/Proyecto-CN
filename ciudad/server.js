@@ -84,11 +84,11 @@ app.use('/', routes);
       client.connect(function (err) {
       if (err) throw err;
         client.query("SELECT * from ciudad_de_los_niños_development.user WHERE username='"+username+"' limit 1",function(err,result){
-          console.log(err);
+          //console.log(err);
 
           if(err){done(err)};
           if(!err){
-            console.log(result.rows[0]);
+            //console.log(result.rows[0]);
             if(bcrypt.compareSync(password, result.rows[0].password)){done(null,result.rows[0])};
               }else{done(null,false);}
 
@@ -109,7 +109,7 @@ app.use('/', routes);
 //passport.deserializeUser(User.deserializeUser())
 
 passport.serializeUser((user, done)=>{
-    console.log("serialize ", user);
+    //console.log("serialize ", user);
     done(null, user.id);
   });
 
@@ -127,8 +127,8 @@ passport.serializeUser((user, done)=>{
 
 passport.deserializeUser((id, done)=>{
   var client = new pg.Client(connectionString);
-  console.log("deserialize ", id);
-  
+  //console.log("deserialize ", id);
+
   client.connect(function (err) {
     console.log(err);
     if (err) {throw err};

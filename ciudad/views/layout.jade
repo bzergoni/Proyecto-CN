@@ -39,6 +39,7 @@ html(lang='en')
       script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
       script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
       link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet', media='screen')
+  p.title #{user}
   if(user)
     body
     
@@ -113,7 +114,6 @@ html(lang='en')
             input.form-control(type='password', name="password", placeholder='Contraseña')
             br
             button.btn.btn-default(type='submit') Aceptar
-            &nbsp;
             a(href='/')
               button.btn.btn-primary(type="button") Cancelar
           br

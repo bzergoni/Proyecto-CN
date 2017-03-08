@@ -128,6 +128,7 @@ Create table Aporta (
 Dni varchar(10),
 nombre_programa varchar(50),
 monto float,
+fecha_aporte date,
 Frecuencia TipoFrecuencia,
 id Integer,
 

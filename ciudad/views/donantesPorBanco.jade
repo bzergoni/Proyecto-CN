@@ -8,6 +8,11 @@ block content
             select(name="nombre_bancoRedir")
               each banco, i in listabancos
                 option(value=banco.nombre_banco)  #{banco.nombre_banco}
+          .form-group
+            input(type='checkbox', name='filtrofecha', value="true")
+            | Ver todos!
+          br
+          br
           button(type='submit',class="boton") Aceptar
         br
         br
