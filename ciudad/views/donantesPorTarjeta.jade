@@ -2,17 +2,21 @@ extends layout
 block content
         br
         center 
+        form(role='form', action="/donantesPorTarjetaRedir",method="post", style='max-width: 300px;')
           p Selecciona una Tarjeta
-          form(role='form', action="/donantesPorTarjetaRedir",method="post", style='max-width: 300px;')
-            .form-group
-              select(name="nombre_tarjetaRedir")
-                each tarjeta, i in listatarjetas
-                  option(value=tarjeta.nombre_tarjeta)  #{tarjeta.nombre_tarjeta}
-            .form-group
-              input(type='checkbox', name='filtrofecha', value="true")
-              | Ver todos!
-                  br
-            button(type='submit',class="boton") Aceptar
+          br    
+          select(name="nombre_tarjetaRedir")
+            each tarjeta, i in listatarjetas
+              option(value=tarjeta.nombre_tarjeta)  #{tarjeta.nombre_tarjeta}
+          br
+          p Ver todos?
+          select(name="nofiltro")
+            option(value="True")  Si
+            option(value="False")  No
+          br
+          br
+          
+          button(type='submit',class="boton") Aceptar
           br
           br
           
