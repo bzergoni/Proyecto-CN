@@ -23,8 +23,8 @@ block content
             b Descripcion: 
             |#{datosprograma.descripcion}
             
-            form(role='form', action="/eliminarPrograma",method="post", style='display:none')
-              .form-group
+            form(role='form', action="/eliminarPrograma",method="post")
+              .form-group.oculto
                 input.form-control(type='text', name="nombre_programa", placeholder='NOMBRE DEL PROGRAMA',value=datosprograma.nombre_programa,readonly="true")
                 input.form-control(type='text', name="descripcion", placeholder='DESCRIPCION',value=datosprograma.descripcion,readonly="true")
               button(type='submit',class="boton") Eliminar

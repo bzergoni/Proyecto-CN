@@ -61,8 +61,8 @@ block content
             
             
             
-            form(role='form', action="/eliminarContacto",method="post", style='display :none')
-              .form-group
+            form(role='form', action="/eliminarContacto",method="post")
+              .form-group.oculto
                 input.form-control(type='text', name="dni", placeholder='DNI',value=datospersona.dni,readonly="true")
                 input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',value=datospersona.n_y_ap,readonly="true")
                 input.form-control(type='text', name="email", placeholder='EMAIL',value=datospadrino.email,readonly="true")
