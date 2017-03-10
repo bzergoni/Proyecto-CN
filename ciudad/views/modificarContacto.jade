@@ -4,13 +4,13 @@ block content
         br
         br
         br
-        if(!datoscontacto)
+        if(!datoscontacto || !datoscontacto.existe)
           form(role='form', action="/modificarContactoRedir",method="post")
             .form-group
               label(for='dniRedir') Dni del contacto:
               input.form-control(type='text', name="dniRedir", placeholder='DNI')
             button(type='submit',class="boton") Aceptar
-        if(datoscontacto)  
+        if(datoscontacto && datoscontacto.existe)  
           form(role='form', action="/modificarContacto",method="post")
             .form-group
               label(for='dni') Dni del contacto:  
