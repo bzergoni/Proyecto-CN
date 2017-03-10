@@ -2,12 +2,13 @@ var pg = require('pg');
 var connectionString = "pg://postgres:postgres@localhost:5432/postgres";
 var client = new pg.Client(connectionString);
 
-function Aporta(d, np, mont, freq, i) {
+function Aporta(d, np, mont, freq, i, fa) {
     this.dni = d;
     this.nombre_programa = np;
     this.monto = mont;
     this.frecuencia = freq;
     this.id = i;
+    this.fecha_aporte = fa;
     this.existe = undefined;
 };
 
@@ -37,6 +38,7 @@ Aporta.prototype.cargar = function() {
                 thisrespaldo.id=result.rows[0].id
                 thisrespaldo.monto = result.rows[0].monto;
                 thisrespaldo.frecuencia = result.rows[0].frecuencia;
+                thisrespaldo.fecha_aporte = result.rows[0].fecha_aporte;
                 console.log(thisrespaldo);
                 thisrespaldo.existe=true;
             }
@@ -57,6 +59,8 @@ Aporta.prototype.insertar = function() {
     var monto = this.monto;
     var frecuencia = this.frecuencia;
     var id = this.id;
+    var fecha_aporte = this.fecha_aporte
+
 
     client = new pg.Client(connectionString);
     client.connect(function(err) {
@@ -64,7 +68,7 @@ Aporta.prototype.insertar = function() {
             console.log(err)
         };
         console.log("insert into ciudad_de_los_niños_development.aporta values ('" + dni + "','" + nombre_programa + "'," + monto + ",'" + frecuencia + "'," + id + ");")
-        client.query("insert into ciudad_de_los_niños_development.aporta values ('" + dni + "','" + nombre_programa + "'," + monto + ",'" + frecuencia + "'," + id + ");", function(err, result) {
+        client.query("insert into ciudad_de_los_niños_development.aporta values ('" + dni + "','" + nombre_programa + "'," + monto + ",'" + frecuencia + "'," + id + ",'"+fecha_aporte+"');", function(err, result) {
             if (err) {
                 console.log(err)
             }

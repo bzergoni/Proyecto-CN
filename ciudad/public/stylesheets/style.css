@@ -22,6 +22,16 @@ th, td {
   float: left;
 }
 
+.img{
+  float: right;
+  margin-top: -17%;
+}
+
+.text{
+  text-align: left;
+  color: green;
+}
+
  table.sortable thead {
 
    background-color:#eee;
