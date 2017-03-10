@@ -141,12 +141,18 @@ script(type='text/javascript').
         "dom": 'Bfrtip',
         "buttons": [{
                 extend: 'excelHtml5',
-                title: 'PSC - '+'#{tagExport}'
+                title: 'PSC - '+'#{tagExport}',
+                exportOptions: {
+                    columns: ':visible'
+                }
             },
             {
                 extend: 'pdfHtml5',
-                title: 'PSC - '+'#{tagExport}'
-            },'print'
+                title: 'PSC - '+'#{tagExport}',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },'print','colvis'
         ]
     });
   });
