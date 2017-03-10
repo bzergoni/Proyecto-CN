@@ -60,8 +60,8 @@ block content
               br
             
             
-            form(role='form', action="/eliminarAporte",method="post", style='display:none')
-              .form-group
+            form(role='form', action="/eliminarAporte",method="post")
+              .form-group.oculto
                 input.form-control(type='text', name="dni", placeholder='DNI',value=datosaporte.dni,readonly="true")
                 input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',value=datospersona.n_y_ap,readonly="true")
                 input.form-control(type='text', name="monto", placeholder='MONTO',value=datosaporte.monto,readonly="true")

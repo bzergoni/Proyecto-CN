@@ -849,7 +849,8 @@ router.get('/donantesPorPrograma', function(req, res) {
           client.query(query, function (err, result) {
             if (err) throw err;
             if(result.rows[0]){
-              res.render('donantesPorPrograma', { user : req.user,lista:result.rows, listaprogramas:prog.lista  });
+              tagExport="DonantesPPrograma "+nombre_programa+" "+toStringForExportTag(new Date())
+              res.render('donantesPorPrograma', { user : req.user,lista:result.rows, listaprogramas:prog.lista, tagExport:tagExport  });
             }
             client.end(function (err) {
               if (err) {console.log(err)};
@@ -916,7 +917,7 @@ router.get('/infoContacto', function(req, res) {
             if (err) throw err;
             if(result.rows[0]){
                 console.log("INFOCONTACTO  "+result.rows[0]);
-                result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
+                if(result.rows[0].fecha_nac)result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
                 if(result.rows[0].fecha_primer_contacto){result.rows[0].fecha_primer_contacto = result.rows[0].fecha_primer_contacto.toLocaleDateString();}
                 if(result.rows[0].fecha_alta){result.rows[0].fecha_alta = result.rows[0].fecha_alta.toLocaleDateString();}
                 if(result.rows[0].fecha_baja){result.rows[0].fecha_baja = result.rows[0].fecha_baja.toLocaleDateString();}
@@ -970,7 +971,8 @@ router.get('/donantesPorBanco', function(req, res) {
             if (err) throw err;
             if(result.rows[0]){
             	console.log(result.rows)
-              res.render('donantesPorBanco', { user : req.user,lista:result.rows, listabancos:banco.lista  });
+              tagExport="DonantesPBanco "+nombre_banco+" "+toStringForExportTag(new Date())
+              res.render('donantesPorBanco', { user : req.user,lista:result.rows, listabancos:banco.lista,tagExport:tagExport  });
             }
             client.end(function (err) {
               if (err) {console.log(err)};
@@ -1004,7 +1006,9 @@ router.get('/listadoDonantes', function(req, res) {
           res.render('listadoDonantes', { user : req.user});
       }
       if(result.rows[0]){
-        res.render('listadoDonantes', { user : req.user,lista:result.rows});
+        tagExport="Donantes "+toStringForExportTag(new Date())
+
+        res.render('listadoDonantes', { user : req.user,lista:result.rows,tagExport:tagExport});
       }
       client.end(function (err) {
         if (err) {console.log(err)};
@@ -1026,7 +1030,8 @@ router.get('/listadoAportes', function(req, res) {
       if (err) throw err;
       if(!err && !result.rows[0]){res.render('listadoAportes', { user : req.user});}
       if(result.rows[0]){
-        res.render('listadoAportes', { user : req.user,lista:result.rows});
+        tagExport="Aportes "+toStringForExportTag(new Date())
+        res.render('listadoAportes', { user : req.user,lista:result.rows,tagExport:tagExport});
       }
       client.end(function (err) {
         if (err) {console.log(err)};
@@ -1077,7 +1082,8 @@ router.get('/listadoContactos', function(req, res) {
         res.render('listadoContactos', { user : req.user});
       }
       if(result.rows[0]){
-        res.render('listadoContactos', { user : req.user, lista:result.rows});
+        tagExport="Contactos "+toStringForExportTag(new Date())
+        res.render('listadoContactos', { user : req.user, lista:result.rows,tagExport:tagExport});
       }
       //if (!err) {  res.render('listadoContactos', { user : req.user});};
       client.end(function (err) {
@@ -1101,8 +1107,8 @@ router.get('/listadoContactos', function(req, res) {
            res.render('listadoProgramas', { user : req.user});
        }
        if(result.rows[0]){
-          console.log("la lista es:  "+result.rows[0].descripcion)
-          res.render('listadoProgramas', { user : req.user,lista:result.rows});
+          tagExport="Programas "+toStringForExportTag(new Date())
+          res.render('listadoProgramas', { user : req.user,lista:result.rows,tagExport:tagExport});
         }
        client.end(function (err) {
          if (err) {console.log(err)};
@@ -1145,8 +1151,8 @@ router.get('/listadoContactos', function(req, res) {
 
               if(result.rows[0]){
 
-
-                res.render('donantesPorTarjeta', { user: req.user, listatarjetas:tarjeta.listatarjetas ,lista:result.rows });
+                tagExport="DonantesPTarjeta "+nombre_tarjeta+" "+toStringForExportTag(new Date())
+                res.render('donantesPorTarjeta', { user: req.user, listatarjetas:tarjeta.listatarjetas ,lista:result.rows,tagExport:tagExport });
               }else{
                 res.render('donantesPorTarjeta', { user: req.user, listatarjetas:tarjeta.listatarjetas})
               }
@@ -1170,6 +1176,9 @@ router.get('/listadoContactos', function(req, res) {
 
   });
 
+  function toStringForExportTag(a) {
+      return a.getDate()+"-"+(parseInt(a.getMonth()) + 1 )+"-"+a.getFullYear()
+  };
 
 
 
