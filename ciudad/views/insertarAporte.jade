@@ -2,22 +2,36 @@ extends layout
 block content
       
         center
-          |insertar aporte
-          form(role='form', action="/insertarAporte",method="post", style='max-width: 300px;')
+          p.title Insertar aporte 
+          br
+          br
+          form(role='form', action="/insertarAporte",method="post")
             .form-group
+              label(for='dni') Dni:
               input.form-control(type='text', name="dni", placeholder='DNI')
+              br
+              label(for='nombre_programa') Nombre del programa:
               select(name="nombre_programa")
                 each programa, i in listaprogramas
                   option(value=programa.nombre_programa)  #{programa.nombre_programa}
+              br
+              br
+              label(for='id_mediodepago') ID del medio de pago:
               input.form-control(type='number', name="id_mediodepago", placeholder='ID',value="0")
-
+              br
+              label(for='monto') Monto:
               input.form-control(type='text', name="monto", placeholder='monto')
+              br
+              label(for='frecuencia') Frecuencia:
               select(name='frecuencia')
-              
                 option(value='Semestral') Semestral
                 option(value='Mensual') Mensual
               br
+              br
               | Seleccione el tipo de medio de pago:
+              br
+              br
+              label(for='tipo_pago') Tipo de pago a realizar:
               select(name='tipo_pago')
                 option(value='CREDITO',onclick="mostrarcredito()") TARJETA DE CREDITO
                 option(value='DEBITO',onclick="mostrardebito()") DEBITO
@@ -27,22 +41,39 @@ block content
               
               br
               
-              
+              label(for='nombre_titular') Nombre del titular:
               input.form-control(type='text', name="nombre_titular", placeholder='NOMBRE DEL TITULAR')
+              br
               div#formulariocredito
+                label(for='nro') Numero de tarjeta de credito:
                 input.form-control(type='text', name="nro", placeholder='NUMERO DE TARJETA')
+                br
+                label(for='nombre_tarjeta') Nombre de la tarjeta de credito:
                 input.form-control(type='text', name="nombre_tarjeta", placeholder='nombre de la tarjeta', list="tarjetas")
                 datalist#tarjetas
                   each tarjeta, i in listatarjetas
                     option(value=tarjeta.nombre_tarjeta)
-              
+                br
+                label(for='fecha_vencimiento') Fecha de vencimiento de la tarjeta de credito:
                 input.form-control(type='text', name="fecha_vencimiento", placeholder='FECHA DE VENCIMIENTO (DD/MM/AAA)')
-              div#formulariodebito(style='display:none')          
+                br
+              div#formulariodebito(style='display:none')   
+                label(for='cbu') CBU:
                 input.form-control(type='text', name="cbu", placeholder='CBU')
+                br
+                label(for='nro_cuenta') Numero de cuenta:
                 input.form-control(type='text', name="nro_cuenta", placeholder='NUMERO DE CUENTA')
+                br
+                label(for='tipo_cuenta') Tipo de cuenta:
                 input.form-control(type='text', name="tipo_cuenta", placeholder='TIPO DE CUENTA')
+                br
+                label(for='nombre_banco') Nombre del banco:
                 input.form-control(type='text', name="nombre_banco", placeholder='NOMBRE DEL BANCO')
+                br
+                label(for='sucursal_banco') Sucursal del banco:
                 input.form-control(type='text', name="sucursal_banco", placeholder='SUCURSAL DEL BANCO')
+              br
+              label(for='codigo_verificacion') Codigo de verificación:
               input.form-control(type='text', name="codigo_verificacion", placeholder='CODIGO DE VERIFIACION')
             button(type='submit',class="boton") Aceptar
 

@@ -11,6 +11,15 @@ block content
 
 
   if (user)
-    center
-      h2 BIENVENIDO #{user.username} AL SISTEMA DE LA CIUDAD DE LOS NIÑOS! 
+    .text
+      br
+      br
+      h2(align='JUSTIFY')
+        b BIENVENIDO #{user.username} 
+        br
+        b AL SISTEMA DE 
+        br
+        b LA CIUDAD DE LOS NIÑOS! 
+    .img
+      img(src='/images/favicon.png', width='90%', height='90%')
       

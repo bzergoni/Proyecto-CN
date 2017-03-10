@@ -21,9 +21,21 @@ th, td {
   font-size: xx-large;
   float: left;
 }
+
 .oculto{
   display : none;
 }
+
+.img{
+  float: right;
+  margin-top: -17%;
+}
+
+.text{
+  text-align: left;
+  color: green;
+}
+
  table.sortable thead {
 
    background-color:#eee;
