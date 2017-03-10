@@ -917,7 +917,7 @@ router.get('/infoContacto', function(req, res) {
             if (err) throw err;
             if(result.rows[0]){
                 console.log("INFOCONTACTO  "+result.rows[0]);
-                result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
+                if(result.rows[0].fecha_nac)result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
                 if(result.rows[0].fecha_primer_contacto){result.rows[0].fecha_primer_contacto = result.rows[0].fecha_primer_contacto.toLocaleDateString();}
                 if(result.rows[0].fecha_alta){result.rows[0].fecha_alta = result.rows[0].fecha_alta.toLocaleDateString();}
                 if(result.rows[0].fecha_baja){result.rows[0].fecha_baja = result.rows[0].fecha_baja.toLocaleDateString();}

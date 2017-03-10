@@ -11,28 +11,62 @@ block content
           p El Dni corresponde a:
           form(role='form', action="/infoDonanteRedir2",method="post", style='max-width: 300px;')
             .form-group
-              input.form-control(type='text', name="dni", placeholder='DNI',value=infoDonante[0].dni,readonly="true")
-              input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',value=infoDonante[0].n_y_ap,readonly="true")
-              input.form-control(type='text', name="email", placeholder='EMAIL',value=infoDonante[0].email,readonly="true")
-              input.form-control(type='text', name="tel_fijo", placeholder='TELEFONO FIJO',value=infoDonante[0].tel_fijo,readonly="true")
-              input.form-control(type='text', name="direccion", placeholder='DIRECCION',value=infoDonante[0].direccion,readonly="true")
-              input.form-control(type='text', name="celular", placeholder='CELULAR',value=infoDonante[0].celular,readonly="true")
-              input.form-control(type='text', name="fecha_nac", placeholder='FECHA DE NACIMIENTO',value=infoDonante[0].fecha_nac,readonly="true")
-              input.form-control(type='text', name="cod_postal", placeholder='CODIGO POSTAL',value=infoDonante[0].cod_postal,readonly="true")
-              input.form-control(type='text', name="ocupacion", placeholder='OCUPACION',value=infoDonante[0].ocupacion,readonly="true")
-              input.form-control(type='text', name="cuil_cuit", placeholder='CUIL-CUIT',value=infoDonante[0].cuil_cuit,readonly="true")
-              if(listaAportes)
-                p Este donante posee los siguentes aportes
-                table
-                  thead
-                    th  Programa:
-                    th  ID MP:
-                    th  Frecuencia: 
-                    th  Monto: 
-                  each aporte, i in listaAportes
-                    tr
-                      td #{aporte.nombre_programa} 
-                      td #{aporte.id} 
-                      td #{aporte.frecuencia}  
-                      td #{aporte.monto} 
-            a(href='javascript:history.back()') Volver
+            li
+              b DNI: 
+              |  #{infoDonante[0].dni}
+            br
+            li
+              b Nombre y Apellido: 
+              |  #{infoDonante[0].n_y_ap}
+            br
+            li
+              b E-mail: 
+              |  #{infoDonante[0].email}
+            br
+            li
+              b Dirección: 
+              |  #{infoDonante[0].direccion}
+            br          
+            li
+              b Telefono Fijo:
+              |  #{infoDonante[0].tel_fijo}
+            br
+            li
+              b Celular:
+              |  #{infoDonante[0].celular}
+            br
+
+            li
+              b Fecha de Nacimiento: 
+              |  #{infoDonante[0].fecha_nac}
+            br
+            li
+              b Código Postal: 
+              |  #{infoDonante[0].cod_postal}
+            br
+            li
+              b Ocupacion: 
+              |  #{infoDonante[0].ocupacion}
+            br
+            li
+              b Cuil/Cuit: 
+              |  #{infoDonante[0].cod_postal}
+            br
+            
+            br  
+            if(listaAportes)
+              p Este donante posee los siguentes aportes
+              table
+                thead
+                  th  Programa:
+                  th  ID MP:
+                  th  Frecuencia: 
+                  th  Monto: 
+                each aporte, i in listaAportes
+                  tr
+                    td #{aporte.nombre_programa} 
+                    td #{aporte.id} 
+                    td #{aporte.frecuencia}  
+                    td #{aporte.monto} 
+          br
+          input(type='button', value='Volver', name='Volver', onclick='history.back()')  
