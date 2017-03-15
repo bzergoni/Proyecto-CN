@@ -696,7 +696,7 @@ router.post('/insertarAporte', function(req, res) {
    var debit = new Debito(req.body.nro_cuenta,req.body.cbu, req.body.nombre_titular, req.body.codigo_verificacion, req.body.tipo_cuenta, req.body.nombre_banco,req.body.sucursal_banco)
    var credit = new Credito(req.body.nro, req.body.nombre_tarjeta, req.body.nombre_titular,req.body.fecha_vencimiento,req.body.codigo_verificacion)
    var id_mediodepago = req.body.id_mediodepago
-   var aport = new Aporta(req.body.dni,req.body.nombre_programa,req.body.monto,req.body.frecuencia,req.body.id_mediodepago)
+   var aport = new Aporta(req.body.dni,req.body.nombre_programa,req.body.monto,req.body.frecuencia,req.body.id_mediodepago,req.body.fecha_aporte)
 //setTimeout(function(){}, 1000);
   console.log(req.body)
   donant.cargar()
@@ -1162,7 +1162,6 @@ router.get('/listadoContactos', function(req, res) {
             });
           });
         }else{
-          console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"+req.user)
         //  res.render('donantesPorTarjeta', {user:req.user, });
           res.render('donantesPorTarjeta', { user : usuario,listatarjetas:tarjeta.listatarjetas });
         }

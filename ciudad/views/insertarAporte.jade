@@ -20,7 +20,10 @@ block content
               input.form-control(type='number', name="id_mediodepago", placeholder='ID',value="0")
               br
               label(for='monto') Monto:
-              input.form-control(type='text', name="monto", placeholder='monto')
+              input.form-control(type='text', name="monto", placeholder='monto',required)
+              br
+              label(for='fecha_aporte') Fecha del primer aporte:
+              input.form-control(type='date', name="fecha_aporte", placeholder='FECHA DEL PRIMER APORTE (DD/MM/AAA)',required)
               br
               label(for='frecuencia') Frecuencia:
               select(name='frecuencia')
@@ -55,7 +58,7 @@ block content
                     option(value=tarjeta.nombre_tarjeta)
                 br
                 label(for='fecha_vencimiento') Fecha de vencimiento de la tarjeta de credito:
-                input.form-control(type='text', name="fecha_vencimiento", placeholder='FECHA DE VENCIMIENTO (DD/MM/AAA)')
+                input.form-control(type='date', name="fecha_vencimiento", placeholder='FECHA DE VENCIMIENTO (DD/MM/AAA)')
                 br
               div#formulariodebito(style='display:none')   
                 label(for='cbu') CBU:
