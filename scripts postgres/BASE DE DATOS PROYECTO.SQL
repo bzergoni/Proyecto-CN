@@ -55,8 +55,7 @@ Dni_recomendador varchar(10),
 comentario Varchar(200),
 relacion varchar(15),
 Constraint pk_Contacto  primary key (Dni),
-constraint CF_Contacto1 foreign key (Dni) references Padrino (Dni) on delete cascade on update cascade,
-constraint CF_Contacto2 foreign key (Dni_recomendador) references Persona (Dni) on delete cascade on update cascade
+constraint CF_Contacto1 foreign key (Dni) references Padrino (Dni) on delete cascade on update cascade
 
 );
 
@@ -152,8 +151,8 @@ constraint pk_donantes_eliminados primary key (dni)
 
 );
 
-create or replace function auditoria() returns trigger as 
-	'Begin 
+create or replace function auditoria() returns trigger as
+	'Begin
 		insert into ciudad_de_los_niños_development.donantes_eliminados values (old.dni,old.ocupacion,old.cuil_cuit,current_date,current_user);
 		return null;
 	end;'
