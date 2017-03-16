@@ -1171,7 +1171,7 @@ router.get('/listadoContactos', function(req, res) {
   });
 
   router.post('/donantesPorTarjetaRedir', function(req, res) {
-    res.redirect('/donantesPorTarjeta?nombre_tarjeta='+req.body.nombre_tarjetaRedir+'&nofiltro='+req.body.filtrofecha);
+    res.redirect('/donantesPorTarjeta?nombre_tarjeta='+req.body.nombre_tarjetaRedir+'&nofiltro='+req.body.nofiltro);
 
   });
 
