@@ -11,9 +11,13 @@ block content
           th Nombre
           th Descripción
           th 
+          th
         each elemento, i in lista
           tr
             td  #{elemento.nombre_programa}
             td #{elemento.descripcion}
             td(class='celdacorta')
-              a(href='/eliminarPrograma?nombre_programa=#{elemento.nombre_programa}') eliminar
+              a(href='/modificarPrograma?nombre_programa=#{elemento.nombre_programa}') Modificar
+            td(class='celdacorta') 
+              a(href='/eliminarPrograma?nombre_programa=#{elemento.nombre_programa}') Eliminar
+              

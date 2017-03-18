@@ -256,7 +256,7 @@ router.post('/eliminarDonante', function(req, res) {
 router.get('/insertarPrograma', function(req, res) {
     res.render('insertarPrograma', { user : req.user });
 });
-
+var t=10;
 router.post('/insertarPrograma', function(req, res) {
 
 
@@ -275,10 +275,10 @@ router.post('/insertarPrograma', function(req, res) {
       program.insertarLOGIC();
     }
     setTimeout(function(){
-      res.redirect('/modificarPrograma?nombre_programa='+nombre_programa);
-    }, 1000);
+      res.redirect('/listadoProgramas');
+    }, t);
 
-  }, 1000);
+  }, t);
 
 });
 
@@ -289,7 +289,7 @@ router.get('/modificarPrograma', function(req, res) {
       program.cargar();
       setTimeout(function(){
         res.render('modificarPrograma', { user : req.user,datosprograma:program});
-      }, 50);
+      }, t);
 
 
     }else{res.render('modificarPrograma', { user : req.user });}
@@ -308,8 +308,8 @@ router.post('/modificarPrograma', function(req, res) {
   var nombre_programa=req.body.nombre_programa;
   program.actualizar();
   setTimeout(function(){
-    res.redirect('/modificarPrograma?nombre_programa='+nombre_programa);
-  }, 50);
+    res.redirect('/listadoProgramas');
+  }, t);
 
 });
 
@@ -322,7 +322,7 @@ router.get('/eliminarPrograma', function(req, res) {
       setTimeout(function(){
         console.log(program)
         res.render('eliminarPrograma', { user : req.user,datosprograma:program });
-      }, 1000);
+      }, t);
 
     }else{
       console.log("entro al else")
@@ -337,7 +337,7 @@ router.post('/eliminarPrograma', function(req, res) {
   var program = new Programa(req.body.nombre_programa);
   program.eliminar()
   setTimeout(function(){
-    res.redirect('/')
+    res.redirect('/listadoProgramas')
   }, 50);
 });
 
