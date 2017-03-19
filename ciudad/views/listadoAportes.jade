@@ -13,6 +13,7 @@ block content
         th Programa
         th Monto
         th Frecuencia
+        th Estado del Cobro
         th
         th
       each elemento, i in lista
@@ -23,6 +24,7 @@ block content
           td #{elemento.nombre_programa}
           td #{elemento.monto}
           td #{elemento.frecuencia}
+          td #{elemento.estado_cobro}
           td(class='celdacorta')
             a(href='/modificarAporte?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}') modificar              
           td(class='celdacorta')

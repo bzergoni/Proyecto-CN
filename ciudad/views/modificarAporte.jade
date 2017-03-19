@@ -39,6 +39,9 @@ block content
                 label(for='monto') Monto del aporte:
                 input.form-control(type='text', name="monto", placeholder='Monto',value=datosaporte.monto)
                 br
+                label(for='estado_cobro') Estado del cobro:
+                input.form-control(type='text', name="estado_cobro", placeholder='Estado del cobro',value=datosaporte.estado_cobro)
+                br
                 label(for='frecuencia') Frecuencia con que aporta:
                 select(name='frecuencia')
                   if (datosaporte.frecuencia == "Semestral")
@@ -49,5 +52,4 @@ block content
                     option(value='Mensual',selected="true") Mensual
                   else
                     option(value='Mensual') Mensual
-              
               button(type='submit',class="boton") Aceptar

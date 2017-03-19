@@ -696,7 +696,7 @@ router.post('/insertarAporte', function(req, res) {
    var debit = new Debito(req.body.nro_cuenta,req.body.cbu, req.body.nombre_titular, req.body.codigo_verificacion, req.body.tipo_cuenta, req.body.nombre_banco,req.body.sucursal_banco)
    var credit = new Credito(req.body.nro, req.body.nombre_tarjeta, req.body.nombre_titular,req.body.fecha_vencimiento,req.body.codigo_verificacion)
    var id_mediodepago = req.body.id_mediodepago
-   var aport = new Aporta(req.body.dni,req.body.nombre_programa,req.body.monto,req.body.frecuencia,req.body.id_mediodepago,req.body.fecha_aporte)
+   var aport = new Aporta(req.body.dni,req.body.nombre_programa,req.body.monto,req.body.frecuencia,req.body.id_mediodepago,req.body.fecha_aporte,req.body.estado_cobro)
 //setTimeout(function(){}, 1000);
   console.log(req.body)
   donant.cargar()
@@ -757,20 +757,23 @@ router.post('/modificarAporteRedir', function(req, res) {
 
 router.post('/modificarAporte', function(req, res) {
   var aport = new Aporta()
-  console.log(req.body)
   aport.nombre_programa = req.body.nombre_programa
   aport.dni= req.body.dni
   aport.cargar()
   setTimeout(function(){
-    aport.frecuencia=req.body.frecuencia
-    aport.monto=req.body.monto
+    console.log(aport)
+    aport.frecuencia=req.body.frecuencia;
+    aport.monto=req.body.monto;
+    console.log("EL ESTADO COBRO ES:",+req.body.estado_cobro)
+    aport.estado_cobro = req.body.estado_cobro;
     aport.actualizar()
     setTimeout(function(){
       console.log("el nombre programa que viene del query es"+req.body.nombre_programa)
       console.log("el dni que viene del query es"+req.body.dni)
-      res.redirect('/modificarAporte?nombre_programa='+req.body.nombre_programa+'&dni='+req.body.dni);
+      //res.redirect('/modificarAporte?nombre_programa='+req.body.nombre_programa+'&dni='+req.body.dni);
+      res.redirect('/listadoAportes');
     }, 500);
-  }, 50);
+  }, 500);
 
 
 });
