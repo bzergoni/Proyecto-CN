@@ -698,7 +698,6 @@ router.post('/insertarAporte', function(req, res) {
    var id_mediodepago = req.body.id_mediodepago
    var aport = new Aporta(req.body.dni,req.body.nombre_programa,req.body.monto,req.body.frecuencia,req.body.id_mediodepago,req.body.fecha_aporte,req.body.estado_cobro)
 //setTimeout(function(){}, 1000);
-  console.log(req.body)
   donant.cargar()
   setTimeout(function(){
     if(donant.existe){
@@ -972,6 +971,7 @@ router.get('/donantesPorBanco', function(req, res) {
           console.log(query);
           client.query(query, function (err, result) {
             if (err) throw err;
+            if(!err && !result.rows[0]){res.render('donantesPorBanco', { user : req.user, listabancos:banco.lista });}
             if(result.rows[0]){
             	console.log(result.rows)
               tagExport="DonantesPBanco "+nombre_banco+" "+toStringForExportTag(new Date())
@@ -1027,7 +1027,6 @@ router.get('/listadoAportes', function(req, res) {
   client.connect(function (err) {
     if (err){console.log(err);}
     var query = "select * from ciudad_de_los_niños_development.aporta  natural join ciudad_de_los_niños_development.persona  "
-    console.log(query);
 
     client.query(query, function (err, result) {
       if (err) throw err;
@@ -1151,7 +1150,7 @@ router.get('/listadoContactos', function(req, res) {
             console.log(query);
             client.query(query, function (err, result) {
               if (err) throw err;
-
+              if(!err && !result.rows[0]){res.render('donantesPorTarjeta', { user: req.user, listatarjetas:tarjeta.listatarjetas});}
               if(result.rows[0]){
 
                 tagExport="DonantesPTarjeta "+nombre_tarjeta+" "+toStringForExportTag(new Date())
