@@ -130,6 +130,7 @@ monto float,
 fecha_aporte date,
 Frecuencia TipoFrecuencia,
 id Integer,
+estado_cobro character varying(50),
 
 Constraint pk_aporta primary key (dni,nombre_programa),
 constraint CF_aporta1 foreign key (dni) references Donante (dni) on delete cascade on update cascade,
