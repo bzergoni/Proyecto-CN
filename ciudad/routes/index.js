@@ -850,6 +850,9 @@ router.get('/donantesPorPrograma', function(req, res) {
 
           client.query(query, function (err, result) {
             if (err) throw err;
+            if(!err && !result.rows[0]){
+              res.render('donantesPorPrograma', { user : req.user, listaprogramas:prog.lista });
+            }
             if(result.rows[0]){
               tagExport="DonantesPPrograma "+nombre_programa+" "+toStringForExportTag(new Date())
               res.render('donantesPorPrograma', { user : req.user,lista:result.rows, listaprogramas:prog.lista, tagExport:tagExport  });
@@ -883,6 +886,9 @@ router.get('/infoDonante', function(req, res) {
           console.log(query);
           client.query(query, function (err, result) {
             if (err) throw err;
+            if(!err && !result.rows[0]){
+              res.render('infoDonante', { user : req.user});
+            }
             if(result.rows[0]){
                 console.log("INFODONANTE ES  "+result.rows[0].ocupacion+" y "+result.rows[0].cuil_cuit);
                 result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
@@ -908,7 +914,6 @@ router.post('/infoDonanteRedir', function(req, res) {
 //---------------------------------------------------------
 router.get('/infoContacto', function(req, res) {
     var dni=req.query.dni;
-   // setTimeout(function(){
       if(dni){
         client = new pg.Client(connectionString);
         client.connect(function (err) {
@@ -917,6 +922,9 @@ router.get('/infoContacto', function(req, res) {
           console.log(query);
           client.query(query, function (err, result) {
             if (err) throw err;
+            if(!err && !result.rows[0]){
+              res.render('infoContacto', { user : req.user});
+            }
             if(result.rows[0]){
                 console.log("INFOCONTACTO  "+result.rows[0]);
                 if(result.rows[0].fecha_nac)result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
@@ -935,8 +943,6 @@ router.get('/infoContacto', function(req, res) {
       }else{
         res.render('infoContacto', { user : req.user});
       }
-    //},500);
-
 
 });
 
