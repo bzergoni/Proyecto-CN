@@ -24,24 +24,18 @@ block content
           table#datos.display(cellspacing='0')
             thead
               th Dni
-              th Numero de tarjeta
               th Nombre Titular
-              th cod. verificacion
-              th Fecha de Vencimiento
-              th Programa
+              th Numero de tarjeta
               th Monto
-              th Frecuencia
+            
               
             each elemento, i in lista
               tr
                 td 
                   a(href='/infoDonante?dni=#{elemento.dni}') #{elemento.dni}
-                td #{elemento.nro}
                 td #{elemento.nombre_titular}
-                td #{elemento.codigo_verificacion}
-                td #{elemento.fecha_vencimiento.toLocaleDateString()}
-                td #{elemento.nombre_programa}
+                td #{elemento.nro}
                 td #{elemento.monto}
-                td #{elemento.frecuencia}
+                
                 
             

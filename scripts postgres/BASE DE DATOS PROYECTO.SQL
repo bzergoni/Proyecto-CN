@@ -62,7 +62,7 @@ constraint CF_Contacto1 foreign key (Dni) references Padrino (Dni) on delete cas
 Create table Programa (
 
 Nombre_Programa varchar(50) ,
-Descripcion varchar(50) ,
+Descripcion varchar(350) ,
 existe boolean DEFAULT true,
 Constraint pk_Programa  primary key (Nombre_Programa)
 
