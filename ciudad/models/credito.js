@@ -34,7 +34,7 @@ Credito.prototype.cargar = function(){
         thisrespaldo.nombre_titular=result.rows[0].nombre_titular;
         thisrespaldo.fecha_vencimiento=result.rows[0].fecha_vencimiento.toLocaleDateString();
         thisrespaldo.codigo_verificacion=result.rows[0].codigo_verificacion;
-        console.log(thisrespaldo);
+        //console.log(thisrespaldo);
         thisrespaldo.existe =true;
       }
 
@@ -63,7 +63,7 @@ Credito.prototype.cargarPorId = function(){
         thisrespaldo.nombre_titular=result.rows[0].nombre_titular;
         thisrespaldo.fecha_vencimiento=result.rows[0].fecha_vencimiento.toLocaleDateString();
         thisrespaldo.codigo_verificacion=result.rows[0].codigo_verificacion;
-        console.log(thisrespaldo);
+        //console.log(thisrespaldo);
         thisrespaldo.existe =true;
       }
 
@@ -105,7 +105,7 @@ Credito.prototype.insertar = function(){
     client.query("insert into ciudad_de_los_niños_development.medio_de_pago values (default);", function (err, result) {
       if (err){console.log(err)}
       if(result){
-        console.log("insert into ciudad_de_los_niños_development.tarjeta values (lastval(),'"+nro+"','"+nombre_titular+"','"+fecha_vencimiento+"','"+nombre_tarjeta+"',"+codigo_verificacion+");");
+        //console.log("insert into ciudad_de_los_niños_development.tarjeta values (lastval(),'"+nro+"','"+nombre_titular+"','"+fecha_vencimiento+"','"+nombre_tarjeta+"',"+codigo_verificacion+");");
         client.query("insert into ciudad_de_los_niños_development.tarjeta values (lastval(),'"+nro+"','"+nombre_titular+"','"+fecha_vencimiento+"','"+nombre_tarjeta+"',"+codigo_verificacion+");", function (err, result) {
           if (err){console.log(err)}
           if(result){console.log("SE INSERTO EL DEBITO CORRECTAMENTE")}

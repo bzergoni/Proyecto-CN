@@ -24,8 +24,8 @@ Donante.prototype.cargar = function(){
   client.connect(function (err) {
     if (err){console.log(err);}
     // execute a query on our database
-    console.log("comienza la carga de "+dni);
-    console.log("SELECT * FROM ciudad_de_los_niños_development.donante where dni='dni'");
+    // console.log("comienza la carga de "+dni);
+    // console.log("SELECT * FROM ciudad_de_los_niños_development.donante where dni='dni'");
   //  console.log(thisrespaldo)
     client.query("SELECT * FROM ciudad_de_los_niños_development.donante where dni='"+dni+"'", function (err, result) {
       if (err) throw err;
@@ -168,11 +168,11 @@ Donante.prototype.existLOGIC = function(){
 Donante.prototype.programasQueAporta = function(){
   client = new pg.Client(connectionString);
   var dni=this.dni;
-    console.log("el dni de los programas es "+dni);
+    // console.log("el dni de los programas es "+dni);
   var thisrespaldo=this;
   client.connect(function (err) {
     if (err){console.log(err);}
-    console.log("select nombre_programa from ciudad_de_los_niños_development.aporta where dni='"+dni+"')");
+    // console.log("select nombre_programa from ciudad_de_los_niños_development.aporta where dni='"+dni+"')");
     client.query("select * from ciudad_de_los_niños_development.aporta where dni='"+dni+"'", function (err, result) {
       if (err) throw err;
       if(result.rows[0]){

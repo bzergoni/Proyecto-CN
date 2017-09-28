@@ -27,8 +27,8 @@ Programa.prototype.cargar = function() {
             console.log(err);
         }
         // execute a query on our database
-        console.log("comienza la carga de " + nombre);
-        console.log("SELECT * FROM ciudad_de_los_niños_development.programa where nombre_programa='asado'");
+        //console.log("comienza la carga de " + nombre);
+        //console.log("SELECT * FROM ciudad_de_los_niños_development.programa where nombre_programa='asado'");
         //  console.log(thisrespaldo)
         client.query("SELECT * FROM ciudad_de_los_niños_development.programa where nombre_programa='" + nombre + "'", function(err, result) {
             if (err) throw err;

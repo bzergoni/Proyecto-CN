@@ -50,7 +50,7 @@ var Contacto = contacto_model.contacto;
 
 /* GET home page. */
 router.get('/', function (req, res) {
-  console.log(connectionString);
+  //console.log(connectionString);
   res.render('index', { user : req.user});
 
 
@@ -71,10 +71,10 @@ router.post('/register', function(req, res) {
 
   		bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
 	   		if (err) throw err;
-		 	console.log("Lo que sigue es un hash");
-		 	console.log(hash);
+		 	//console.log("Lo que sigue es un hash");
+		 	//console.log(hash);
 		 	var stringQuery="insert into ciudad_de_los_niños_development.user values ('"+req.body.username+"','"+hash+"');";
-		 	console.log(stringQuery);
+		 	//console.log(stringQuery);
 		 	client.query(stringQuery,function(err,result){
 		 		client.end(function (err) {
 		      		if (err) throw err;
@@ -100,7 +100,7 @@ router.get('/insertarDonante', function(req, res) {
 });
 
 router.post('/insertarDonante', function(req, res) {
-  console.log("POST DE MODIFICAR DONANTE, REQ.BODY.DNI="+req.body.dni)
+  //console.log("POST DE MODIFICAR DONANTE, REQ.BODY.DNI="+req.body.dni)
 
    var donant = new Donante(req.body.dni)
 
@@ -108,7 +108,7 @@ router.post('/insertarDonante', function(req, res) {
    var pers = new Persona(req.body.dni,req.body.n_y_ap);
    var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
    var donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit);
-//setTimeout(function(){}, 1000);
+//setTimeout(function(){}, time);
   var dni=req.body.dni
 
   pers.cargar()
@@ -138,12 +138,12 @@ router.post('/insertarDonante', function(req, res) {
 
           setTimeout(function(){
             res.redirect('/modificarDonante?dni='+dni);
-          }, 1000);
-        }, 1000);
-      }, 1000);
+          }, time);
+        }, time);
+      }, time);
 
 
-  }, 1000);
+  }, time);
 
 
 
@@ -152,7 +152,7 @@ router.post('/insertarDonante', function(req, res) {
 router.get('/modificarDonante', function(req, res) {
     var dni =req.query.dni;
     if(dni){
-      console.log()
+      //console.log()
       var pers = new Persona(dni);
       var padr = new Padrino(dni);
       var donant = new Donante(dni);
@@ -164,10 +164,10 @@ router.get('/modificarDonante', function(req, res) {
             donant.cargar();
             setTimeout(function(){
               res.render('modificarDonante', { user : req.user,datospersona:pers,datospadrino:padr,datosdonante:donant });
-            }, 50);
-          }, 50);
-        }, 50);
-      }, 50);
+            }, time);
+          }, time);
+        }, time);
+      }, time);
     }else{res.render('modificarDonante', { user : req.user });}
 
 
@@ -179,14 +179,14 @@ router.post('/modificarDonanteRedir', function(req, res) {
 });
 
 router.post('/modificarDonante', function(req, res) {
-  console.log("POST DE MODIFICAR DONANTE, REQ.BODY.DNI="+req.body.dni)
+  //console.log("POST DE MODIFICAR DONANTE, REQ.BODY.DNI="+req.body.dni)
 
   var pers = new Persona(req.body.dni,req.body.n_y_ap);
   var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
   var donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit);
-  console.log(pers.show())
-  console.log(padr.show())
-  console.log(donant.show())
+  //console.log(pers.show())
+  //console.log(padr.show())
+  //console.log(donant.show())
   var dni=req.body.dni
   setTimeout(function(){
     pers.actualizar()
@@ -196,10 +196,10 @@ router.post('/modificarDonante', function(req, res) {
         donant.actualizar();
         setTimeout(function(){
           res.redirect('/modificarDonante?dni='+dni);
-        }, 50);
-      }, 50);
-    }, 50);
-  }, 50);
+        }, time);
+      }, time);
+    }, time);
+  }, time);
 
 
 });
@@ -208,7 +208,7 @@ router.post('/modificarDonante', function(req, res) {
 router.get('/eliminarDonante', function(req, res) {
     var dni =req.query.dni;
     if(dni){
-      console.log("entro al if de dni")
+      //console.log("entro al if de dni")
       var pers = new Persona(dni);
       var padr = new Padrino(dni);
       var donant = new Donante(dni);
@@ -219,14 +219,14 @@ router.get('/eliminarDonante', function(req, res) {
           setTimeout(function(){
             donant.cargar();
             setTimeout(function(){
-              console.log(donant)
+              //console.log(donant)
               res.render('eliminarDonante', { user : req.user,datospersona:pers,datospadrino:padr,datosdonante:donant });
-            }, 1000);
-          }, 1000);
-        }, 1000);
-      }, 1000);
+            }, time);
+          }, time);
+        }, time);
+      }, time);
     }else{
-      console.log("entro al else")
+      //console.log("entro al else")
       res.render('eliminarDonante', { user : req.user });}
 
 
@@ -237,7 +237,7 @@ router.post('/eliminarDonanteRedir', function(req, res) {
 });
 
 router.post('/eliminarDonante', function(req, res) {
-  console.log("POST DE eliminar DONANTE, REQ.BODY.DNI="+req.body.dni)
+  //console.log("POST DE eliminar DONANTE, REQ.BODY.DNI="+req.body.dni)
   var donant = new Donante(req.body.dni);
 
   var dni=req.body.dni
@@ -247,8 +247,8 @@ router.post('/eliminarDonante', function(req, res) {
     aport.eliminarPorDni()
     setTimeout(function(){
       res.redirect('/')
-    }, 50);
-  }, 50);
+    }, time);
+  }, time);
 
 
 });
@@ -256,13 +256,13 @@ router.post('/eliminarDonante', function(req, res) {
 router.get('/insertarPrograma', function(req, res) {
     res.render('insertarPrograma', { user : req.user });
 });
-var t=10;
+
 router.post('/insertarPrograma', function(req, res) {
 
 
    var program = new Programa(req.body.nombre_programa)
 
-//setTimeout(function(){}, 1000);
+//setTimeout(function(){}, time);
   var nombre_programa=req.body.nombre_programa
 
   program.cargar();
@@ -276,9 +276,9 @@ router.post('/insertarPrograma', function(req, res) {
     }
     setTimeout(function(){
       res.redirect('/listadoProgramas');
-    }, t);
+    }, time);
 
-  }, t);
+  }, time);
 
 });
 
@@ -289,7 +289,7 @@ router.get('/modificarPrograma', function(req, res) {
       program.cargar();
       setTimeout(function(){
         res.render('modificarPrograma', { user : req.user,datosprograma:program});
-      }, t);
+      }, time);
 
 
     }else{res.render('modificarPrograma', { user : req.user });}
@@ -304,28 +304,28 @@ router.post('/modificarProgramaRedir', function(req, res) {
 
 router.post('/modificarPrograma', function(req, res) {
   var program = new Programa(req.body.nombre_programa,req.body.descripcion);
-  console.log(program.show());
+  //console.log(program.show());
   var nombre_programa=req.body.nombre_programa;
   program.actualizar();
   setTimeout(function(){
     res.redirect('/listadoProgramas');
-  }, t);
+  }, time);
 
 });
 
 router.get('/eliminarPrograma', function(req, res) {
     var nombre_programa =req.query.nombre_programa;
     if(nombre_programa){
-      console.log("entro al if de nombre_programa")
+      //console.log("entro al if de nombre_programa")
       var program = new Programa(nombre_programa);
       program.cargar();
       setTimeout(function(){
-        console.log(program)
+        //console.log(program)
         res.render('eliminarPrograma', { user : req.user,datosprograma:program });
-      }, t);
+      }, time);
 
     }else{
-      console.log("entro al else")
+      //console.log("entro al else")
       res.render('eliminarPrograma', { user : req.user });}
 });
 
@@ -338,7 +338,7 @@ router.post('/eliminarPrograma', function(req, res) {
   program.eliminar()
   setTimeout(function(){
     res.redirect('/listadoProgramas')
-  }, 50);
+  }, time);
 });
 
 
@@ -348,7 +348,7 @@ router.get('/insertarDebito', function(req, res) {
 
 router.post('/insertarDebito', function(req, res) {
    var debit = new Debito(req.body.nro_cuenta,req.body.cbu,req.body.nombre_titular,req.body.codigo_verificacion,req.body.tipo_cuenta,req.body.nombre_banco,req.body.sucursal_banco);
-//setTimeout(function(){}, 1000);
+//setTimeout(function(){}, time);
    var cbu=req.body.cbu
    debit.exist();
    setTimeout(function(){
@@ -358,13 +358,13 @@ router.post('/insertarDebito', function(req, res) {
          setTimeout(function(){
            res.redirect('/modificarDebito?cbu='+cbu);
 
-         }, 1000);
-       }, 1000);
+         }, time);
+       }, time);
      }else{
        res.redirect('/modificarDebito?cbu='+cbu);
      }
 
-   }, 1000);
+   }, time);
 });
 
 
@@ -378,10 +378,10 @@ router.get('/modificarDebito', function(req, res) {
         debit.exist()
 
         setTimeout(function(){
-          console.log(debit)
+          //console.log(debit)
           res.render('modificarDebito', { user : req.user,datosdebito:debit});
-        }, 500);
-      }, 500);
+        }, time);
+      }, time);
 
 
     }else{res.render('modificarDebito', { user : req.user });}
@@ -397,31 +397,31 @@ router.post('/modificarDebitoRedir', function(req, res) {
 router.post('/modificarDebito', function(req, res) {
   var debit = new Debito(req.body.nro_cuenta,req.body.cbu,req.body.nombre_titular,req.body.codigo_verificacion,req.body.tipo_cuenta,req.body.nombre_banco,req.body.sucursal_banco);
   debit.id=req.body.id
-  console.log("dentro del post")
-  console.log(debit.show())
+  //console.log("dentro del post")
+  //console.log(debit.show())
   var cbu=req.body.cbu
   debit.actualizar()
   setTimeout(function(){
     setTimeout(function(){
       res.redirect('/modificarDebito?cbu='+cbu);
-    }, 50);
-  }, 50);
+    }, time);
+  }, time);
 
 });
 
 router.get('/eliminarDebito', function(req, res) {
     var cbu =req.query.cbu;
     if(cbu){
-      console.log("entro al if de cbu")
+      //console.log("entro al if de cbu")
       var debit = new Debito(cbu);
       debit.cargar();
       setTimeout(function(){
-        console.log(debit)
+        //console.log(debit)
         res.render('eliminarDebito', { user : req.user,datosdebito:debit });
-      }, 1000);
+      }, time);
 
     }else{
-      console.log("entro al else")
+      //console.log("entro al else")
       res.render('eliminarDebito', { user : req.user });}
 });
 
@@ -435,7 +435,7 @@ router.post('/eliminarDebito', function(req, res) {
   debit.eliminar()
   setTimeout(function(){
     res.redirect('/modificarDebito?cbu='+cbu)
-  }, 50);
+  }, time);
 });
 
 
@@ -453,12 +453,12 @@ router.post('/insertarCredito', function(req, res) {
       tarj.insertar();
       setTimeout(function(){
       	res.redirect('/modificarCredito?nro='+req.body.nro);
-    	})
+    	},time)
 	  }
 	  else{
 	  	res.redirect('/modificarCredito?nro='+req.body.nro);
 	  }
-	}, 1000);
+	}, time);
 });
 
 router.get('/modificarCredito', function(req, res) {
@@ -470,10 +470,10 @@ router.get('/modificarCredito', function(req, res) {
       setTimeout(function(){
         tarj.cargar();
         setTimeout(function(){
-        	console.log(tarj);
+        	//console.log(tarj);
             res.render('modificarCredito', { user : req.user, datoscredito:tarj});
-        }, 500);
-      }, 500);
+        }, time);
+      }, time);
     }else{res.render('modificarCredito', { user : req.user });}
 
 
@@ -492,8 +492,8 @@ router.post('/modificarCredito', function(req, res) {
     tarj.actualizar();
 	setTimeout(function(){
       res.redirect('/modificarCredito?nro='+nro);
-    }, 50);
-  }, 50);
+    }, time);
+  }, time);
 });
 
 
@@ -504,10 +504,10 @@ router.get('/eliminarCredito', function(req, res) {
 	  setTimeout(function(){
 	    tarj.cargar();
 	    setTimeout(function(){
-	    	console.log(tarj);
+	    	//console.log(tarj);
 	     	res.render('eliminarCredito', { user : req.user, datoscredito:tarj});
-	    }, 1000);
-	  }, 1000);
+	    }, time);
+	  }, time);
 	}else{
 	  res.render('eliminarCredito', { user : req.user });
 	}
@@ -524,7 +524,7 @@ router.post('/eliminarCredito', function(req, res) {
   tarj.eliminar()
   setTimeout(function(){
     res.redirect('/')
-  }, 50);
+  }, time);
 });
 //----------------------------------------------------
 
@@ -559,7 +559,7 @@ router.get('/insertarContacto', function(req, res) {
 });
 
 router.post('/insertarContacto', function(req, res) {
-  console.log("POST DE MODIFICAR Contacto, REQ.BODY.DNI="+req.body.dni)
+  //console.log("POST DE MODIFICAR Contacto, REQ.BODY.DNI="+req.body.dni)
   var contact = new Contacto(req.body.dni)
   var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
   var pers = new Persona(req.body.dni,req.body.n_y_ap);
@@ -579,24 +579,24 @@ router.post('/insertarContacto', function(req, res) {
           padr.insertar()
         }
           setTimeout(function(){
-            console.log("existe de contact: "+contact.existe);
+            //console.log("existe de contact: "+contact.existe);
             if(!contact.existe){
-              console.log("entro al if de existe contact"+" ... con estado: "+req.body.estado);
+              //console.log("entro al if de existe contact"+" ... con estado: "+req.body.estado);
               contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_alta,req.body.fecha_baja,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion);
               contact.insertar()
             }
               setTimeout(function(){
                 res.redirect('/modificarContacto?dni='+dni);
-               }, 1000);
-          }, 1000);
-     }, 1000);
-   }, 1000);
+              }, time);
+          }, time);
+     }, time);
+   }, time);
 });
 
 router.get('/modificarContacto', function(req, res) {
     var dni =req.query.dni;
     if(dni){
-      console.log()
+      //console.log()
       var pers = new Persona(dni);
       var padr = new Padrino(dni);
       var contact = new Contacto(dni);
@@ -608,10 +608,10 @@ router.get('/modificarContacto', function(req, res) {
             contact.cargar();
             setTimeout(function(){
               res.render('modificarContacto', { user : req.user,datospersona:pers, datospadrino:padr,datoscontacto:contact});
-            }, 50);
-          }, 50);
-        }, 50);
-      }, 50);
+            }, time);
+          }, time);
+        }, time);
+      }, time);
     }else{res.render('modificarContacto', { user : req.user });}
 });
 
@@ -620,15 +620,15 @@ router.post('/modificarContactoRedir', function(req, res) {
 });
 
 router.post('/modificarContacto', function(req, res) {
-  console.log("POST DE MODIFICAR Contacto, REQ.BODY.DNI="+req.body.dni)
+  //console.log("POST DE MODIFICAR Contacto, REQ.BODY.DNI="+req.body.dni)
 
   var pers = new Persona(req.body.dni,req.body.n_y_ap);
   var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
   var contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_alta,req.body.fecha_baja,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion);
 
-  console.log(pers.show());
+  //console.log(pers.show());
 
-  console.log(contact.show());
+  //console.log(contact.show());
   var dni=req.body.dni
 
     pers.actualizar();
@@ -637,18 +637,18 @@ router.post('/modificarContacto', function(req, res) {
       setTimeout(function(){
         contact.actualizar();
           setTimeout(function(){
-            console.log("dentro del ultimo setTimeout antes del redirect");
+            //console.log("dentro del ultimo setTimeout antes del redirect");
             res.redirect('/modificarContacto?dni='+dni);
-          }, 50);
-      }, 50);
-  }, 50);
+          }, time);
+      }, time);
+  }, time);
 });
 
 
 router.get('/eliminarContacto', function(req, res) {
     var dni =req.query.dni;
     if(dni){
-      console.log("entro al if de dni")
+      //console.log("entro al if de dni")
       var pers = new Persona(dni);
       var contact = new Contacto(dni);
       var padr = new Padrino(dni);
@@ -657,9 +657,9 @@ router.get('/eliminarContacto', function(req, res) {
       padr.cargar();
       setTimeout(function(){
         res.render('eliminarContacto', { user : req.user,datospersona:pers,datospadrino:padr,datoscontacto:contact});
-      }, 1000);
+      }, time);
     }else{
-      console.log("entro al else")
+      //console.log("entro al else")
       res.render('eliminarContacto', { user : req.user });}
 });
 
@@ -668,14 +668,14 @@ router.post('/eliminarContactoRedir', function(req, res) {
 });
 
 router.post('/eliminarContacto', function(req, res) {
-  console.log("POST DE eliminar Contacto, REQ.BODY.DNI="+req.body.dni)
+  //console.log("POST DE eliminar Contacto, REQ.BODY.DNI="+req.body.dni)
   var contact = new Contacto(req.body.dni);
 
   var dni=req.body.dni
   contact.eliminar()
   setTimeout(function(){
     res.redirect('/')
-  }, 50);
+  }, time);
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -686,7 +686,7 @@ router.get('/insertarAporte', function(req, res) {
   cred.tiposTarjeta()
   setTimeout(function(){
       res.render('insertarAporte', { user : req.user,listaprogramas:prog.lista,listatarjetas:cred.listatarjetas });
-  }, 1000);
+  }, time);
 });
 
 router.post('/insertarAporte', function(req, res) {
@@ -697,25 +697,29 @@ router.post('/insertarAporte', function(req, res) {
    var credit = new Credito(req.body.nro, req.body.nombre_tarjeta, req.body.nombre_titular,req.body.fecha_vencimiento,req.body.codigo_verificacion)
    var id_mediodepago = req.body.id_mediodepago
    var aport = new Aporta(req.body.dni,req.body.nombre_programa,req.body.monto,req.body.frecuencia,req.body.id_mediodepago,req.body.fecha_aporte,req.body.estado_cobro)
-//setTimeout(function(){}, 1000);
+//setTimeout(function(){}, time);
   donant.cargar()
   setTimeout(function(){
     if(donant.existe){
-      console.log("el donante existe")
+      //console.log("el donante existe")
       if(id_mediodepago > 0 ){
         aport.insertar()
         setTimeout(function(){res.redirect('/listadoAportes');}, time)
          //ver si funciona sino ponr timmeout
       }else{
-        if(tipo_pago=="DEBITO"){debit.insertar()}else {credit.insertar();console.log(credit)}
+        if(tipo_pago=="DEBITO"){debit.insertar()}else {credit.insertar();
+          //console.log(credit)
+        }
         setTimeout(function(){
 
-          if(tipo_pago=="DEBITO"){debit.cargar()}else {credit.cargar();console.log(credit)}
+          if(tipo_pago=="DEBITO"){debit.cargar()}else {credit.cargar();
+            //console.log(credit)
+          }
           setTimeout(function(){
             if(tipo_pago=="DEBITO"){id_mediodepago=debit.id}else {id_mediodepago=credit.id}
-            console.log("id medio de pago ="+id_mediodepago)
+            //console.log("id medio de pago ="+id_mediodepago)
             aport.id=id_mediodepago
-            console.log(aport)
+            //console.log(aport)
             aport.insertar()
             setTimeout(function(){res.redirect('/listadoAportes');}, time)
           }, time);
@@ -738,12 +742,12 @@ router.get('/modificarAporte', function(req, res) {
     var dni =req.query.dni;
     var nombre_programa=req.query.nombre_programa
     if(dni &&  nombre_programa){
-      console.log()
+      //console.log()
       var aport = new Aporta(dni,nombre_programa)
       aport.cargar()
       setTimeout(function(){
         res.render('modificarAporte', { user : req.user,datosaporte:aport });
-      }, 50);
+      }, time);
     }else{res.render('modificarAporte', { user : req.user });}
 
 
@@ -760,19 +764,19 @@ router.post('/modificarAporte', function(req, res) {
   aport.dni= req.body.dni
   aport.cargar()
   setTimeout(function(){
-    console.log(aport)
+    //console.log(aport)
     aport.frecuencia=req.body.frecuencia;
     aport.monto=req.body.monto;
-    console.log("EL ESTADO COBRO ES:",+req.body.estado_cobro)
+    //console.log("EL ESTADO COBRO ES:",+req.body.estado_cobro)
     aport.estado_cobro = req.body.estado_cobro;
     aport.actualizar()
     setTimeout(function(){
-      console.log("el nombre programa que viene del query es"+req.body.nombre_programa)
-      console.log("el dni que viene del query es"+req.body.dni)
+      //console.log("el nombre programa que viene del query es"+req.body.nombre_programa)
+      //console.log("el dni que viene del query es"+req.body.dni)
       //res.redirect('/modificarAporte?nombre_programa='+req.body.nombre_programa+'&dni='+req.body.dni);
       res.redirect('/listadoAportes');
-    }, 500);
-  }, 500);
+    }, time);
+  }, time);
 
 
 });
@@ -798,12 +802,12 @@ router.get('/eliminarAporte', function(req, res) {
             setTimeout(function(){
 
               res.render('eliminarAporte', { user : req.user,datospersona:pers,datoscredito:credit,datosdebito:debit,datosaporte:aport });
-            }, 1000);
-          }, 1000);
-        }, 1000);
-      }, 1000);
+            }, time);
+          }, time);
+        }, time);
+      }, time);
     }else{
-      console.log("entro al else")
+      //console.log("entro al else")
       res.render('eliminarAporte', { user : req.user });}
 
 
@@ -832,7 +836,7 @@ router.post('/eliminarAporte', function(req, res) {
 //   setTimeout(function(){
 //     console.log(prog.lista)
 //     res.render('/')
-//   }, 50);
+//   }, time);
 //});
 
 router.get('/donantesPorPrograma', function(req, res) {
@@ -846,7 +850,7 @@ router.get('/donantesPorPrograma', function(req, res) {
         client.connect(function (err) {
           if (err){console.log(err);}
           var query = "select * from  (Select dni from ciudad_de_los_niños_development.aporta where nombre_programa = '"+nombre_programa+"') ap  natural join (select * from ciudad_de_los_niños_development.persona ) per"
-          console.log(query);
+          //console.log(query);
 
           client.query(query, function (err, result) {
             if (err) throw err;
@@ -865,7 +869,7 @@ router.get('/donantesPorPrograma', function(req, res) {
       }else{
         res.render('donantesPorPrograma', { user : req.user, listaprogramas:prog.lista });
       }
-    }, 1000);
+    }, time);
 });
 
 router.post('/donantesPorProgramaRedir', function(req, res) {
@@ -883,14 +887,14 @@ router.get('/infoDonante', function(req, res) {
         client.connect(function (err) {
           if (err){console.log(err);}
           var query = "select * from (select dni,ocupacion,cuil_cuit from ciudad_de_los_niños_development.donante where dni='"+dni+"' and existe=true) don natural join ciudad_de_los_niños_development.padrino padr natural join ciudad_de_los_niños_development.persona per";
-          console.log(query);
+          //console.log(query);
           client.query(query, function (err, result) {
             if (err) throw err;
             if(!err && !result.rows[0]){
               res.render('infoDonante', { user : req.user});
             }
             if(result.rows[0]){
-                console.log("INFODONANTE ES  "+result.rows[0].ocupacion+" y "+result.rows[0].cuil_cuit);
+                //console.log("INFODONANTE ES  "+result.rows[0].ocupacion+" y "+result.rows[0].cuil_cuit);
                 result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
                 res.render('infoDonante', { user : req.user,infoDonante:result.rows, listaAportes:donant.listaAportes, datosdonante:donant  });
             }
@@ -902,7 +906,7 @@ router.get('/infoDonante', function(req, res) {
       }else{
         res.render('infoDonante', { user : req.user});
       }
-    },500);
+    },time);
 
 
 });
@@ -919,14 +923,14 @@ router.get('/infoContacto', function(req, res) {
         client.connect(function (err) {
           if (err){console.log(err);}
           var query = "select * from (select * from ciudad_de_los_niños_development.contacto where dni='"+dni+"') don natural join (select * from ciudad_de_los_niños_development.padrino) padr natural join (select * from ciudad_de_los_niños_development.persona) per";
-          console.log(query);
+          //console.log(query);
           client.query(query, function (err, result) {
             if (err) throw err;
             if(!err && !result.rows[0]){
               res.render('infoContacto', { user : req.user});
             }
             if(result.rows[0]){
-                console.log("INFOCONTACTO  "+result.rows[0]);
+                //console.log("INFOCONTACTO  "+result.rows[0]);
                 if(result.rows[0].fecha_nac)result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
                 if(result.rows[0].fecha_primer_contacto){result.rows[0].fecha_primer_contacto = result.rows[0].fecha_primer_contacto.toLocaleDateString();}
                 if(result.rows[0].fecha_alta){result.rows[0].fecha_alta = result.rows[0].fecha_alta.toLocaleDateString();}
@@ -962,24 +966,24 @@ router.get('/donantesPorBanco', function(req, res) {
 
         client.connect(function (err) {
           if (err){console.log(err);}
-          console.log("LO SIGUIENTE ES EL FILTROFECA")
+          //console.log("LO SIGUIENTE ES EL FILTROFECA")
           var query
           if(nofiltro=="true"){
             query="select * from (select * from ciudad_de_los_niños_development.aporta ) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb"
-            console.log("no aplica el filtro")
+            //console.log("no aplica el filtro")
           }else{
             query="select * from (select * from ciudad_de_los_niños_development.aporta where ((not(frecuencia='Semestral') OR MOD((extract(YEAR FROM age(fecha_aporte,now()))*12 + extract(MONTH FROM age (fecha_aporte,now() )))::integer,6)=0)and fecha_aporte <=now()::date )) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb"
 
           }
-          console.log(nofiltro)
+          //console.log(nofiltro)
 
          //	var query = "﻿select * from (select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb) apdeb natural join (select * from ciudad_de_los_niños_development.persona) per"
-          console.log(query);
+          //console.log(query);
           client.query(query, function (err, result) {
             if (err) throw err;
             if(!err && !result.rows[0]){res.render('donantesPorBanco', { user : req.user, listabancos:banco.lista });}
             if(result.rows[0]){
-            	console.log(result.rows)
+            	//console.log(result.rows)
               tagExport="DonantesPBanco "+nombre_banco+" "+toStringForExportTag(new Date())
               res.render('donantesPorBanco', { user : req.user,lista:result.rows, listabancos:banco.lista,tagExport:tagExport  });
             }
@@ -991,7 +995,7 @@ router.get('/donantesPorBanco', function(req, res) {
       }else{
         res.render('donantesPorBanco', { user : req.user, listabancos:banco.lista });
       }
-    }, 1000);
+    }, time);
 
 
 });
@@ -1007,7 +1011,7 @@ router.get('/listadoDonantes', function(req, res) {
   client.connect(function (err) {
     if (err){console.log(err);}
     var query = "select * from ciudad_de_los_niños_development.donante  natural join ciudad_de_los_niños_development.persona  "
-    console.log(query);
+    //console.log(query);
 
     client.query(query, function (err, result) {
       if (err) throw err;
@@ -1054,13 +1058,13 @@ router.get('/listadoGraficoAportes', function(req, res) {
   client.connect(function (err) {
     if (err){console.log(err);}
     var query = "select nombre_programa as label,count(dni) as data from ciudad_de_los_niños_development.aporta group by nombre_programa"
-    console.log(query);
+    //console.log(query);
 
     client.query(query, function (err, result) {
       if (err) throw err;
       if(!err && !result.rows[0]){res.render('listadoGraficoAportes', { user : req.user});}
       if(result.rows[0]){
-        console.log(result.rows);
+        //console.log(result.rows);
 
         res.render('listadoGraficoAportes', { user : req.user,lista:result.rows});
       }
@@ -1082,7 +1086,7 @@ router.get('/listadoContactos', function(req, res) {
   client.connect(function (err) {
     if (err){console.log(err);}
     var query = "select * from ciudad_de_los_niños_development.contacto natural join ciudad_de_los_niños_development.persona"
-    console.log(query);
+    //console.log(query);
 
     client.query(query, function (err, result) {
       if (err) throw err;
@@ -1108,7 +1112,7 @@ router.get('/listadoContactos', function(req, res) {
     client.connect(function (err) {
      if (err){console.log(err);}
      var query = "select nombre_programa,descripcion from ciudad_de_los_niños_development.programa "
-     console.log(query);
+     //console.log(query);
      client.query(query, function (err, result) {
        if (err) throw err;
        if(!err && !result.rows[0]){
@@ -1132,8 +1136,8 @@ router.get('/listadoContactos', function(req, res) {
       var tarjeta = new Credito();
       var usuario = req.user
       tarjeta.tiposTarjeta()
-      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-      console.log(req.user)
+      //console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+      //console.log(req.user)
 
 
       setTimeout(function(){
@@ -1143,17 +1147,17 @@ router.get('/listadoContactos', function(req, res) {
           client.connect(function (err) {
             if (err){console.log(err);}
             var query
-            console.log(req.user)
+            //console.log(req.user)
             if(nofiltro=="true"){
               query="select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.tarjeta where nombre_tarjeta = '"+nombre_tarjeta+"') deb"
-              console.log("no aplica el filtro")
+              //console.log("no aplica el filtro")
             }else{
               query="select * from (select * from ciudad_de_los_niños_development.aporta where ((not(frecuencia='Semestral') OR MOD((extract(YEAR FROM age(fecha_aporte,now()))*12 + extract(MONTH FROM age (fecha_aporte,now() )))::integer,6)=0)and fecha_aporte <=now()::date )) ap natural join (select * from ciudad_de_los_niños_development.tarjeta where nombre_tarjeta = '"+nombre_tarjeta+"') deb"
 
             }
 
            //	var query = "﻿select * from (select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb) apdeb natural join (select * from ciudad_de_los_niños_development.persona) per"
-            console.log(query);
+            //console.log(query);
             client.query(query, function (err, result) {
               if (err) throw err;
               if(!err && !result.rows[0]){res.render('donantesPorTarjeta', { user: req.user, listatarjetas:tarjeta.listatarjetas});}
@@ -1173,7 +1177,7 @@ router.get('/listadoContactos', function(req, res) {
         //  res.render('donantesPorTarjeta', {user:req.user, });
           res.render('donantesPorTarjeta', { user : usuario,listatarjetas:tarjeta.listatarjetas });
         }
-      }, 1000);
+      }, time);
 
 
   });

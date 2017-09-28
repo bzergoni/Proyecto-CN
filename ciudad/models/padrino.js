@@ -35,9 +35,9 @@ Padrino.prototype.cargar = function() {
 
 
         // execute a query on our database
-        console.log("comienza la carga de " + dni);
-        console.log("SELECT * FROM ciudad_de_los_niños_development.padrino where dni='111222333'");
-        console.log(thisrespaldo)
+        //console.log("comienza la carga de " + dni);
+        //console.log("SELECT * FROM ciudad_de_los_niños_development.padrino where dni='111222333'");
+        //console.log(thisrespaldo)
         client.query("SELECT * FROM ciudad_de_los_niños_development.padrino where dni='" + dni + "'", function(err, result) {
             if (err) throw err;
             if (result.rows[0]) {
@@ -50,11 +50,11 @@ Padrino.prototype.cargar = function() {
                 thisrespaldo.fecha_nac = stringFecha(result.rows[0].fecha_nac);
                 thisrespaldo.cod_postal = result.rows[0].cod_postal;
 
-                console.log(thisrespaldo);
+              //console.log(thisrespaldo);
 
 
             }
-            console.log(thisrespaldo)
+            //console.log(thisrespaldo)
             client.end(function(err) {
                 if (err) {
                     console.log(err)
@@ -80,7 +80,7 @@ Padrino.prototype.insertar = function() {
             console.log(err)
         };
         // execute a query on our database
-        console.log("insert into ciudad_de_los_niños_development.padrino values (" + dni + ",'" + email + "','" + tel_fijo + "','" + direccion + "','" + celular + "'," + fecha_nac + "," + cod_postal + ");")
+        //console.log("insert into ciudad_de_los_niños_development.padrino values (" + dni + ",'" + email + "','" + tel_fijo + "','" + direccion + "','" + celular + "'," + fecha_nac + "," + cod_postal + ");")
         client.query("insert into ciudad_de_los_niños_development.padrino values (" + dni + ",'" + email + "','" + tel_fijo + "','" + direccion + "','" + celular + "'," + fecha_nac + "," + cod_postal + ");", function(err, result) {
             if (err) {
                 console.log(err)

@@ -27,7 +27,7 @@ Debito.prototype.cargar = function(){
   client.connect(function (err) {
     if (err){console.log(err);}
     // execute a query on our database
-    console.log("SELECT * FROM ciudad_de_los_niños_development.debito where cbu='"+cbu+"'");
+    //console.log("SELECT * FROM ciudad_de_los_niños_development.debito where cbu='"+cbu+"'");
   //  console.log(thisrespaldo)
     client.query("SELECT * FROM ciudad_de_los_niños_development.debito where cbu='"+cbu+"'", function (err, result) {
       if (err) throw err;
@@ -113,7 +113,9 @@ Debito.prototype.insertar = function(){
       if(result){
         client.query("insert into ciudad_de_los_niños_development.debito values (lastval(),'"+numero_cuenta+"','"+cbu+"','"+titular+"','"+codigo+"','"+cuenta+"','"+banco+"','"+sucursal+"');", function (err, result) {
           if (err){console.log(err)}
-          if(result){console.log("SE INSERTO EL DEBITO CORRECTAMENTE")}
+          if(result){
+          //  console.log("SE INSERTO EL DEBITO CORRECTAMENTE")
+          }
         });
       }
       client.end(function (err) {
