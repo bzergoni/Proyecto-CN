@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var User = require('./models/user');
 var pg = require('pg');
 
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 const saltRounds = 10;
 
 var passport = require('passport');

@@ -160,3 +160,4 @@ create or replace function auditoria() returns trigger as
 	LANGUAGE 'plpgsql';
 
 create trigger TriggerAuditoria after delete on ciudad_de_los_niños_development.Donante for each row execute procedure auditoria();
+INSERT INTO ciudad_de_los_niños_development.user(username, password, id) VALUES ('a2dmin','$2a$10$sCRGh9xP.KDDiswoY/YmS.fZQqxuTlzzz0nQAVZo6ZO2Bxs4rHASG',default);
