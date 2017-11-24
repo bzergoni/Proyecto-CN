@@ -21,6 +21,7 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "pg": "^6.1.0",
+    "pm2": "^2.7.2",
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
@@ -30,7 +31,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=development node ./bin/www"
+    "start": " node ./bin/www"
   },
   "repository": {
     "type": "git",
