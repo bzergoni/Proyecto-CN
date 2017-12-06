@@ -49,17 +49,18 @@ block content
             
             
             
-            form(role='form', action="/eliminarDonante",method="post", style='display :none')
+            form(role='form', action="/eliminarDonante",method="post")
               .form-group.oculto
-                input.form-control(type='text', name="dni", placeholder='DNI',value=datospersona.dni,readonly="true")
-                input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',value=datospersona.n_y_ap,readonly="true")
-                input.form-control(type='text', name="email", placeholder='DNI',value=datospadrino.email,readonly="true")
-                input.form-control(type='text', name="tel_fijo", placeholder='DNI',value=datospadrino.tel_fijo,readonly="true")
-                input.form-control(type='text', name="direccion", placeholder='DNI',value=datospadrino.direccion,readonly="true")
-                input.form-control(type='text', name="celular", placeholder='DNI',value=datospadrino.celular,readonly="true")
-                input.form-control(type='text', name="fecha_nac", placeholder='DNI',value=datospadrino.fecha_nac,readonly="true")
-                input.form-control(type='text', name="cod_postal", placeholder='DNI',value=datospadrino.cod_postal,readonly="true")
-                input.form-control(type='text', name="ocupacion", placeholder='DNI',value=datosdonante.ocupacion,readonly="true")
-                input.form-control(type='text', name="cuil_cuit", placeholder='DNI',value=datosdonante.cuil_cuit,readonly="true")
+                  input.form-control(type='text', name="dni", placeholder='DNI',value=datospersona.dni,readonly="true")
+                  input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO',value=datospersona.n_y_ap,readonly="true")
+                  input.form-control(type='text', name="email", placeholder='DNI',value=datospadrino.email,readonly="true")
+                  input.form-control(type='text', name="tel_fijo", placeholder='DNI',value=datospadrino.tel_fijo,readonly="true")
+                  input.form-control(type='text', name="direccion", placeholder='DNI',value=datospadrino.direccion,readonly="true")
+                  input.form-control(type='text', name="celular", placeholder='DNI',value=datospadrino.celular,readonly="true")
+                  input.form-control(type='text', name="fecha_nac", placeholder='DNI',value=datospadrino.fecha_nac,readonly="true")
+                  input.form-control(type='text', name="cod_postal", placeholder='DNI',value=datospadrino.cod_postal,readonly="true")
+                  input.form-control(type='text', name="ocupacion", placeholder='DNI',value=datosdonante.ocupacion,readonly="true")
+                  input.form-control(type='text', name="cuil_cuit", placeholder='DNI',value=datosdonante.cuil_cuit,readonly="true")
+                  br      
               button(type='submit',class="boton") Eliminar
-              a(href="/register",class='.link') Cancelar
+              a(href="/listadoDonantes",class='.link') Cancelar

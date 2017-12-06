@@ -111,6 +111,7 @@ Debito.prototype.insertar = function(){
     client.query("insert into ciudad_de_los_niños_development.medio_de_pago values (default);", function (err, result) {
       if (err){console.log(err)}
       if(result){
+        console.log("insert into ciudad_de_los_niños_development.debito values (lastval(),'"+numero_cuenta+"','"+cbu+"','"+titular+"','"+codigo+"','"+cuenta+"','"+banco+"','"+sucursal+"');");
         client.query("insert into ciudad_de_los_niños_development.debito values (lastval(),'"+numero_cuenta+"','"+cbu+"','"+titular+"','"+codigo+"','"+cuenta+"','"+banco+"','"+sucursal+"');", function (err, result) {
           if (err){console.log(err)}
           if(result){console.log("SE INSERTO EL DEBITO CORRECTAMENTE")}
