@@ -8,12 +8,16 @@ block content
           form(role='form', action="/insertarAporte",method="post")
             .form-group
               label(for='dni') Dni:
-              input.form-control(type='text', name="dni", placeholder='DNI')
+              input.form-control(type='text', name="dni", placeholder='DNI',required)
               br
               label(for='nombre_programa') Nombre del programa:
-              select(name="nombre_programa")
-                each programa, i in listaprogramas
-                  option(value=programa.nombre_programa)  #{programa.nombre_programa}
+              if listaprogramas 
+                select(name="nombre_programa")
+                  each programa, i in listaprogramas
+                    option(value=programa.nombre_programa)  #{programa.nombre_programa}
+              else
+                  h3
+                    a(color='red',href="/insertarPrograma")  NO HAY CARGADO NINGUN PROGRAMA, CLIC AQUI PARA CARGAR UNO.
               br
               br
               label(for='id_mediodepago') ID del medio de pago:

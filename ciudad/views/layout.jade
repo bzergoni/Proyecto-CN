@@ -60,7 +60,7 @@ html(lang='en')
             li
               a(href='/logout')
                 i.fa.fa-fw.fa-power-off.fa-2x
-                |  Log Out
+                |  #{user.username} Log Out
           // Sidebar Menu Items - These collapse to the responsive navigation menu on small screens
           .collapse.navbar-collapse.navbar-ex1-collapse
             ul.nav.navbar-nav.side-nav
@@ -95,6 +95,11 @@ html(lang='en')
                     a(href='/donantesPorPrograma') Donantes por programa
                   li
                     a(href='/listadoGraficoAportes') Grafico de Donantes por Programa
+              if(user.type == 1)
+                li
+                  a(href='/register')
+                    i.fa.fa-fw.fa-credit-card.fa-2x
+                    |  Nuevo Usuario
           // /.navbar-collapse
         #page-wrapper
           .container-fluid

@@ -62,8 +62,8 @@ Aporta.prototype.insertar = function() {
         if (err) {
             console.log(err)
         };
-        console.log("insert into ciudad_de_los_niños_development.aporta values ('" + dni + "','" + nombre_programa + "'," + monto + ",'" + frecuencia + "'," + id + ");")
-        client.query("insert into ciudad_de_los_niños_development.aporta values ('" + dni + "','" + nombre_programa + "'," + monto + ",'" + frecuencia + "'," + id + ",'"+fecha_aporte+"','"+estado_cobro+"');", function(err, result) {
+        console.log("insert into ciudad_de_los_niños_development.aporta values ('" + dni + "','" + nombre_programa + "'," + monto + ",'" +fecha_aporte+ "','"+ frecuencia + "'," + id +",'"+estado_cobro+"');");
+        client.query("insert into ciudad_de_los_niños_development.aporta values ('" + dni + "','" + nombre_programa + "'," + monto + ",'" +fecha_aporte+ "','"+ frecuencia + "'," + id +",'"+estado_cobro+"');", function(err, result) {
             if (err) {
                 console.log(err)
             }

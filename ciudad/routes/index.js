@@ -57,7 +57,8 @@ router.get('/', function (req, res) {
 });
 
 router.get('/register', function(req, res) {
-    res.render('register', { });
+    console.log(req.user);
+    res.render('register', {user:req.user });
 });
 
 
@@ -66,30 +67,31 @@ router.get('/register', function(req, res) {
 
 router.post('/register', function(req, res) {
   client = new pg.Client(connectionString);
- 	client.connect(function (err) {
+  client.connect(function(err) {
 
 
-  		bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-	   		if (err) throw err;
-		 	console.log("Lo que sigue es un hash");
-		 	console.log(hash);
-		 	var stringQuery="insert into ciudad_de_los_niños_development.user values ('"+req.body.username+"','"+hash+"');";
-		 	console.log(stringQuery);
-		 	client.query(stringQuery,function(err,result){
-		 		client.end(function (err) {
-		      		if (err) throw err;
-		    	});
+    bcrypt.hash(req.body.password, null,null, function(err, hash) {
+      if (err) throw err;
+      console.log("Lo que sigue es un hash");
+      console.log(hash);
+      var stringQuery = "insert into ciudad_de_los_niños_development.user values ('" + req.body.username + "','" + hash + "',default,2);";
+      console.log(stringQuery);
+      client.query(stringQuery, function(err, result) {
+        client.end(function(err) {
+          if (err) throw err;
+        });
 
-		 		passport.authenticate('local')(req, res, function () {
-		            res.redirect('/');
-		        });
+        passport.authenticate('local')(req, res, function() {
+          res.redirect('/');
+        });
 
 
-		 	});
+      });
 
-	});
+    });
 
-})});
+  })
+});
 
 
 
@@ -243,10 +245,10 @@ router.post('/eliminarDonante', function(req, res) {
   var dni=req.body.dni
   donant.eliminar()
   setTimeout(function(){
-    var aport = new Aporte(dni)
+    var aport = new Aporta(dni)
     aport.eliminarPorDni()
     setTimeout(function(){
-      res.redirect('/')
+      res.redirect('/listadoDonantes')
     }, 50);
   }, 50);
 
@@ -1006,7 +1008,7 @@ router.get('/listadoDonantes', function(req, res) {
 
   client.connect(function (err) {
     if (err){console.log(err);}
-    var query = "select * from ciudad_de_los_niños_development.donante  natural join ciudad_de_los_niños_development.persona  "
+    var query = "select * from ciudad_de_los_niños_development.donante  natural join ciudad_de_los_niños_development.persona WHERE existe = TRUE "
     console.log(query);
 
     client.query(query, function (err, result) {
