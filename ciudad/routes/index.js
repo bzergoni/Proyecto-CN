@@ -10,7 +10,7 @@ var pg = require('pg');
 var connectionString = "pg://postgres:postgres@localhost:5432/postgres";
 
 
-const time=1000;
+const time=500;
 
 
 var client = new pg.Client(connectionString);
@@ -278,9 +278,9 @@ router.post('/insertarPrograma', function(req, res) {
     }
     setTimeout(function(){
       res.redirect('/listadoProgramas');
-    }, t);
+    }, time);
 
-  }, t);
+  }, time);
 
 });
 
@@ -291,7 +291,7 @@ router.get('/modificarPrograma', function(req, res) {
       program.cargar();
       setTimeout(function(){
         res.render('modificarPrograma', { user : req.user,datosprograma:program});
-      }, t);
+      }, time);
 
 
     }else{res.render('modificarPrograma', { user : req.user });}
@@ -306,12 +306,13 @@ router.post('/modificarProgramaRedir', function(req, res) {
 
 router.post('/modificarPrograma', function(req, res) {
   var program = new Programa(req.body.nombre_programa,req.body.descripcion);
+  console.log("AHORA VIENE EL SHOW DE PROGRAM");
   console.log(program.show());
   var nombre_programa=req.body.nombre_programa;
   program.actualizar();
   setTimeout(function(){
     res.redirect('/listadoProgramas');
-  }, t);
+  }, time);
 
 });
 
@@ -324,7 +325,7 @@ router.get('/eliminarPrograma', function(req, res) {
       setTimeout(function(){
         console.log(program)
         res.render('eliminarPrograma', { user : req.user,datosprograma:program });
-      }, t);
+      }, time);
 
     }else{
       console.log("entro al else")
@@ -340,7 +341,7 @@ router.post('/eliminarPrograma', function(req, res) {
   program.eliminar()
   setTimeout(function(){
     res.redirect('/listadoProgramas')
-  }, 50);
+  }, time);
 });
 
 
