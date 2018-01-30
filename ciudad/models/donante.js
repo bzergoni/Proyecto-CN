@@ -8,6 +8,7 @@ function Donante(doc,ocup,cuit_cuil){
   this.cuil_cuit=cuit_cuil;
   this.existe=false;
   this.existeLogico=undefined;
+  this.comentario=undefined;
   this.listaProgramasAporta=undefined;
 };
 
@@ -33,6 +34,7 @@ Donante.prototype.cargar = function(){
         //repetirse para todos los campos
         thisrespaldo.ocupacion=result.rows[0].ocupacion;
         thisrespaldo.cuil_cuit=result.rows[0].cuil_cuit;
+        thisrespaldo.comentario=result.rows[0].comentario;
         thisrespaldo.existe=true;
         thisrespaldo.existeLogico=result.rows[0].existe;
       }
@@ -47,12 +49,12 @@ Donante.prototype.insertar = function(){
   var dni=this.dni;
   var ocupacion=this.ocupacion;
   var cuil_cuit=this.cuil_cuit;
-
+  var comentario=this.comentario;
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
     // execute a query on our database
-    client.query("insert into ciudad_de_los_niños_development.donante values ('"+dni+"','"+ocupacion+"','"+cuil_cuit+"');", function (err, result) {
+    client.query("insert into ciudad_de_los_niños_development.donante(dni,ocupacion,cuil_cuit,comentario) values ('"+dni+"','"+ocupacion+"','"+cuil_cuit+"','"+comentario+"');", function (err, result) {
       if (err){console.log(err)}
 
 
@@ -87,13 +89,13 @@ Donante.prototype.actualizar = function(name){
   var dni=this.dni;
   var ocupacion=this.ocupacion;
   var cuil_cuit=this.cuil_cuit;
-
+  var comentario=this.comentario;
 
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
     // execute a query on our database
-    client.query("update ciudad_de_los_niños_development.donante set ocupacion='"+ocupacion+"',cuil_cuit='"+cuil_cuit+"' where dni='"+dni+"'", function (err, result) {
+    client.query("update ciudad_de_los_niños_development.donante set ocupacion='"+ocupacion+"',cuil_cuit='"+cuil_cuit+"',comentario='"+comentario+"' where dni='"+dni+"'", function (err, result) {
       if (err){console.log(err)}
 
 
