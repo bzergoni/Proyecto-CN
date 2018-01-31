@@ -82,7 +82,7 @@ Credito.prototype.insertar = function(){
   var nombre_tarjeta = this.nombre_tarjeta;
   var nombre_titular = this.nombre_titular;
   var fecha_vencimiento = this.fecha_vencimiento;
-  var codigo_verificacion = this.codigo_verificacion;
+  var codigo_verificacion = 0 ;//this.codigo_verificacion;
 
   client = new pg.Client(connectionString);
   /*client.connect(function (err) {
@@ -124,13 +124,13 @@ Credito.prototype.actualizar = function(){
   var nombre_tarjeta = this.nombre_tarjeta;
   var nombre_titular = this.nombre_titular;
   var fecha_vencimiento = this.fecha_vencimiento;
-  var codigo_verificacion = this.codigo_verificacion;
+  //var codigo_verificacion = this.codigo_verificacion;
 
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
 
-    client.query("update ciudad_de_los_niños_development.tarjeta set nombre_titular='"+nombre_titular+"', fecha_vencimiento='"+fecha_vencimiento+"', codigo_verificacion='"+codigo_verificacion+"', nombre_tarjeta='"+nombre_tarjeta+"' where nro='"+nro+"'", function (err, result) {
+    client.query("update ciudad_de_los_niños_development.tarjeta set nombre_titular='"+nombre_titular+"', fecha_vencimiento='"+fecha_vencimiento+"', nombre_tarjeta='"+nombre_tarjeta+"' where nro='"+nro+"'", function (err, result) {
       if (err){console.log(err)}
 
 

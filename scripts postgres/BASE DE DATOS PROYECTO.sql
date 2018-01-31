@@ -104,7 +104,7 @@ constraint CF_Tarjeta2 foreign key (nombre_tarjeta) references TipoTarjeta (nomb
 Create table Debito (
 id Integer,
 nro_cuenta BigInt,
-CBU varchar(10),
+CBU varchar(50),
 nombre_titular varchar(50),
 Codigo_verificacion int,
 tipo_cuenta varchar(50),
