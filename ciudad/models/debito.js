@@ -84,7 +84,7 @@ Debito.prototype.insertar = function(){
   var numero_cuenta=this.numero_cuenta;
   var cbu=this.cbu;
   var titular=this.titular;
-  var codigo=this.codigo;
+  var codigo=0;//this.codigo;
   var cuenta=this.cuenta;
   var banco=this.banco;
   var sucursal=this.sucursal;
@@ -140,7 +140,7 @@ Debito.prototype.actualizar = function(){
   client.connect(function (err) {
     if (err) {console.log(err)};
     // execute a query on our database
-    client.query("update ciudad_de_los_niños_development.debito set nro_cuenta='"+numero_cuenta+"',cbu='"+cbu+"',nombre_titular='"+titular+"',codigo_verificacion='"+codigo+"',tipo_cuenta='"+cuenta+"',nombre_banco='"+banco+"',sucursal_banco='"+sucursal+"' where id='"+id+"'", function (err, result) {
+    client.query("update ciudad_de_los_niños_development.debito set nro_cuenta='"+numero_cuenta+"',cbu='"+cbu+"',nombre_titular='"+titular+"',tipo_cuenta='"+cuenta+"',nombre_banco='"+banco+"',sucursal_banco='"+sucursal+"' where id='"+id+"'", function (err, result) {
       if (err){console.log(err)}
 
 
