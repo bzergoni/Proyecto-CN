@@ -81,7 +81,10 @@ block content
             b Comentario: 
             |  #{infoContacto[0].comentario}
           br
-          
+          li
+            b Fecha de ultimo Contacto: 
+            |  #{infoContacto[0].fecha_ult_contacto}
+          br
           br
           form
             input(type='button', value='Volver', name='Volver', onclick='history.back()')

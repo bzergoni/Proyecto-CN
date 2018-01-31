@@ -55,6 +55,7 @@ estado TipoEstado,
 Dni_recomendador varchar(10),
 comentario Varchar(200),
 relacion varchar(15),
+fecha_ult_contacto date,
 Constraint pk_Contacto  primary key (Dni),
 constraint CF_Contacto1 foreign key (Dni) references Padrino (Dni) on delete cascade on update cascade
 

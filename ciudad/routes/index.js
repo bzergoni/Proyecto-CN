@@ -585,7 +585,7 @@ router.post('/insertarContacto', function(req, res) {
             console.log("existe de contact: "+contact.existe);
             if(!contact.existe){
               console.log("entro al if de existe contact"+" ... con estado: "+req.body.estado);
-              contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_alta,req.body.fecha_baja,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion);
+              contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_alta,req.body.fecha_baja,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion,req.body.fecha_ult_contacto);
               contact.insertar()
             }
               setTimeout(function(){
@@ -627,7 +627,7 @@ router.post('/modificarContacto', function(req, res) {
 
   var pers = new Persona(req.body.dni,req.body.n_y_ap);
   var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
-  var contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_alta,req.body.fecha_baja,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion);
+  var contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_alta,req.body.fecha_baja,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion,req.body.fecha_ult_contacto);
 
   console.log(pers.show());
 
