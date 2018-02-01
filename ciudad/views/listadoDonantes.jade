@@ -9,6 +9,11 @@ block content
         thead
           th Dni
           th Nombre y apellido
+          th Telefono
+          th Comentario
+          th Cuil/Cuit
+          th Email
+          th Direccion
           th 
           th 
         each elemento, i in lista
@@ -16,6 +21,11 @@ block content
             td 
               a(href='/infoDonante?dni=#{elemento.dni}') #{elemento.dni}
             td #{elemento.n_y_ap}
+            td #{elemento.celular} / #{elemento.tel_fijo}
+            td #{elemento.comentario}
+            td #{elemento.cuil_cuit}
+            td #{elemento.email}
+            td #{elemento.direccion}
             td(class='celdacorta')
               a(href='/modificarDonante?dni=#{elemento.dni}') modificar              
             td(class='celdacorta')

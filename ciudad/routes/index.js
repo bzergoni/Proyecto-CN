@@ -1009,9 +1009,10 @@ router.get('/listadoDonantes', function(req, res) {
 
   client.connect(function (err) {
     if (err){console.log(err);}
-    var query = "select * from ciudad_de_los_niños_development.donante  natural join ciudad_de_los_niños_development.persona WHERE existe = TRUE "
     console.log(query);
 
+  //  var query = "select * from ciudad_de_los_niños_development.donante  natural join ciudad_de_los_niños_development.persona WHERE existe = TRUE "
+    var query = "select * from (select * from ciudad_de_los_niños_development.donante  natural join ciudad_de_los_niños_development.persona WHERE existe = TRUE )as a natural join ciudad_de_los_niños_development.padrino"
     client.query(query, function (err, result) {
       if (err) throw err;
       if(!err && !result.rows[0]){
