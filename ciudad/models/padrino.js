@@ -48,6 +48,7 @@ Padrino.prototype.cargar = function() {
                 thisrespaldo.direccion = result.rows[0].direccion;
                 thisrespaldo.celular = result.rows[0].celular;
                 thisrespaldo.fecha_nac = stringFecha(result.rows[0].fecha_nac);
+                thisrespaldo.fecha_nacALT = stringFechaALT(result.rows[0].fecha_nac);
                 thisrespaldo.cod_postal = result.rows[0].cod_postal;
 
                 console.log(thisrespaldo);
@@ -192,6 +193,17 @@ function stringFecha(a){
     return a
   }
 }
+function stringFechaALT(a) {
+  if(a){
+    var mm = a.getMonth() + 1;
+    var dd = a.getDate();
+
+    return [a.getFullYear(),
+      (mm>9 ? '' : '0') + mm,
+      (dd>9 ? '' : '0') + dd
+    ].join('-');
+  }else{return null;}
+};
 function fechaToQuery(a){
   if(a == ""){
     return ("null");
