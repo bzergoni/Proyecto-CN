@@ -542,9 +542,14 @@ router.get('/login', function(req, res) {
 
 
 
-router.post('/login', passport.authenticate('local'), function(req, res) {
+router.post('/login', passport.authenticate('local',{failureRedirect: '/loginerror' }), function(req, res) {
 
     res.redirect('/');
+});
+
+router.get('/loginerror', function(req, res) {
+  error="error";
+    res.render('login',{errorlogin:error});
 });
 
 router.get('/logout', function(req, res) {
@@ -1110,7 +1115,7 @@ router.get('/listadoContactos', function(req, res) {
       }
       if(result.rows[0]){
         tagExport="Contactos "+toStringForExportTag(new Date())
-        
+
         res.render('listadoContactos', { user : req.user, lista:result.rows,tagExport:tagExport});
       }
       //if (!err) {  res.render('listadoContactos', { user : req.user});};

@@ -89,7 +89,8 @@ app.use('/', routes);
           if(err){done(err)};
           if(!err){
             //console.log(result.rows[0]);
-            if(bcrypt.compareSync(password, result.rows[0].password)){done(null,result.rows[0])};
+            if(!result.rows[0]){done(null,false);}
+            if(result.rows[0]&&bcrypt.compareSync(password, result.rows[0].password)){done(null,result.rows[0])};
               }else{done(null,false);}
 
 

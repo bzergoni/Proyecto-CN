@@ -113,11 +113,16 @@ html(lang='en')
           h1 Iniciar sesion
           p
           br
+          
           form(role='form', action="/login",method="post")
 
             input.form-control(type='text', name="username", placeholder='Usuario')
             br
             input.form-control(type='password', name="password", placeholder='Contraseña')
+            br
+            
+            if(errorlogin)
+              h5(style="color:red;") Usuario o contraseña incorrectos
             br
             button.btn.btn-default(type='submit') Aceptar
             a(href='/')
