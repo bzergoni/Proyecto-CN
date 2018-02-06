@@ -1100,7 +1100,7 @@ router.get('/listadoContactos', function(req, res) {
 
   client.connect(function (err) {
     if (err){console.log(err);}
-    var query = "select * from ciudad_de_los_niños_development.contacto natural join ciudad_de_los_niños_development.persona"
+    var query = "select * from (select * from ciudad_de_los_niños_development.contacto natural join ciudad_de_los_niños_development.persona  )as a natural join ciudad_de_los_niños_development.padrino"
     console.log(query);
 
     client.query(query, function (err, result) {
@@ -1110,6 +1110,7 @@ router.get('/listadoContactos', function(req, res) {
       }
       if(result.rows[0]){
         tagExport="Contactos "+toStringForExportTag(new Date())
+        
         res.render('listadoContactos', { user : req.user, lista:result.rows,tagExport:tagExport});
       }
       //if (!err) {  res.render('listadoContactos', { user : req.user});};

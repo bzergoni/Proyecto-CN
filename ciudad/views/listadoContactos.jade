@@ -13,7 +13,10 @@ block content
           th Dni
           th Nombre y apellido
           th Estado
-          th 
+          th Telefono/Celular
+          th Comentario
+          th Fecha ultimo Contacto
+          th
           th 
         each elemento, i in lista
           tr
@@ -21,6 +24,12 @@ block content
               a(href='/infoContacto?dni=#{elemento.dni}') #{elemento.dni}
             td #{elemento.n_y_ap}
             td #{elemento.estado}
+            td #{elemento.tel_fijo} / #{elemento.celular}
+            td #{elemento.comentario}
+            if(elemento.fecha_ult_contacto)
+              td #{elemento.fecha_ult_contacto.toLocaleDateString()}
+            else
+              td
             td(class='celdacorta')
               a(href='/modificarContacto?dni=#{elemento.dni}') modificar              
             td(class='celdacorta')
