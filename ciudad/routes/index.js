@@ -1036,14 +1036,29 @@ router.get('/listadoAportes', function(req, res) {
 
   client.connect(function (err) {
     if (err){console.log(err);}
-    var query = "select * from ciudad_de_los_niños_development.aporta  natural join ciudad_de_los_niños_development.persona  "
-
+    var query = "select * from (select * from ciudad_de_los_niños_development.aporta  natural join ciudad_de_los_niños_development.persona  )as a natural join ciudad_de_los_niños_development.tarjeta"
+    var query2 = "select * from (select * from ciudad_de_los_niños_development.aporta  natural join ciudad_de_los_niños_development.persona  )as a natural join ciudad_de_los_niños_development.debito"
     client.query(query, function (err, result) {
       if (err) throw err;
       if(!err && !result.rows[0]){res.render('listadoAportes', { user : req.user});}
       if(result.rows[0]){
         tagExport="Aportes "+toStringForExportTag(new Date())
-        res.render('listadoAportes', { user : req.user,lista:result.rows,tagExport:tagExport});
+        var listacred=result.rows;
+
+        client.query(query2, function (err, result) {
+          if (err) throw err;
+          if(!err && !result.rows[0]){res.render('listadoAportes', { user : req.user});}
+          if(result.rows[0]){
+            tagExport="Aportes "+toStringForExportTag(new Date())
+            var listadeb=result.rows;
+
+            res.render('listadoAportes', { user : req.user,listadeb:listadeb,listacred:listacred,tagExport:tagExport});
+          }
+          client.end(function (err) {
+            if (err) {console.log(err)};
+          });
+        });
+
       }
       client.end(function (err) {
         if (err) {console.log(err)};
