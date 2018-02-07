@@ -18,6 +18,7 @@ block content
           th Fecha ultimo Contacto
           th
           th 
+          th
         each elemento, i in lista
           tr
             td 
@@ -34,4 +35,6 @@ block content
               a(href='/modificarContacto?dni=#{elemento.dni}') modificar              
             td(class='celdacorta')
               a(href='/eliminarContacto?dni=#{elemento.dni}') eliminar
+            td(class='celdacorta')
+              a(href='/adherirContacto?dni=#{elemento.dni}') Adherir
                 

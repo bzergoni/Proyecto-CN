@@ -87,35 +87,35 @@ Contacto.prototype.actualizar = function(){
   var dni=this.dni;
 
   var fecha_primer_contacto
-  if(this.fecha_primer_contacto == ""){
+  if(this.fecha_primer_contacto == undefined){
     fecha_primer_contacto="null";
   }else{
     fecha_primer_contacto="'"+this.fecha_primer_contacto+"'";
   }
 
   var fecha_alta
-  if(this.fecha_alta == ""){
+  if(this.fecha_alta == undefined){
     fecha_alta="null";
   }else{
     fecha_alta="'"+this.fecha_alta+"'";
   }
 
   var fecha_baja
-  if(this.fecha_baja == ""){
+  if(this.fecha_baja == undefined){
     fecha_baja="null";
   }else{
     fecha_baja="'"+this.fecha_baja+"'";
   }
 
   var fecha_rechazo_adhesion
-  if(this.fecha_rechazo_adhesion == ""){
+  if(this.fecha_rechazo_adhesion == undefined){
     fecha_rechazo_adhesion="null";
   }else{
     fecha_rechazo_adhesion="'"+this.fecha_rechazo_adhesion+"'";
   }
 
   var fecha_ult_contacto
-  if(this.fecha_ult_contacto == ""){
+  if(this.fecha_ult_contacto == undefined){
     fecha_ult_contacto="null";
   }else{
     fecha_ult_contacto="'"+this.fecha_ult_contacto+"'";

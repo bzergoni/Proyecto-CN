@@ -1208,6 +1208,32 @@ router.get('/listadoContactos', function(req, res) {
 
   });
 
+  router.get('/adherirContacto', function(req, res) {
+      var dni=req.query.dni;
+        if(dni){
+          var contact = new Contacto(dni);
+          contact.cargar();
+          //setTimeout(function(){}, time);
+
+          setTimeout(function(){
+            contact.estado="Adherido";
+            contact.actualizar();
+            setTimeout(function(){
+              var donant = new Donante(dni);
+              donant.insertar();
+              setTimeout(function(){
+                res.redirect('listadoDonantes');
+              }, time);
+            }, time);
+          }, time);
+
+        }
+
+  });
+
+
+
+
   function toStringForExportTag(a) {
       return a.getDate()+"-"+(parseInt(a.getMonth()) + 1 )+"-"+a.getFullYear()
   };
