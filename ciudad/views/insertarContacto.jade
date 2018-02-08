@@ -7,7 +7,7 @@ block content
         form(role='form', action="/insertarContacto",method="post")
           .form-group
             label(for='dni') Dni:  
-            input.form-control(type='text', name="dni", placeholder='DNI')
+            input.form-control(type='text', name="dni",maxlength="10", placeholder='DNI')
             br
             label(for="n_y_ap") Nombre y apellido:
             input.form-control(type='text', name="n_y_ap", placeholder='NOMBRE Y APELLIDO')
