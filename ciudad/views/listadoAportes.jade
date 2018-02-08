@@ -5,7 +5,7 @@ block content
   a(href='/insertarAporte',class="btn btn-primary aladerecha", role = "button") Nuevo 
   br
   br
-  if(lista)
+  if(listadeb || listacred)
     table#datos.display(cellspacing='0')
       thead
         th Dni
@@ -14,18 +14,39 @@ block content
         th Monto
         th Frecuencia
         th Estado del Cobro
+        th Medio de Pago
+        th Id medio de pago
         th
         th
-      each elemento, i in lista
-        tr
-          td 
-            a(href='/infoDonante?dni=#{elemento.dni}') #{elemento.dni}
-          td #{elemento.n_y_ap}
-          td #{elemento.nombre_programa}
-          td #{elemento.monto}
-          td #{elemento.frecuencia}
-          td #{elemento.estado_cobro}
-          td(class='celdacorta')
-            a(href='/modificarAporte?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}') modificar              
-          td(class='celdacorta')
-            a(href='/eliminarAporte?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}') eliminar
+      if(listacred)    
+        each elemento, i in listacred
+          tr
+            td 
+              a(href='/infoDonante?dni=#{elemento.dni}') #{elemento.dni}
+            td #{elemento.n_y_ap}
+            td #{elemento.nombre_programa}
+            td #{elemento.monto}
+            td #{elemento.frecuencia}
+            td #{elemento.estado_cobro}
+            td Credito
+            td #{elemento.id}
+            td(class='celdacorta')
+              a(href='/modificarAporte?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}') modificar              
+            td(class='celdacorta')
+              a(href='/eliminarAporte?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}') eliminar
+      if(listadeb)    
+        each elemento, i in listadeb
+          tr
+            td 
+              a(href='/infoDonante?dni=#{elemento.dni}') #{elemento.dni}
+            td #{elemento.n_y_ap}
+            td #{elemento.nombre_programa}
+            td #{elemento.monto}
+            td #{elemento.frecuencia}
+            td #{elemento.estado_cobro}
+            td Debito
+            td #{elemento.id}
+            td(class='celdacorta')
+              a(href='/modificarAporte?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}') modificar              
+            td(class='celdacorta')
+              a(href='/eliminarAporte?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}') eliminar

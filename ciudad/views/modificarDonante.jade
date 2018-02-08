@@ -20,27 +20,36 @@ block content
               input.form-control(type='text', name="n_y_ap", placeholder='Nombre y apellido',value=datospersona.n_y_ap,required)
               br
               label(for='email') Correo Electronico:
-              input.form-control(type='text', name="email", placeholder='Correo Electronico',value=datospadrino.email,required)
+              input.form-control(type='text', name="email", placeholder='Correo Electronico',value=datospadrino.email)
               br
               label(for='tel_fijo') Telefono fijo:
               input.form-control(type='text', name="tel_fijo", placeholder='Telefono fijo',value=datospadrino.tel_fijo)
               br
               label(for='direccion') Dirección:
-              input.form-control(type='text', name="direccion", placeholder='Direccion',value=datospadrino.direccion,required)
+              input.form-control(type='text', name="direccion", placeholder='Direccion',value=datospadrino.direccion)
               br
               label(for='celular') Celular:
-              input.form-control(type='text', name="celular", placeholder='Telefono Celular',value=datospadrino.celular,required)
+              input.form-control(type='text', name="celular", placeholder='Telefono Celular',value=datospadrino.celular)
               br
               label(for='fecha_nac') Fecha de nacimiento:
-              input.form-control(type='text', name="fecha_nac", placeholder='Fecha de Nacimiento',value=datospadrino.fecha_nac,required)
+              input.form-control(type='date', name="fecha_nac", placeholder='Fecha de Nacimiento',value=datospadrino.fecha_nacALT)
               br
               label(for='cod_postal') Codigo postal:
-              input.form-control(type='text', name="cod_postal", placeholder='Cod. Postal',value=datospadrino.cod_postal,required)
+              input.form-control(type='text', name="cod_postal", placeholder='Cod. Postal',value=datospadrino.cod_postal)
               br
               label(for='ocupacion') Ocupación:
               input.form-control(type='text', name="ocupacion", placeholder='Ocupacion',value=datosdonante.ocupacion)
               br
+              label(for='comentario') Comentario:
+              input.form-control(type='text', name="comentario", placeholder='Comentario',value=datosdonante.comentario)
+              br
               label(for='cuil_cuit') Cuil/Cuit:
-              input.form-control(type='text', name="cuil_cuit", placeholder='Cuil/Cuit',value=datosdonante.cuil_cuit,required)
+              input.form-control(type='text', name="cuil_cuit", placeholder='Cuil/Cuit',value=datosdonante.cuil_cuit)
+              br
+              label(for='fecha_alta') Fecha de alta:
+              input.form-control(type='date', name="fecha_alta", placeholder='FECHA DE ALTA',value=datosdonante.fecha_altaALT)
+              br
+              label(for='fecha_baja') Fecha de baja:
+              input.form-control(type='date', name="fecha_baja", placeholder='FECHA DE BAJA',value=datosdonante.fecha_bajaALT)
+              br
             button(type='submit',class="boton") Aceptar
-//CAMBIO EN EL IF DE LA VISTA COMENTAR AL RESTO DEL GRUPO....

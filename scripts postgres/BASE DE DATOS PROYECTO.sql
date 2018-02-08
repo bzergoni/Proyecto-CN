@@ -37,6 +37,9 @@ Dni varchar(10),
 ocupacion varchar(50) ,
 Cuil_cuit varchar(50),
 existe boolean DEFAULT true,
+comentario character varying(150),
+fecha_alta date,
+fecha_baja date,
 Constraint pk_Donante  primary key (Dni),
 constraint CF_Donante foreign key (Dni) references Padrino (Dni) on delete cascade on update cascade
 );
@@ -47,13 +50,12 @@ constraint estados_validos check (value in ('Sin llamar', 'ERROR', 'No acepta', 
 Create table Contacto (
 Dni varchar(10),
 fecha_primer_contacto Date,
-fecha_alta date,
-fecha_baja date,
 fecha_rechazo_adhesion date,
 estado TipoEstado,
 Dni_recomendador varchar(10),
 comentario Varchar(200),
 relacion varchar(15),
+fecha_ult_contacto date,
 Constraint pk_Contacto  primary key (Dni),
 constraint CF_Contacto1 foreign key (Dni) references Padrino (Dni) on delete cascade on update cascade
 
@@ -103,7 +105,7 @@ constraint CF_Tarjeta2 foreign key (nombre_tarjeta) references TipoTarjeta (nomb
 Create table Debito (
 id Integer,
 nro_cuenta BigInt,
-CBU varchar(10),
+CBU varchar(50),
 nombre_titular varchar(50),
 Codigo_verificacion int,
 tipo_cuenta varchar(50),
@@ -130,7 +132,7 @@ monto float,
 fecha_aporte date,
 Frecuencia TipoFrecuencia,
 id Integer,
-estado_cobro character varying(50),
+estado_cobro character varying(100),
 
 Constraint pk_aporta primary key (dni,nombre_programa),
 constraint CF_aporta1 foreign key (dni) references Donante (dni) on delete cascade on update cascade,

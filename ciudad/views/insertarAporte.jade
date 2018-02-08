@@ -39,9 +39,9 @@ block content
               br
               br
               label(for='tipo_pago') Tipo de pago a realizar:
-              select(name='tipo_pago')
-                option(value='CREDITO',onclick="mostrarcredito()") TARJETA DE CREDITO
-                option(value='DEBITO',onclick="mostrardebito()") DEBITO
+              select#tipo_pago(name='tipo_pago',onchange="botonCambio(this);")
+                option#botonCredito(value='CREDITO') TARJETA DE CREDITO
+                option#botonDebito(value='DEBITO') DEBITO
               
               br
               br
@@ -79,32 +79,12 @@ block content
                 br
                 label(for='sucursal_banco') Sucursal del banco:
                 input.form-control(type='text', name="sucursal_banco", placeholder='SUCURSAL DEL BANCO')
-              br
-              label(for='codigo_verificacion') Codigo de verificación:
-              input.form-control(type='text', name="codigo_verificacion", placeholder='CODIGO DE VERIFIACION')
+                br
+                //label(for='codigo_verificacion') Codigo de verificación:
+                //input.form-control(type='text', name="codigo_verificacion", placeholder='CODIGO DE VERIFIACION')
             button(type='submit',class="boton") Aceptar
 
-        script(languague='javascript').
-          function mostrarcredito() {
-          div = document.getElementById('formulariocredito');
-          div.style.display = '';
-          div = document.getElementById('formulariodebito');
-          div.style.display = 'none';
-          };
-          function mostrardebito() {
-          div = document.getElementById('formulariodebito');
-          div.style.display = '';
-          div2 = document.getElementById('formulariocredito');
-          div2.style.display = 'none';
-          }
-          function mostrarnuevos() {
-          document.getElementById('formularionuevocredito').style.display = '';
-          document.getElementById('formularionuevodebito').style.display = '';
-          }
-          function ocultarnuevos() {
-            document.getElementById('formularionuevocredito').style.display = 'none';
-            document.getElementById('formularionuevodebito').style.display = 'none';
-          };
+        
           
             
             
