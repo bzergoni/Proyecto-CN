@@ -2,11 +2,10 @@ var pg = require('pg');
 var connectionString = "pg://postgres:postgres@localhost:5432/postgres";
 var client = new pg.Client(connectionString);
 
-function Contacto(doc,fech_p_cont,fech_alt,fech_baj,fech_rech_adh,estad,dni_recom,coment,relac,fech_ult_contac){
+function Contacto(doc,fech_p_cont,fech_rech_adh,estad,dni_recom,coment,relac,fech_ult_contac){
   this.dni = doc;
   this.fecha_primer_contacto = fech_p_cont;
-  this.fecha_alta = fech_alt;
-  this.fecha_baja = fech_baj;
+
   this.fecha_rechazo_adhesion = fech_rech_adh;
   this.estado = estad;
   this.dni_recomendador = dni_recom;
@@ -40,13 +39,11 @@ Contacto.prototype.cargar = function(){
         thisrespaldo.dni = result.rows[0].dni;
 
         thisrespaldo.fecha_primer_contacto =stringFecha( result.rows[0].fecha_primer_contacto);
-        thisrespaldo.fecha_alta = stringFecha(result.rows[0].fecha_alta);
-        thisrespaldo.fecha_baja = stringFecha(result.rows[0].fecha_baja);
+
         thisrespaldo.fecha_rechazo_adhesion = stringFecha(result.rows[0].fecha_rechazo_adhesion);
 
         thisrespaldo.fecha_primer_contactoALT =stringFechaALT( result.rows[0].fecha_primer_contacto);
-        thisrespaldo.fecha_altaALT = stringFechaALT(result.rows[0].fecha_alta);
-        thisrespaldo.fecha_bajaALT = stringFechaALT(result.rows[0].fecha_baja);
+
         thisrespaldo.fecha_rechazo_adhesionALT = stringFechaALT(result.rows[0].fecha_rechazo_adhesion);
 
         thisrespaldo.estado = result.rows[0].estado;
@@ -71,7 +68,7 @@ Contacto.prototype.insertar = function(){
     if (err) {console.log(err)};
     // execute a query on our database
     console.log("insert into ciudad_de_los_niños_development.contacto values ('"+thisrespaldo.dni+"',"+fechaToQuery(thisrespaldo.fecha_primer_contacto)+","+fechaToQuery(thisrespaldo.fecha_alta)+","+fechaToQuery(thisrespaldo.fecha_baja)+","+fechaToQuery(thisrespaldo.fecha_rechazo_adhesion)+",'"+thisrespaldo.estado+"','"+thisrespaldo.dni_recomendador+"','"+thisrespaldo.comentario+"','"+thisrespaldo.relacion+"',"+fechaToQuery(thisrespaldo.fecha_ult_contacto)+");");
-    client.query("insert into ciudad_de_los_niños_development.contacto values ('"+thisrespaldo.dni+"',"+fechaToQuery(thisrespaldo.fecha_primer_contacto)+","+fechaToQuery(thisrespaldo.fecha_alta)+","+fechaToQuery(thisrespaldo.fecha_baja)+","+fechaToQuery(thisrespaldo.fecha_rechazo_adhesion)+",'"+thisrespaldo.estado+"','"+thisrespaldo.dni_recomendador+"','"+thisrespaldo.comentario+"','"+thisrespaldo.relacion+"',"+fechaToQuery(thisrespaldo.fecha_ult_contacto)+");", function (err, result) {
+    client.query("insert into ciudad_de_los_niños_development.contacto values ('"+thisrespaldo.dni+"',"+fechaToQuery(thisrespaldo.fecha_primer_contacto)+","+fechaToQuery(thisrespaldo.fecha_rechazo_adhesion)+",'"+thisrespaldo.estado+"','"+thisrespaldo.dni_recomendador+"','"+thisrespaldo.comentario+"','"+thisrespaldo.relacion+"',"+fechaToQuery(thisrespaldo.fecha_ult_contacto)+");", function (err, result) {
       if (err){console.log(err)}
 
 
@@ -93,19 +90,7 @@ Contacto.prototype.actualizar = function(){
     fecha_primer_contacto="'"+this.fecha_primer_contacto+"'";
   }
 
-  var fecha_alta
-  if(this.fecha_alta == undefined){
-    fecha_alta="null";
-  }else{
-    fecha_alta="'"+this.fecha_alta+"'";
-  }
 
-  var fecha_baja
-  if(this.fecha_baja == undefined){
-    fecha_baja="null";
-  }else{
-    fecha_baja="'"+this.fecha_baja+"'";
-  }
 
   var fecha_rechazo_adhesion
   if(this.fecha_rechazo_adhesion == undefined){
@@ -133,10 +118,10 @@ Contacto.prototype.actualizar = function(){
     if (err) {console.log(err)};
     // execute a query on our database
     console.log("antes del query");
-    client.query("update ciudad_de_los_niños_development.contacto set fecha_primer_contacto="+fecha_primer_contacto+",fecha_alta="+fecha_alta+",fecha_baja="+fecha_baja+",fecha_rechazo_adhesion="+fecha_rechazo_adhesion+",estado='"+estado+"',dni_recomendador='"+dni_recomendador+"',comentario='"+comentario+"',relacion='"+relacion+"',fecha_ult_contacto="+fecha_ult_contacto+" where dni='" + dni + "'", function (err, result) {
+    client.query("update ciudad_de_los_niños_development.contacto set fecha_primer_contacto="+fecha_primer_contacto+",fecha_rechazo_adhesion="+fecha_rechazo_adhesion+",estado='"+estado+"',dni_recomendador='"+dni_recomendador+"',comentario='"+comentario+"',relacion='"+relacion+"',fecha_ult_contacto="+fecha_ult_contacto+" where dni='" + dni + "'", function (err, result) {
       if (err){console.log(err)}
       console.log("query update");
-      console.log("update ciudad_de_los_niños_development.contacto set fecha_primer_contacto="+fecha_primer_contacto+",fecha_alta="+fecha_alta+",fecha_baja="+fecha_baja+",fecha_rechazo_adhesion="+fecha_rechazo_adhesion+",estado='"+estado+"',dni_recomendador='"+dni_recomendador+"',comentario='"+comentario+"',relacion='"+relacion+"',fecha_ult_contacto="+fecha_ult_contacto+" where dni='" + dni + "'");
+      console.log("update ciudad_de_los_niños_development.contacto set fecha_primer_contacto="+fecha_primer_contacto+",fecha_rechazo_adhesion="+fecha_rechazo_adhesion+",estado='"+estado+"',dni_recomendador='"+dni_recomendador+"',comentario='"+comentario+"',relacion='"+relacion+"',fecha_ult_contacto="+fecha_ult_contacto+" where dni='" + dni + "'");
       client.end(function (err) {
         if (err){ console.log(err)};
       });

@@ -49,7 +49,12 @@ block content
             br
             b Cuil/Cuit: 
             |#{datosdonante.cuil_cuit}
-            
+            br
+            b Fecha de alta: 
+            |#{datosdonante.fecha_alta}
+            br
+            b Fecha de baja: 
+            |#{datosdonante.fecha_baja}
             
             
             form(role='form', action="/eliminarDonante",method="post")
@@ -65,6 +70,8 @@ block content
                   input.form-control(type='text', name="ocupacion", placeholder='DNI',value=datosdonante.ocupacion,readonly="true")
                   input.form-control(type='text', name="comentario", placeholder='DNI',value=datosdonante.comentario,readonly="true")
                   input.form-control(type='text', name="cuil_cuit", placeholder='DNI',value=datosdonante.cuil_cuit,readonly="true")
+                  input.form-control(type='text', name="fecha_alta", placeholder='FECHA DE ALTA',value=datosdonante.fecha_alta,readonly="true")
+                  input.form-control(type='text', name="fecha_baja", placeholder='FECHA DE BAJA',value=datosdonante.fecha_baja,readonly="true")
                   br      
               button(type='submit',class="boton") Eliminar
               a(href="/listadoDonantes",class='.link') Cancelar

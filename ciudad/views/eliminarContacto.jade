@@ -37,12 +37,6 @@ block content
             b Fecha de primer contacto: 
             |#{datoscontacto.fecha_primer_contacto}
             br
-            b Fecha de alta: 
-            |#{datoscontacto.fecha_alta}
-            br
-            b Fecha de baja: 
-            |#{datoscontacto.fecha_baja}
-            br
             b Fecha de rechazo de adhesion: 
             |#{datoscontacto.fecha_rechazo_adhesion}
             br
@@ -72,8 +66,6 @@ block content
                 input.form-control(type='text', name="fecha_nac", placeholder='FECHA DE NACIMIENTO',value=datospadrino.fecha_nac,readonly="true")
                 input.form-control(type='text', name="cod_postal", placeholder='CODIGO POSTAL',value=datospadrino.cod_postal,readonly="true")
                 input.form-control(type='text', name="fecha_primer_contacto", placeholder='FECHA DE PRIMER CONTACTO',value=datoscontacto.fecha_primer_contacto,readonly="true")
-                input.form-control(type='text', name="fecha_alta", placeholder='FECHA DE ALTA',value=datoscontacto.fecha_alta,readonly="true")
-                input.form-control(type='text', name="fecha_baja", placeholder='FECHA DE BAJA',value=datoscontacto.fecha_baja,readonly="true")
                 input.form-control(type='text', name="fecha_rechazo_adhesion", placeholder='FECHA DE RECHAZO DE ADHESION',value=datoscontacto.fecha_rechazo_adhesion,readonly="true")
                 input.form-control(type='text', name="estado", placeholder='ESTADO',value=datoscontacto.estado,readonly="true")
                 input.form-control(type='text', name="dni_recomendador", placeholder='DNI DEL RECOMENDADOR',value=datoscontacto.dni_recomendador,readonly="true")

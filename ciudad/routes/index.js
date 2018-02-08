@@ -2,7 +2,6 @@ var express = require('express');
 var passport = require('passport');
 var router = express.Router();
 
-
 var lodash = require('lodash');
 
 
@@ -110,7 +109,7 @@ router.post('/insertarDonante', function(req, res) {
    var pers = new Persona(req.body.dni,req.body.n_y_ap);
    var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
    var donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit);
-//setTimeout(function(){}, 1000);
+//setTimeout(function(){}, time);
   var dni=req.body.dni
 
   pers.cargar()
@@ -130,7 +129,7 @@ router.post('/insertarDonante', function(req, res) {
         }
         setTimeout(function(){
           if(!donant.existe){
-            donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit);
+            donant = new Donante(req.body.dni,req.body.ocupacion,req.body.comentario,req.body.cuil_cuit,req.body.fecha_alta,req.body.fecha_baja);
             donant.insertar()
 
           }
@@ -140,12 +139,12 @@ router.post('/insertarDonante', function(req, res) {
 
           setTimeout(function(){
             res.redirect('/modificarDonante?dni='+dni);
-          }, 1000);
-        }, 1000);
-      }, 1000);
+          }, time);
+        }, time);
+      }, time);
 
 
-  }, 1000);
+  }, time);
 
 
 
@@ -166,10 +165,10 @@ router.get('/modificarDonante', function(req, res) {
             donant.cargar();
             setTimeout(function(){
               res.render('modificarDonante', { user : req.user,datospersona:pers,datospadrino:padr,datosdonante:donant });
-            }, 50);
-          }, 50);
-        }, 50);
-      }, 50);
+            }, time);
+          }, time);
+        }, time);
+      }, time);
     }else{res.render('modificarDonante', { user : req.user });}
 
 
@@ -185,7 +184,7 @@ router.post('/modificarDonante', function(req, res) {
 
   var pers = new Persona(req.body.dni,req.body.n_y_ap);
   var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
-  var donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit);
+  var donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit,req.body.fecha_alta,req.body.fecha_baja);
   console.log(pers.show())
   console.log(padr.show())
   console.log(donant.show())
@@ -198,10 +197,10 @@ router.post('/modificarDonante', function(req, res) {
         donant.actualizar();
         setTimeout(function(){
           res.redirect('/modificarDonante?dni='+dni);
-        }, 50);
-      }, 50);
-    }, 50);
-  }, 50);
+        }, time);
+      }, time);
+    }, time);
+  }, time);
 
 
 });
@@ -223,10 +222,10 @@ router.get('/eliminarDonante', function(req, res) {
             setTimeout(function(){
               console.log(donant)
               res.render('eliminarDonante', { user : req.user,datospersona:pers,datospadrino:padr,datosdonante:donant });
-            }, 1000);
-          }, 1000);
-        }, 1000);
-      }, 1000);
+            }, time);
+          }, time);
+        }, time);
+      }, time);
     }else{
       console.log("entro al else")
       res.render('eliminarDonante', { user : req.user });}
@@ -264,7 +263,7 @@ router.post('/insertarPrograma', function(req, res) {
 
    var program = new Programa(req.body.nombre_programa)
 
-//setTimeout(function(){}, 1000);
+//setTimeout(function(){}, time);
   var nombre_programa=req.body.nombre_programa
 
   program.cargar();
@@ -351,7 +350,7 @@ router.get('/insertarDebito', function(req, res) {
 
 router.post('/insertarDebito', function(req, res) {
    var debit = new Debito(req.body.nro_cuenta,req.body.cbu,req.body.nombre_titular,req.body.codigo_verificacion,req.body.tipo_cuenta,req.body.nombre_banco,req.body.sucursal_banco);
-//setTimeout(function(){}, 1000);
+//setTimeout(function(){}, time);
    var cbu=req.body.cbu
    debit.exist();
    setTimeout(function(){
@@ -361,13 +360,13 @@ router.post('/insertarDebito', function(req, res) {
          setTimeout(function(){
            res.redirect('/modificarDebito?cbu='+cbu);
 
-         }, 1000);
-       }, 1000);
+         }, time);
+       }, time);
      }else{
        res.redirect('/modificarDebito?cbu='+cbu);
      }
 
-   }, 1000);
+   }, time);
 });
 
 
@@ -421,7 +420,7 @@ router.get('/eliminarDebito', function(req, res) {
       setTimeout(function(){
         console.log(debit)
         res.render('eliminarDebito', { user : req.user,datosdebito:debit });
-      }, 1000);
+      }, time);
 
     }else{
       console.log("entro al else")
@@ -461,7 +460,7 @@ router.post('/insertarCredito', function(req, res) {
 	  else{
 	  	res.redirect('/modificarCredito?nro='+req.body.nro);
 	  }
-	}, 1000);
+	}, time);
 });
 
 router.get('/modificarCredito', function(req, res) {
@@ -509,8 +508,8 @@ router.get('/eliminarCredito', function(req, res) {
 	    setTimeout(function(){
 	    	console.log(tarj);
 	     	res.render('eliminarCredito', { user : req.user, datoscredito:tarj});
-	    }, 1000);
-	  }, 1000);
+	    }, time);
+	  }, time);
 	}else{
 	  res.render('eliminarCredito', { user : req.user });
 	}
@@ -527,7 +526,7 @@ router.post('/eliminarCredito', function(req, res) {
   tarj.eliminar()
   setTimeout(function(){
     res.redirect('/')
-  }, 50);
+  },time);
 });
 //----------------------------------------------------
 
@@ -590,15 +589,15 @@ router.post('/insertarContacto', function(req, res) {
             console.log("existe de contact: "+contact.existe);
             if(!contact.existe){
               console.log("entro al if de existe contact"+" ... con estado: "+req.body.estado);
-              contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_alta,req.body.fecha_baja,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion,req.body.fecha_ult_contacto);
+              contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion,req.body.fecha_ult_contacto);
               contact.insertar()
             }
               setTimeout(function(){
                 res.redirect('/modificarContacto?dni='+dni);
-               }, 1000);
-          }, 1000);
-     }, 1000);
-   }, 1000);
+              }, time);
+          }, time);
+     }, time);
+   }, time);
 });
 
 router.get('/modificarContacto', function(req, res) {
@@ -616,10 +615,10 @@ router.get('/modificarContacto', function(req, res) {
             contact.cargar();
             setTimeout(function(){
               res.render('modificarContacto', { user : req.user,datospersona:pers, datospadrino:padr,datoscontacto:contact});
-            }, 50);
-          }, 50);
-        }, 50);
-      }, 50);
+            }, time);
+          }, time);
+        }, time);
+      }, time);
     }else{res.render('modificarContacto', { user : req.user });}
 });
 
@@ -632,7 +631,7 @@ router.post('/modificarContacto', function(req, res) {
 
   var pers = new Persona(req.body.dni,req.body.n_y_ap);
   var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
-  var contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_alta,req.body.fecha_baja,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion,req.body.fecha_ult_contacto);
+  var contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion,req.body.fecha_ult_contacto);
 
   console.log(pers.show());
 
@@ -647,9 +646,9 @@ router.post('/modificarContacto', function(req, res) {
           setTimeout(function(){
             console.log("dentro del ultimo setTimeout antes del redirect");
             res.redirect('/modificarContacto?dni='+dni);
-          }, 50);
-      }, 50);
-  }, 50);
+          }, time);
+      }, time);
+  }, time);
 });
 
 
@@ -665,7 +664,7 @@ router.get('/eliminarContacto', function(req, res) {
       padr.cargar();
       setTimeout(function(){
         res.render('eliminarContacto', { user : req.user,datospersona:pers,datospadrino:padr,datoscontacto:contact});
-      }, 1000);
+      }, time);
     }else{
       console.log("entro al else")
       res.render('eliminarContacto', { user : req.user });}
@@ -694,7 +693,7 @@ router.get('/insertarAporte', function(req, res) {
   cred.tiposTarjeta()
   setTimeout(function(){
       res.render('insertarAporte', { user : req.user,listaprogramas:prog.lista,listatarjetas:cred.listatarjetas });
-  }, 1000);
+  }, time);
 });
 
 router.post('/insertarAporte', function(req, res) {
@@ -705,7 +704,7 @@ router.post('/insertarAporte', function(req, res) {
    var credit = new Credito(req.body.nro, req.body.nombre_tarjeta, req.body.nombre_titular,req.body.fecha_vencimiento,req.body.codigo_verificacion)
    var id_mediodepago = req.body.id_mediodepago
    var aport = new Aporta(req.body.dni,req.body.nombre_programa,req.body.monto,req.body.frecuencia,req.body.id_mediodepago,req.body.fecha_aporte,req.body.estado_cobro)
-//setTimeout(function(){}, 1000);
+//setTimeout(function(){}, time);
   donant.cargar()
   setTimeout(function(){
     if(donant.existe){
@@ -806,10 +805,10 @@ router.get('/eliminarAporte', function(req, res) {
             setTimeout(function(){
 
               res.render('eliminarAporte', { user : req.user,datospersona:pers,datoscredito:credit,datosdebito:debit,datosaporte:aport });
-            }, 1000);
-          }, 1000);
-        }, 1000);
-      }, 1000);
+            }, time);
+          }, time);
+        }, time);
+      }, time);
     }else{
       console.log("entro al else")
       res.render('eliminarAporte', { user : req.user });}
@@ -873,7 +872,7 @@ router.get('/donantesPorPrograma', function(req, res) {
       }else{
         res.render('donantesPorPrograma', { user : req.user, listaprogramas:prog.lista });
       }
-    }, 1000);
+    }, time);
 });
 
 router.post('/donantesPorProgramaRedir', function(req, res) {
@@ -899,7 +898,8 @@ router.get('/infoDonante', function(req, res) {
             }
             if(result.rows[0]){
                 console.log("INFODONANTE ES  "+result.rows[0].ocupacion+" y "+result.rows[0].cuil_cuit);
-                result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
+                if(result.rows[0].fecha_nac){
+                  result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();}
                 res.render('infoDonante', { user : req.user,infoDonante:result.rows, listaAportes:donant.listaAportes, datosdonante:donant  });
             }
             client.end(function (err) {
@@ -999,7 +999,7 @@ router.get('/donantesPorBanco', function(req, res) {
       }else{
         res.render('donantesPorBanco', { user : req.user, listabancos:banco.lista });
       }
-    }, 1000);
+    }, time);
 
 
 });
@@ -1198,7 +1198,7 @@ router.get('/listadoContactos', function(req, res) {
         //  res.render('donantesPorTarjeta', {user:req.user, });
           res.render('donantesPorTarjeta', { user : usuario,listatarjetas:tarjeta.listatarjetas });
         }
-      }, 1000);
+      }, time);
 
 
   });

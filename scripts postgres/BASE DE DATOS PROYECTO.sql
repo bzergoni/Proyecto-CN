@@ -38,6 +38,8 @@ ocupacion varchar(50) ,
 Cuil_cuit varchar(50),
 existe boolean DEFAULT true,
 comentario character varying(150),
+fecha_alta date,
+fecha_baja date,
 Constraint pk_Donante  primary key (Dni),
 constraint CF_Donante foreign key (Dni) references Padrino (Dni) on delete cascade on update cascade
 );
@@ -48,8 +50,6 @@ constraint estados_validos check (value in ('Sin llamar', 'ERROR', 'No acepta', 
 Create table Contacto (
 Dni varchar(10),
 fecha_primer_contacto Date,
-fecha_alta date,
-fecha_baja date,
 fecha_rechazo_adhesion date,
 estado TipoEstado,
 Dni_recomendador varchar(10),

@@ -45,4 +45,11 @@ block content
               br
               label(for='cuil_cuit') Cuil/Cuit:
               input.form-control(type='text', name="cuil_cuit", placeholder='Cuil/Cuit',value=datosdonante.cuil_cuit)
+              br
+              label(for='fecha_alta') Fecha de alta:
+              input.form-control(type='date', name="fecha_alta", placeholder='FECHA DE ALTA',value=datosdonante.fecha_altaALT)
+              br
+              label(for='fecha_baja') Fecha de baja:
+              input.form-control(type='date', name="fecha_baja", placeholder='FECHA DE BAJA',value=datosdonante.fecha_bajaALT)
+              br
             button(type='submit',class="boton") Aceptar
