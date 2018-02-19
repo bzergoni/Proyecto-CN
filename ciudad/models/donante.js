@@ -8,7 +8,7 @@ function Donante(doc,ocup,cuit_cuil,coment,fech_alt,fech_baj){
   this.cuil_cuit=cuit_cuil;
   this.existe=false;
   this.existeLogico=undefined;
-  this.comentario=undefined;
+  this.comentario=coment;
   this.listaProgramasAporta=undefined;
   this.fecha_alta = fech_alt;
   this.fecha_baja = fech_baj;

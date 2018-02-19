@@ -129,7 +129,7 @@ router.post('/insertarDonante', function(req, res) {
         }
         setTimeout(function(){
           if(!donant.existe){
-            donant = new Donante(req.body.dni,req.body.ocupacion,req.body.comentario,req.body.cuil_cuit,req.body.fecha_alta,req.body.fecha_baja);
+            donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit,req.body.comentario,req.body.fecha_alta,req.body.fecha_baja);
             donant.insertar()
 
           }
