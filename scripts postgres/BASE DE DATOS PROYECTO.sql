@@ -26,6 +26,7 @@ CREATE TABLE "ciudad_de_los_niños_development"."user"
   username character varying(20) NOT NULL,
   password character varying(150),
   id serial NOT NULL,
+  type integer NOT NULL,
   CONSTRAINT user_pkey PRIMARY KEY (username),
   CONSTRAINT user_id_key UNIQUE (id)
 );
