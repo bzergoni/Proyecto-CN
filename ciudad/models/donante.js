@@ -106,19 +106,21 @@ Donante.prototype.actualizar = function(name){
   var ocupacion=this.ocupacion;
   var cuil_cuit=this.cuil_cuit;
   var comentario=this.comentario;
-  var fecha_alta
+  var fecha_alta;
   if(this.fecha_alta == undefined){
     fecha_alta="null";
   }else{
     fecha_alta="'"+this.fecha_alta+"'";
   }
 
-  var fecha_baja
+  var fecha_baja;
   if(this.fecha_baja == undefined){
     fecha_baja="null";
   }else{
     fecha_baja="'"+this.fecha_baja+"'";
   }
+  fecha_baja=fechaToQuery(this.fecha_baja);
+  fecha_alta=fechaToQuery(this.fecha_alta);
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
