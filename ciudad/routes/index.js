@@ -184,7 +184,7 @@ router.post('/modificarDonante', function(req, res) {
 
   var pers = new Persona(req.body.dni,req.body.n_y_ap);
   var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
-  var donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit,req.body.fecha_alta,req.body.fecha_baja);
+  var donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit,req.body.comentario,req.body.fecha_alta,req.body.fecha_baja);
   console.log(pers.show())
   console.log(padr.show())
   console.log(donant.show())
