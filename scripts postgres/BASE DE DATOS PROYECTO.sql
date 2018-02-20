@@ -135,7 +135,7 @@ Frecuencia TipoFrecuencia,
 id Integer,
 estado_cobro character varying(100),
 
-Constraint pk_aporta primary key (dni,nombre_programa),
+Constraint pk_aporta primary key (dni,nombre_programa,id),
 constraint CF_aporta1 foreign key (dni) references Donante (dni) on delete cascade on update cascade,
 constraint CF_aporta2 foreign key (nombre_programa) references Programa (nombre_programa) on delete cascade on update cascade,
 constraint CF_aporta3 foreign key (id) references Medio_de_pago (id) on delete cascade on update cascade
@@ -163,4 +163,17 @@ create or replace function auditoria() returns trigger as
 	LANGUAGE 'plpgsql';
 
 create trigger TriggerAuditoria after delete on ciudad_de_los_niños_development.Donante for each row execute procedure auditoria();
-INSERT INTO ciudad_de_los_niños_development.user(username, password, id) VALUES ('admin','$2a$10$sCRGh9xP.KDDiswoY/YmS.fZQqxuTlzzz0nQAVZo6ZO2Bxs4rHASG',default,1);
+
+    create or replace function creartipotarjeta() returns trigger as
+    	'DECLARE existe boolean;
+    	Begin
+      IF NOT EXISTS (SELECT 1 FROM ciudad_de_los_niños_development.tipotarjeta WHERE nombre_tarjeta = new.nombre_tarjeta) THEN
+        insert into ciudad_de_los_niños_development.tipotarjeta values (new.nombre_tarjeta);
+      END IF;
+      return NEW;
+
+    	end;'
+    	LANGUAGE 'plpgsql';
+
+    create trigger triggertarjeta before insert or update on ciudad_de_los_niños_development.tarjeta for each row execute procedure creartipotarjeta();
+INSERT INTO ciudad_de_los_niños_development.user(username, password, id,type) VALUES ('admin','$2a$10$sCRGh9xP.KDDiswoY/YmS.fZQqxuTlzzz0nQAVZo6ZO2Bxs4rHASG',default,1);

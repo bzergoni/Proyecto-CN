@@ -108,7 +108,7 @@ Credito.prototype.insertar = function(){
         console.log("insert into ciudad_de_los_niños_development.tarjeta values (lastval(),'"+nro+"','"+nombre_titular+"','"+fecha_vencimiento+"','"+nombre_tarjeta+"',"+codigo_verificacion+");");
         client.query("insert into ciudad_de_los_niños_development.tarjeta values (lastval(),'"+nro+"','"+nombre_titular+"','"+fecha_vencimiento+"','"+nombre_tarjeta+"',"+codigo_verificacion+");", function (err, result) {
           if (err){console.log(err)}
-          if(result){console.log("SE INSERTO EL DEBITO CORRECTAMENTE")}
+          if(result){console.log("SE INSERTO EL CREDITO CORRECTAMENTE")}
         });
       }
       client.end(function (err) {
