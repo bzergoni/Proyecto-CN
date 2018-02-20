@@ -14,6 +14,8 @@ block content
           th Cuil/Cuit
           th Email
           th Direccion
+          th F. Alta
+          th F. Baja
           th 
           th 
         each elemento, i in lista
@@ -26,6 +28,15 @@ block content
             td #{elemento.cuil_cuit}
             td #{elemento.email}
             td #{elemento.direccion}
+            if elemento.fecha_alta
+              td #{elemento.fecha_alta.toLocaleDateString()}
+            else
+              td
+            if elemento.fecha_baja
+              td #{elemento.fecha_baja.toLocaleDateString()}
+            else
+              td
+      
             td(class='celdacorta')
               a(href='/modificarDonante?dni=#{elemento.dni}') modificar              
             td(class='celdacorta')
