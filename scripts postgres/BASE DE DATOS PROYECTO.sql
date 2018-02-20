@@ -3,13 +3,13 @@
 set search_path = ciudad_de_los_niños_development;
 
 Create table Persona (
-Dni varchar(10) ,
+Dni varchar(20) ,
 N_y_Ap varchar(50) not null,
 Constraint pk_dni primary key (Dni)
 );
 
 Create table Padrino (
-Dni varchar(10) ,
+Dni varchar(20) ,
 email varchar(50) not null,
 tel_fijo varchar(50),
 direccion varchar(50),
@@ -34,7 +34,7 @@ CREATE TABLE "ciudad_de_los_niños_development"."user"
 
 
 Create table Donante (
-Dni varchar(10),
+Dni varchar(20),
 ocupacion varchar(50) ,
 Cuil_cuit varchar(50),
 existe boolean DEFAULT true,
@@ -49,11 +49,11 @@ Create domain TipoEstado as Varchar(20)
 constraint estados_validos check (value in ('Sin llamar', 'ERROR', 'No acepta', 'En gestion', 'Adherido', 'Amigo', 'Baja', 'Voluntario'));
 
 Create table Contacto (
-Dni varchar(10),
+Dni varchar(20),
 fecha_primer_contacto Date,
 fecha_rechazo_adhesion date,
 estado TipoEstado,
-Dni_recomendador varchar(10),
+Dni_recomendador varchar(20),
 comentario Varchar(200),
 relacion varchar(15),
 fecha_ult_contacto date,
@@ -89,7 +89,7 @@ constraint pk_tipotarjeta primary key (nombre_tarjeta)
 
 Create table Tarjeta (
 id Integer,
-nro varchar(20),
+nro varchar(50),
 nombre_titular varchar(50),
 fecha_vencimiento date,
 nombre_tarjeta varchar(50),
@@ -127,7 +127,7 @@ constraint frecuencias_validas check (value in ('Mensual','Semestral'));
 
 
 Create table Aporta (
-Dni varchar(10),
+Dni varchar(20),
 nombre_programa varchar(50),
 monto float,
 fecha_aporte date,
@@ -143,7 +143,7 @@ constraint CF_aporta3 foreign key (id) references Medio_de_pago (id) on delete c
 
 
 create table donantes_eliminados (
-dni varchar (10),
+dni varchar (20),
 ocupacion varchar(50) ,
 Cuil_cuit varchar(50),
 fecha_eliminacion Date,
