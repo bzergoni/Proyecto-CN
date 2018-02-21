@@ -1,4 +1,4 @@
-﻿CREATE SCHEMA ciudad_de_los_niños_development;
+CREATE SCHEMA ciudad_de_los_niños_development;
 
 set search_path = ciudad_de_los_niños_development;
 
