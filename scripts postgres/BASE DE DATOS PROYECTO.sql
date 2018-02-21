@@ -1,15 +1,15 @@
-﻿CREATE SCHEMA ciudad_de_los_niños_development;
+CREATE SCHEMA ciudad_de_los_niños_development;
 
 set search_path = ciudad_de_los_niños_development;
 
 Create table Persona (
-Dni varchar(10) ,
+Dni varchar(20) ,
 N_y_Ap varchar(50) not null,
 Constraint pk_dni primary key (Dni)
 );
 
 Create table Padrino (
-Dni varchar(10) ,
+Dni varchar(20) ,
 email varchar(50) not null,
 tel_fijo varchar(50),
 direccion varchar(50),
@@ -26,6 +26,7 @@ CREATE TABLE "ciudad_de_los_niños_development"."user"
   username character varying(20) NOT NULL,
   password character varying(150),
   id serial NOT NULL,
+  type integer NOT NULL,
   CONSTRAINT user_pkey PRIMARY KEY (username),
   CONSTRAINT user_id_key UNIQUE (id)
 );
@@ -33,7 +34,7 @@ CREATE TABLE "ciudad_de_los_niños_development"."user"
 
 
 Create table Donante (
-Dni varchar(10),
+Dni varchar(20),
 ocupacion varchar(50) ,
 Cuil_cuit varchar(50),
 existe boolean DEFAULT true,
@@ -48,11 +49,11 @@ Create domain TipoEstado as Varchar(20)
 constraint estados_validos check (value in ('Sin llamar', 'ERROR', 'No acepta', 'En gestion', 'Adherido', 'Amigo', 'Baja', 'Voluntario'));
 
 Create table Contacto (
-Dni varchar(10),
+Dni varchar(20),
 fecha_primer_contacto Date,
 fecha_rechazo_adhesion date,
 estado TipoEstado,
-Dni_recomendador varchar(10),
+Dni_recomendador varchar(20),
 comentario Varchar(200),
 relacion varchar(15),
 fecha_ult_contacto date,
@@ -88,7 +89,7 @@ constraint pk_tipotarjeta primary key (nombre_tarjeta)
 
 Create table Tarjeta (
 id Integer,
-nro varchar(20),
+nro varchar(50),
 nombre_titular varchar(50),
 fecha_vencimiento date,
 nombre_tarjeta varchar(50),
@@ -126,7 +127,7 @@ constraint frecuencias_validas check (value in ('Mensual','Semestral'));
 
 
 Create table Aporta (
-Dni varchar(10),
+Dni varchar(20),
 nombre_programa varchar(50),
 monto float,
 fecha_aporte date,
@@ -134,7 +135,7 @@ Frecuencia TipoFrecuencia,
 id Integer,
 estado_cobro character varying(100),
 
-Constraint pk_aporta primary key (dni,nombre_programa),
+Constraint pk_aporta primary key (dni,nombre_programa,id),
 constraint CF_aporta1 foreign key (dni) references Donante (dni) on delete cascade on update cascade,
 constraint CF_aporta2 foreign key (nombre_programa) references Programa (nombre_programa) on delete cascade on update cascade,
 constraint CF_aporta3 foreign key (id) references Medio_de_pago (id) on delete cascade on update cascade
@@ -142,7 +143,7 @@ constraint CF_aporta3 foreign key (id) references Medio_de_pago (id) on delete c
 
 
 create table donantes_eliminados (
-dni varchar (10),
+dni varchar (20),
 ocupacion varchar(50) ,
 Cuil_cuit varchar(50),
 fecha_eliminacion Date,
@@ -162,4 +163,17 @@ create or replace function auditoria() returns trigger as
 	LANGUAGE 'plpgsql';
 
 create trigger TriggerAuditoria after delete on ciudad_de_los_niños_development.Donante for each row execute procedure auditoria();
-INSERT INTO ciudad_de_los_niños_development.user(username, password, id) VALUES ('admin','$2a$10$sCRGh9xP.KDDiswoY/YmS.fZQqxuTlzzz0nQAVZo6ZO2Bxs4rHASG',default,1);
+
+    create or replace function creartipotarjeta() returns trigger as
+    	'DECLARE existe boolean;
+    	Begin
+      IF NOT EXISTS (SELECT 1 FROM ciudad_de_los_niños_development.tipotarjeta WHERE nombre_tarjeta = new.nombre_tarjeta) THEN
+        insert into ciudad_de_los_niños_development.tipotarjeta values (new.nombre_tarjeta);
+      END IF;
+      return NEW;
+
+    	end;'
+    	LANGUAGE 'plpgsql';
+
+    create trigger triggertarjeta before insert or update on ciudad_de_los_niños_development.tarjeta for each row execute procedure creartipotarjeta();
+INSERT INTO ciudad_de_los_niños_development.user(username, password, id,type) VALUES ('admin','$2a$10$sCRGh9xP.KDDiswoY/YmS.fZQqxuTlzzz0nQAVZo6ZO2Bxs4rHASG',default,1);
