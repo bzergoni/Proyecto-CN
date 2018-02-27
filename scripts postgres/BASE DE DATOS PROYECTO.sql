@@ -155,6 +155,22 @@ constraint pk_donantes_eliminados primary key (dni)
 
 );
 
+CREATE TABLE "ciudad_de_los_niños_development".cobro
+(
+   dni character varying(20),
+   nombre_programa character varying(50),
+   id integer,
+   fecha date,
+   estado character varying(50),
+   comentario character varying(200),
+   CONSTRAINT pk_cobro PRIMARY KEY (dni, id, fecha, nombre_programa),
+   CONSTRAINT cf_aporta FOREIGN KEY (dni, nombre_programa, id) REFERENCES "ciudad_de_los_niños_development".aporta (dni, nombre_programa, id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+
+
+
 create or replace function auditoria() returns trigger as
 	'Begin
 		insert into ciudad_de_los_niños_development.donantes_eliminados values (old.dni,old.ocupacion,old.cuil_cuit,current_date,current_user);
