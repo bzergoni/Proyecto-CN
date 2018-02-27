@@ -83,7 +83,7 @@ Contacto.prototype.insertar = function(){
 Contacto.prototype.actualizar = function(){
   var dni=this.dni;
 
-  var fecha_primer_contacto
+  var fecha_primer_contacto;
   if(this.fecha_primer_contacto == undefined){
     fecha_primer_contacto="null";
   }else{
@@ -92,14 +92,14 @@ Contacto.prototype.actualizar = function(){
 
 
 
-  var fecha_rechazo_adhesion
+  var fecha_rechazo_adhesion;
   if(this.fecha_rechazo_adhesion == undefined){
     fecha_rechazo_adhesion="null";
   }else{
     fecha_rechazo_adhesion="'"+this.fecha_rechazo_adhesion+"'";
   }
 
-  var fecha_ult_contacto
+  var fecha_ult_contacto;
   if(this.fecha_ult_contacto == undefined){
     fecha_ult_contacto="null";
   }else{
@@ -111,6 +111,9 @@ Contacto.prototype.actualizar = function(){
   var comentario =this.comentario;
   var relacion=this.relacion;
 
+  fecha_ult_contacto=fechaToQuery(this.fecha_ult_contacto);
+  fecha_rechazo_adhesion=fechaToQuery(this.fecha_rechazo_adhesion);
+  fecha_primer_contacto=fechaToQuery(this.fecha_primer_contacto);
 
 
   client = new pg.Client(connectionString);
@@ -192,7 +195,7 @@ function stringFechaALT(a) {
 
 
 function fechaToQuery(a){
-  if(a == ""){
+  if(a == ""||a == undefined){
     return ("null");
   }else{
     return ("'"+a+"'");
