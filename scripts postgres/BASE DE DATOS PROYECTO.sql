@@ -163,6 +163,7 @@ CREATE TABLE "ciudad_de_los_niños_development".cobro
    fecha date,
    estado character varying(50),
    comentario character varying(200),
+    monto double precision,
    CONSTRAINT pk_cobro PRIMARY KEY (dni, id, fecha, nombre_programa),
    CONSTRAINT cf_aporta FOREIGN KEY (dni, nombre_programa, id) REFERENCES "ciudad_de_los_niños_development".aporta (dni, nombre_programa, id) ON UPDATE CASCADE ON DELETE CASCADE
 );

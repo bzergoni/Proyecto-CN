@@ -515,6 +515,9 @@ router.get('/eliminarCredito', function(req, res) {
 	}
 });
 
+
+
+
 router.post('/eliminarCreditoRedir', function(req, res) {
   res.redirect('/eliminarCredito?nro='+req.body.nroRedir);
 
@@ -1230,6 +1233,50 @@ router.get('/listadoContactos', function(req, res) {
         }
 
   });
+
+  router.get('/historialDonante', function(req, res) {
+      var dni=req.query.dni;
+      var nombre_programa=req.query.nombre_programa;
+      var id=req.query.id;
+      var query ;
+      var programaespecifico;
+      if(nombre_programa==undefined || id == undefined){
+        query = "select * from ciudad_de_los_niños_development.cobro where dni='"+dni+"'";
+      }else{
+        query = "select * from ciudad_de_los_niños_development.cobro where dni='"+dni+"' and nombre_programa='"+nombre_programa+"' and id="+id;
+        programaespecifico=nombre_programa;
+
+      }
+
+      setTimeout(function(){
+        if(dni){
+          client = new pg.Client(connectionString);
+          client.connect(function (err) {
+            if (err){console.log(err);}
+            console.log(query);
+            client.query(query, function (err, result) {
+              if (err) throw err;
+
+              if(!err){
+                  console.log("renderiza");
+                  setTimeout(function(){
+                    res.render('historialDonante', { user : req.user,dni:dni, lista:result.rows,prog:programaespecifico });
+                  },time);
+              }
+              client.end(function (err) {
+                if (err) {console.log(err)};
+              });
+            });
+          });
+        }else{
+          res.render('infoDonante', { user : req.user});
+        }
+      },time);
+
+
+  });
+
+
 
 
 
