@@ -1280,6 +1280,78 @@ router.get('/listadoContactos', function(req, res) {
 
 
 
+router.get('/listadoCobros', function(req, res) {
+  client = new pg.Client(connectionString);
+
+  client.connect(function (err) {
+    if (err){console.log(err);}
+    var query = "select * from ciudad_de_los_niños_development.cobro"
+
+    client.query(query, function (err, result) {
+      if (err) throw err;
+
+      if(!err){
+
+
+          res.render('listadoCobros', { user : req.user,lista:result.rows});
+        }
+      client.end(function (err) {
+        if (err) {console.log(err)};
+
+    });
+  });
+
+});
+});
+
+
+router.get('/insertarCobros', function(req, res) {
+      res.render('insertarCobros', { user : req.user});
+});
+
+
+router.post('/insertarCobros', function(req, res) {
+  client = new pg.Client(connectionString);
+  client.connect(function(err) {
+      if (err) {
+          console.log(err);
+      }
+      //console.log("SELECT * FROM creacCobros("+req.body.")");
+      client.query("SELECT * FROM crearCobros("+req.body.mes+","+req.body.año+")", function(err, result) {
+          if (err) throw err;
+          if (!err) {
+            res.redirect('/listadoCobros');
+          }
+          
+          client.end(function(err) {
+              if (err) {
+                  console.log(err)
+              };
+          });
+      });
+  });
+
+
+
+//setTimeout(function(){}, time);
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
   function toStringForExportTag(a) {
       return a.getDate()+"-"+(parseInt(a.getMonth()) + 1 )+"-"+a.getFullYear()
