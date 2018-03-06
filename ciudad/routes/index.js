@@ -47,6 +47,12 @@ var Donante = donante_model.donante;
 var contacto_model = require("../models/contacto");
 var Contacto = contacto_model.contacto;
 
+var cobro_model = require("../models/cobro");
+var Cobro = cobro_model.cobro;
+
+
+
+
 /* GET home page. */
 router.get('/', function (req, res) {
   console.log(connectionString);
@@ -1322,7 +1328,7 @@ router.post('/insertarCobros', function(req, res) {
           if (!err) {
             res.redirect('/listadoCobros');
           }
-          
+
           client.end(function(err) {
               if (err) {
                   console.log(err)
@@ -1330,26 +1336,96 @@ router.post('/insertarCobros', function(req, res) {
           });
       });
   });
-
-
-
 //setTimeout(function(){}, time);
+});
+router.get('/modificarCobro', function(req, res) {
+  var dni = req.query.dni;
+  var nombre_programa = req.query.nombre_programa;
+  var id = req.query.id;
+  var fecha = req.query.fecha;
+  if (dni && nombre_programa && id && fecha) {
+    var cobro = new Cobro(dni, nombre_programa, id, null, fecha);
+    cobro.cargar();
+    setTimeout(function() {
+      res.render('modificarCobro', {
+        user: req.user,
+        datoscobro: cobro
+      });
+    }, time);
+  } else {
+    res.render('modificarCobro', {
+      user: req.user
+    });
+  }
+});
 
 
+router.post('/modificarCobro', function(req, res) {
+  var dni =req.body.dni;
+  var nombre_programa=req.body.nombre_programa;
+  var id=req.body.id;
+  var fecha="01/"+req.body.mes+"/"+req.body.año;
 
+  var cobro = new Cobro(dni,nombre_programa,id,null,fecha);
+
+  cobro.cargar()
+
+
+  setTimeout(function(){
+    cobro.fecha=fecha;
+    console.log(cobro)
+    cobro.comentario=req.body.comentario;
+    cobro.monto=req.body.monto;
+    cobro.estado = req.body.estado;
+    console.log("EL ESTADO COBRO ES:"+req.body.estado)
+
+    cobro.actualizar()
+
+    setTimeout(function(){
+      //res.redirect('/modificarCobro?nombre_programa='+req.body.nombre_programa+'&dni='+req.body.dni);
+      res.redirect('/listadoCobros');
+    }, time);
+  }, time);
 
 
 });
 
 
+router.get('/eliminarCobro', function(req, res) {
+  var dni = req.query.dni;
+  var nombre_programa = req.query.nombre_programa;
+  var id = req.query.id;
+  var fecha = req.query.fecha;
+  if (dni && nombre_programa && id && fecha) {
+    var cobro = new Cobro(dni, nombre_programa, id, null, fecha);
+    cobro.cargar();
+    setTimeout(function() {
+      res.render('eliminarCobro', {
+        user: req.user,
+        datoscobro: cobro
+      });
+    }, time);
+  } else {
+    res.render('eliminarCobro', {
+      user: req.user
+    });
+  }
+});
+
+
+router.post('/eliminarCobro', function(req, res) {
+  var cobro = new Cobro(req.body.dni,req.body.nombre_programa,req.body.id,null,"01/"+req.body.mes+"/"+req.body.año);
+  
+  setTimeout(function(){
+    cobro.eliminar()
+    setTimeout(function(){
+      res.redirect('/listadoCobros')
+    }, time);
+  }, time);
 
 
 
-
-
-
-
-
+});
 
 
 

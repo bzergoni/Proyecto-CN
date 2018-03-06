@@ -32,9 +32,9 @@ block content
             td #{elemento.estado}
             td #{elemento.comentario}
             td
-              a(href='/ModificarCobro?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}&id=#{elemento.id}&fecha=#{elemento.fecha}')  Modificar
+              a(href='/modificarCobro?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}&id=#{elemento.id}&fecha=#{elemento.fecha.toLocaleDateString()}')  Modificar
             td 
-              a(href='/EliminarCobro?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}&id=#{elemento.id}&fecha=#{elemento.fecha}')  Eliminar
+              a(href='/eliminarCobro?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}&id=#{elemento.id}&fecha=#{elemento.fecha.toLocaleDateString()}')  Eliminar
             
             
       

@@ -13,6 +13,19 @@ function Cobro(d, np,i, mont,fa, e,com,mont) {
 
 };
 
+// function Cobro(d, np,i, fa) {
+//   this.dni = d;
+//   this.nombre_programa = np;
+//
+//   this.id = i;
+//   this.fecha = fa;
+//
+//
+// };
+
+
+
+
 Cobro.prototype.show = function() {
     return this.dni + " | " + this.nombre_programa+ " | " + this.monto + " | " + " | " + this.id;
 };
@@ -36,6 +49,7 @@ Cobro.prototype.cargar = function() {
                 thisrespaldo.monto = result.rows[0].monto;
                 thisrespaldo.comentario = result.rows[0].comentario;
                 thisrespaldo.estado = result.rows[0].estado;
+                thisrespaldo.fecha=result.rows[0].fecha;
                 console.log(thisrespaldo);
 
             }
@@ -110,7 +124,8 @@ Cobro.prototype.actualizar = function() {
 Cobro.prototype.eliminar = function() {
     var dni = this.dni;
     var nombre_programa = this.nombre_programa;
-    var id = this.id
+    var id = this.id;
+    var fecha = this.fecha;
     client = new pg.Client(connectionString);
     var query=undefined
     client.connect(function(err) {
