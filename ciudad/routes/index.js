@@ -1415,7 +1415,6 @@ router.get('/eliminarCobro', function(req, res) {
 
 router.post('/eliminarCobro', function(req, res) {
   var cobro = new Cobro(req.body.dni,req.body.nombre_programa,req.body.id,null,"01/"+req.body.mes+"/"+req.body.año);
-  
   setTimeout(function(){
     cobro.eliminar()
     setTimeout(function(){
