@@ -1,0 +1,21 @@
+extends layout
+block content 
+      p.title Crear cobros del mes
+        br
+
+        form(role='form', action="/insertarCobros",method="post")
+          .form-group
+            br
+            br
+            br
+            label(for='mes') Mes:
+            input.form-control(type='number', name="mes", placeholder='Mes', min='1', max='12')
+            br
+            label(for='año') Año:
+            input.form-control(type='number', name="año", placeholder='Año')
+            br
+            
+          button(type='submit',class="boton") Aceptar
+          form
+            input(type='button', value='Cancelar', name='Cancelar', onclick='history.back()')
+          

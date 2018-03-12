@@ -1,0 +1,40 @@
+extends layout
+block content
+        p.title Modificar cobro
+        br
+        br
+        br
+        
+        
+        if(datoscobro)
+        
+          form(role='form', action="/modificarCobro",method="post")
+            .form-group
+              label(for='dni') Dni del donante:
+              input.form-control(type='text', name="dni", placeholder='DNI',value=datoscobro.dni,readonly="true")
+              br
+              label(for="nombre_programa") Nombre del programa:
+              input.form-control(type='text', name="nombre_programa", placeholder='Nombre del programa',value=datoscobro.nombre_programa,readonly="true")
+              br
+              label(for='mes') Mes:
+              input.form-control(type='number', name="mes", placeholder='Mes', min='1', max='12',value=(datoscobro.fecha.getMonth()+1),readonly="true")
+              br
+              label(for='año') Año:
+              input.form-control(type='number', name="año", placeholder='Año',value=datoscobro.fecha.getFullYear(),readonly="true")
+              br
+              label(for='id') Id:
+              input.form-control(type='number', name="id", placeholder='ID',value=datoscobro.id,readonly="true")
+              br
+              label(for='monto') Monto del cobro:
+              input.form-control(type='text', name="monto", placeholder='Monto',value=datoscobro.monto)
+              br
+              
+              label(for='estado') Estado del cobro:
+              input.form-control(type='text', name="estado", placeholder='Estado del cobro',value=datoscobro.estado)
+              br
+              label(for='comentario') Comentario:
+              input.form-control(type='text', name="comentario", placeholder='Comentario',value=datoscobro.comentario)
+              br
+            button(type='submit',class="boton") Aceptar
+        form
+          input(type='button', value='Cancelar', name='Cancelar', onclick='history.back()')

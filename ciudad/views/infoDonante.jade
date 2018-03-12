@@ -6,7 +6,7 @@ block content
             .form-group
               input.form-control(type='text', name="dniRedir", placeholder='DNI')
             button(type='submit',class="boton") Aceptar
-            p Ingrese un Dni correspondiente a un donante en servi
+            p Ingrese un Dni correspondiente a un donante en servicio
         if(infoDonante)
           p El Dni corresponde a:
           form(role='form', action="/infoDonanteRedir2",method="post", style='max-width: 300px;')
@@ -66,11 +66,17 @@ block content
                   th  ID MP:
                   th  Frecuencia: 
                   th  Monto: 
-                each aporte, i in listaAportes
+                  th 
+                    a(href='/historialDonante?dni=#{infoDonante[0].dni}') Historial 
+                
+                each elemento, i in listaAportes
                   tr
-                    td #{aporte.nombre_programa} 
-                    td #{aporte.id} 
-                    td #{aporte.frecuencia}  
-                    td #{aporte.monto} 
+                    td #{elemento.nombre_programa} 
+                    td #{elemento.id} 
+                    td #{elemento.frecuencia}  
+                    td #{elemento.monto} 
+                    td 
+                      a(href='/historialDonante?dni=#{infoDonante[0].dni}&nombre_programa=#{elemento.nombre_programa}&id=#{elemento.id}') Ver
           br
+          
           input(type='button', value='Volver', name='Volver', onclick='history.back()')  

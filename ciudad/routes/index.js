@@ -47,6 +47,12 @@ var Donante = donante_model.donante;
 var contacto_model = require("../models/contacto");
 var Contacto = contacto_model.contacto;
 
+var cobro_model = require("../models/cobro");
+var Cobro = cobro_model.cobro;
+
+
+
+
 /* GET home page. */
 router.get('/', function (req, res) {
   console.log(connectionString);
@@ -514,6 +520,9 @@ router.get('/eliminarCredito', function(req, res) {
 	  res.render('eliminarCredito', { user : req.user });
 	}
 });
+
+
+
 
 router.post('/eliminarCreditoRedir', function(req, res) {
   res.redirect('/eliminarCredito?nro='+req.body.nroRedir);
@@ -1231,6 +1240,191 @@ router.get('/listadoContactos', function(req, res) {
 
   });
 
+  router.get('/historialDonante', function(req, res) {
+      var dni=req.query.dni;
+      var nombre_programa=req.query.nombre_programa;
+      var id=req.query.id;
+      var query ;
+      var programaespecifico;
+      if(nombre_programa==undefined || id == undefined){
+        query = "select * from ciudad_de_los_niños_development.cobro where dni='"+dni+"'";
+      }else{
+        query = "select * from ciudad_de_los_niños_development.cobro where dni='"+dni+"' and nombre_programa='"+nombre_programa+"' and id="+id;
+        programaespecifico=nombre_programa;
+
+      }
+
+      setTimeout(function(){
+        if(dni){
+          client = new pg.Client(connectionString);
+          client.connect(function (err) {
+            if (err){console.log(err);}
+            console.log(query);
+            client.query(query, function (err, result) {
+              if (err) throw err;
+
+              if(!err){
+                  console.log("renderiza");
+                  setTimeout(function(){
+                    res.render('historialDonante', { user : req.user,dni:dni, lista:result.rows,prog:programaespecifico });
+                  },time);
+              }
+              client.end(function (err) {
+                if (err) {console.log(err)};
+              });
+            });
+          });
+        }else{
+          res.render('infoDonante', { user : req.user});
+        }
+      },time);
+
+
+  });
+
+
+
+
+
+router.get('/listadoCobros', function(req, res) {
+  client = new pg.Client(connectionString);
+
+  client.connect(function (err) {
+    if (err){console.log(err);}
+    var query = "select * from ciudad_de_los_niños_development.cobro"
+
+    client.query(query, function (err, result) {
+      if (err) throw err;
+
+      if(!err){
+
+
+          res.render('listadoCobros', { user : req.user,lista:result.rows});
+        }
+      client.end(function (err) {
+        if (err) {console.log(err)};
+
+    });
+  });
+
+});
+});
+
+
+router.get('/insertarCobros', function(req, res) {
+      res.render('insertarCobros', { user : req.user});
+});
+
+
+router.post('/insertarCobros', function(req, res) {
+  client = new pg.Client(connectionString);
+  client.connect(function(err) {
+      if (err) {
+          console.log(err);
+      }
+      //console.log("SELECT * FROM creacCobros("+req.body.")");
+      client.query("SELECT * FROM crearCobros("+req.body.mes+","+req.body.año+")", function(err, result) {
+          if (err) throw err;
+          if (!err) {
+            res.redirect('/listadoCobros');
+          }
+
+          client.end(function(err) {
+              if (err) {
+                  console.log(err)
+              };
+          });
+      });
+  });
+//setTimeout(function(){}, time);
+});
+router.get('/modificarCobro', function(req, res) {
+  var dni = req.query.dni;
+  var nombre_programa = req.query.nombre_programa;
+  var id = req.query.id;
+  var fecha = req.query.fecha;
+  if (dni && nombre_programa && id && fecha) {
+    var cobro = new Cobro(dni, nombre_programa, id, null, fecha);
+    cobro.cargar();
+    setTimeout(function() {
+      res.render('modificarCobro', {
+        user: req.user,
+        datoscobro: cobro
+      });
+    }, time);
+  } else {
+    res.render('modificarCobro', {
+      user: req.user
+    });
+  }
+});
+
+
+router.post('/modificarCobro', function(req, res) {
+  var dni =req.body.dni;
+  var nombre_programa=req.body.nombre_programa;
+  var id=req.body.id;
+  var fecha="01/"+req.body.mes+"/"+req.body.año;
+
+  var cobro = new Cobro(dni,nombre_programa,id,null,fecha);
+
+  cobro.cargar()
+
+
+  setTimeout(function(){
+    cobro.fecha=fecha;
+    console.log(cobro)
+    cobro.comentario=req.body.comentario;
+    cobro.monto=req.body.monto;
+    cobro.estado = req.body.estado;
+    console.log("EL ESTADO COBRO ES:"+req.body.estado)
+
+    cobro.actualizar()
+
+    setTimeout(function(){
+      //res.redirect('/modificarCobro?nombre_programa='+req.body.nombre_programa+'&dni='+req.body.dni);
+      res.redirect('/listadoCobros');
+    }, time);
+  }, time);
+
+
+});
+
+
+router.get('/eliminarCobro', function(req, res) {
+  var dni = req.query.dni;
+  var nombre_programa = req.query.nombre_programa;
+  var id = req.query.id;
+  var fecha = req.query.fecha;
+  if (dni && nombre_programa && id && fecha) {
+    var cobro = new Cobro(dni, nombre_programa, id, null, fecha);
+    cobro.cargar();
+    setTimeout(function() {
+      res.render('eliminarCobro', {
+        user: req.user,
+        datoscobro: cobro
+      });
+    }, time);
+  } else {
+    res.render('eliminarCobro', {
+      user: req.user
+    });
+  }
+});
+
+
+router.post('/eliminarCobro', function(req, res) {
+  var cobro = new Cobro(req.body.dni,req.body.nombre_programa,req.body.id,null,"01/"+req.body.mes+"/"+req.body.año);
+  setTimeout(function(){
+    cobro.eliminar()
+    setTimeout(function(){
+      res.redirect('/listadoCobros')
+    }, time);
+  }, time);
+
+
+
+});
 
 
 

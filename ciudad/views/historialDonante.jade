@@ -1,0 +1,31 @@
+extends layout
+block content
+      center Historial de cobro de un donante
+        b DNI: 
+        |  #{dni}
+    
+              
+        if(lista)
+          p Este donante posee los siguentes cobros
+          if(prog)
+            p SOLO SE MUESTRAN LOS COBROS PARA EL PROGRAMA #{prog}
+          table
+            thead
+              th  Programa:
+              th  Fecha:
+              th  Monto: 
+              th  Comentario: 
+              th  Estado: 
+                
+            
+            each elemento, i in lista
+              tr
+                td #{elemento.nombre_programa} 
+                td #{elemento.fecha} 
+                td #{elemento.monto} 
+                td #{elemento.comentario}  
+                td #{elemento.estado}  
+                  
+      br
+      
+      input(type='button', value='Volver', name='Volver', onclick='history.back()')  

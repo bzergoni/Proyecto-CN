@@ -163,6 +163,7 @@ CREATE TABLE "ciudad_de_los_niños_development".cobro
    fecha date,
    estado character varying(50),
    comentario character varying(200),
+    monto double precision,
    CONSTRAINT pk_cobro PRIMARY KEY (dni, id, fecha, nombre_programa),
    CONSTRAINT cf_aporta FOREIGN KEY (dni, nombre_programa, id) REFERENCES "ciudad_de_los_niños_development".aporta (dni, nombre_programa, id) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -192,4 +193,73 @@ create trigger TriggerAuditoria after delete on ciudad_de_los_niños_development
     	LANGUAGE 'plpgsql';
 
     create trigger triggertarjeta before insert or update on ciudad_de_los_niños_development.tarjeta for each row execute procedure creartipotarjeta();
+      drop function mesañoAFecha(int,int);
+      CREATE or replace FUNCTION mesañoAFecha(mes int,año int) returns date AS
+            $$
+            BEGIN
+
+            	return varchar'01'||varchar'/'||mes||varchar'/'||año;
+            END;
+            $$ LANGUAGE plpgsql;
+
+
+
+       drop function crearCobros(int,int);
+        CREATE or replace FUNCTION crearCobros(mes int,año int) returns void AS
+            $$
+            Declare reg RECORD;
+            BEGIN
+            	IF NOT EXISTS (SELECT * FROM ciudad_de_los_niños_development.cobro where fecha = (mesañoAFecha(mes,año)) )THEN
+            		FOR reg IN SELECT * FROM ciudad_de_los_niños_development.aporta LOOP
+
+            			INSERT INTO ciudad_de_los_niños_development.cobro VALUES (reg.dni,reg.nombre_programa,reg.id,mesañoAFecha(mes,año),'NO COBRADO',null,reg.monto);
+
+            		END LOOP;
+            	END IF;
+
+            END;
+            $$ LANGUAGE plpgsql;
+
+
+            drop function seisMeses(int,int);
+                        CREATE or replace FUNCTION seisMeses(x int,y int) returns boolean AS
+                                    $$
+                                    BEGIN
+                                    	if((x=y)OR(x+6=y)OR(y+6=x))then
+                        			return true;
+                                    	END IF;
+                        		return false;
+                                    END;
+                                    $$ LANGUAGE plpgsql;
+
+
+
+
+            drop function crearCobros(int,int);
+                         CREATE or replace FUNCTION crearCobros(mes int,año int) returns void AS
+                                    $$
+                                    Declare reg RECORD;
+                                    BEGIN
+                                    	IF NOT EXISTS (SELECT * FROM ciudad_de_los_niños_development.cobro where fecha = (mesañoAFecha(mes,año)) )THEN
+                                    		FOR reg IN SELECT * FROM ciudad_de_los_niños_development.aporta LOOP
+
+
+                        				IF ( cast(reg.frecuencia as varchar) = 'Mensual' OR (seisMeses(cast(date_part('month',reg.fecha_aporte) as int),mes)))THEN
+                        					INSERT INTO ciudad_de_los_niños_development.cobro VALUES (reg.dni,reg.nombre_programa,reg.id,mesañoAFecha(mes,año),'NO COBRADO',null,reg.monto);
+                        				END IF;
+                                    		END LOOP;
+                                    	END IF;
+
+                                    END;
+                                    $$ LANGUAGE plpgsql;
+
+
+
+
+
+
+
+
+
+
 INSERT INTO ciudad_de_los_niños_development.user(username, password, id,type) VALUES ('admin','$2a$10$sCRGh9xP.KDDiswoY/YmS.fZQqxuTlzzz0nQAVZo6ZO2Bxs4rHASG',default,1);

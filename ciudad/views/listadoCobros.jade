@@ -1,0 +1,40 @@
+extends layout
+block content
+  p.title Cobros:
+  br   
+  a(href='/insertarCobros',class="btn btn-primary aladerecha", role = "button") Nuevos Cobros 
+  br
+  br
+  
+  if(lista)
+    table#datos.display(cellspacing='0')
+      thead
+        th Dni
+        th Programa
+        th Id
+        th Fecha
+        th Monto
+        th Estado del Cobro
+        th Comentario
+        
+        
+        th
+        th
+      if(lista)    
+        each elemento, i in lista
+          tr
+            td 
+              a(href='/infoDonante?dni=#{elemento.dni}') #{elemento.dni}
+            td #{elemento.nombre_programa}
+            td #{elemento.id}
+            td #{(elemento.fecha.getMonth()+1)+"/"+elemento.fecha.getFullYear()}
+            td #{elemento.monto}
+            td #{elemento.estado}
+            td #{elemento.comentario}
+            td
+              a(href='/modificarCobro?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}&id=#{elemento.id}&fecha=#{elemento.fecha.toLocaleDateString()}')  Modificar
+            td 
+              a(href='/eliminarCobro?dni=#{elemento.dni}&nombre_programa=#{elemento.nombre_programa}&id=#{elemento.id}&fecha=#{elemento.fecha.toLocaleDateString()}')  Eliminar
+            
+            
+      
