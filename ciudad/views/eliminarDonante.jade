@@ -47,6 +47,9 @@ block content
             b Comentario: 
             |#{datosdonante.comentario}
             br
+            b Origen: 
+            |#{datosdonante.origen}
+            br
             b Cuil/Cuit: 
             |#{datosdonante.cuil_cuit}
             br
@@ -69,6 +72,7 @@ block content
                   input.form-control(type='text', name="cod_postal", placeholder='DNI',value=datospadrino.cod_postal,readonly="true")
                   input.form-control(type='text', name="ocupacion", placeholder='DNI',value=datosdonante.ocupacion,readonly="true")
                   input.form-control(type='text', name="comentario", placeholder='DNI',value=datosdonante.comentario,readonly="true")
+                  input.form-control(type='text', name="origen", placeholder='ORIGEN',value=datosdonante.origen,readonly="true")
                   input.form-control(type='text', name="cuil_cuit", placeholder='DNI',value=datosdonante.cuil_cuit,readonly="true")
                   input.form-control(type='text', name="fecha_alta", placeholder='FECHA DE ALTA',value=datosdonante.fecha_alta,readonly="true")
                   input.form-control(type='text', name="fecha_baja", placeholder='FECHA DE BAJA',value=datosdonante.fecha_baja,readonly="true")

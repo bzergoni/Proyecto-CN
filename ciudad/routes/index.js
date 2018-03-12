@@ -135,7 +135,7 @@ router.post('/insertarDonante', function(req, res) {
         }
         setTimeout(function(){
           if(!donant.existe){
-            donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit,req.body.comentario,req.body.fecha_alta,req.body.fecha_baja);
+            donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit,req.body.comentario,req.body.fecha_alta,req.body.fecha_baja,req.body.origen);
             donant.insertar()
 
           }
@@ -190,7 +190,7 @@ router.post('/modificarDonante', function(req, res) {
 
   var pers = new Persona(req.body.dni,req.body.n_y_ap);
   var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
-  var donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit,req.body.comentario,req.body.fecha_alta,req.body.fecha_baja);
+  var donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit,req.body.comentario,req.body.fecha_alta,req.body.fecha_baja,req.body.origen);
   console.log(pers.show())
   console.log(padr.show())
   console.log(donant.show())
@@ -254,8 +254,8 @@ router.post('/eliminarDonante', function(req, res) {
     aport.eliminarPorDni()
     setTimeout(function(){
       res.redirect('/listadoDonantes')
-    }, 50);
-  }, 50);
+    }, time);
+  }, time);
 
 
 });
@@ -263,13 +263,12 @@ router.post('/eliminarDonante', function(req, res) {
 router.get('/insertarPrograma', function(req, res) {
     res.render('insertarPrograma', { user : req.user });
 });
-var t=10;
+
 router.post('/insertarPrograma', function(req, res) {
 
 
    var program = new Programa(req.body.nombre_programa)
 
-//setTimeout(function(){}, time);
   var nombre_programa=req.body.nombre_programa
 
   program.cargar();
@@ -1229,6 +1228,7 @@ router.get('/listadoContactos', function(req, res) {
             contact.actualizar();
             setTimeout(function(){
               var donant = new Donante(dni);
+              donant.origen = contact.relacion;
               donant.insertar();
               setTimeout(function(){
                 res.redirect('listadoDonantes');

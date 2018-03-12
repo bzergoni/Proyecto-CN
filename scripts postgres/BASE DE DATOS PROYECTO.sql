@@ -41,6 +41,7 @@ existe boolean DEFAULT true,
 comentario character varying(150),
 fecha_alta date,
 fecha_baja date,
+origen character varying(100),
 Constraint pk_Donante  primary key (Dni),
 constraint CF_Donante foreign key (Dni) references Padrino (Dni) on delete cascade on update cascade
 );
@@ -55,7 +56,7 @@ fecha_rechazo_adhesion date,
 estado TipoEstado,
 Dni_recomendador varchar(20),
 comentario Varchar(200),
-relacion varchar(15),
+relacion varchar(100),
 fecha_ult_contacto date,
 Constraint pk_Contacto  primary key (Dni),
 constraint CF_Contacto1 foreign key (Dni) references Padrino (Dni) on delete cascade on update cascade

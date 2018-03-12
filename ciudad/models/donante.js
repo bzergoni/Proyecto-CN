@@ -2,7 +2,7 @@ var pg = require('pg');
 var connectionString = "pg://postgres:postgres@localhost:5432/postgres";
 var client = new pg.Client(connectionString);
 
-function Donante(doc,ocup,cuit_cuil,coment,fech_alt,fech_baj){
+function Donante(doc,ocup,cuit_cuil,coment,fech_alt,fech_baj,orig){
   this.dni = doc;
   this.ocupacion=ocup;
   this.cuil_cuit=cuit_cuil;
@@ -12,6 +12,7 @@ function Donante(doc,ocup,cuit_cuil,coment,fech_alt,fech_baj){
   this.listaProgramasAporta=undefined;
   this.fecha_alta = fech_alt;
   this.fecha_baja = fech_baj;
+  this.origen= orig;
 };
 
 
@@ -37,6 +38,7 @@ Donante.prototype.cargar = function(){
         thisrespaldo.ocupacion=result.rows[0].ocupacion;
         thisrespaldo.cuil_cuit=result.rows[0].cuil_cuit;
         thisrespaldo.comentario=result.rows[0].comentario;
+        thisrespaldo.origen=result.rows[0].origen;
         thisrespaldo.existe=true;
         thisrespaldo.existeLogico=result.rows[0].existe;
         thisrespaldo.fecha_alta = stringFecha(result.rows[0].fecha_alta);
@@ -58,14 +60,14 @@ Donante.prototype.insertar = function(){
   var comentario=this.comentario;
   var fecha_baja=this.fecha_baja;
   var fecha_alta=this.fecha_alta;
-
+var origen= this.origen;
 
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
     // execute a query on our database
 
-    var query= "insert into ciudad_de_los_niños_development.donante(dni,ocupacion,cuil_cuit,comentario,fecha_alta,fecha_baja) values ('"+dni+"','"+ocupacion+"','"+cuil_cuit+"','"+comentario+"',"+fechaToQuery(fecha_alta)+","+fechaToQuery(fecha_baja)+");";
+    var query= "insert into ciudad_de_los_niños_development.donante(dni,ocupacion,cuil_cuit,comentario,fecha_alta,fecha_baja,origen) values ('"+dni+"','"+ocupacion+"','"+cuil_cuit+"','"+comentario+"',"+fechaToQuery(fecha_alta)+","+fechaToQuery(fecha_baja)+",'"+origen+"');";
     console.log(fecha_alta);
     console.log(fecha_baja)
     console.log(query)
@@ -106,6 +108,7 @@ Donante.prototype.actualizar = function(name){
   var ocupacion=this.ocupacion;
   var cuil_cuit=this.cuil_cuit;
   var comentario=this.comentario;
+  var origen = this.origen;
   var fecha_alta;
   if(this.fecha_alta == undefined){
     fecha_alta="null";
@@ -125,7 +128,7 @@ Donante.prototype.actualizar = function(name){
   client.connect(function (err) {
     if (err) {console.log(err)};
     // execute a query on our database
-    client.query("update ciudad_de_los_niños_development.donante set ocupacion='"+ocupacion+"',cuil_cuit='"+cuil_cuit+"',comentario='"+comentario+"',fecha_baja="+fecha_baja+",fecha_alta="+fecha_alta+" where dni='"+dni+"'", function (err, result) {
+    client.query("update ciudad_de_los_niños_development.donante set ocupacion='"+ocupacion+"',cuil_cuit='"+cuil_cuit+"',comentario='"+comentario+"',fecha_baja="+fecha_baja+",fecha_alta="+fecha_alta+",origen='"+origen+"' where dni='"+dni+"'", function (err, result) {
       if (err){console.log(err)}
 
 
