@@ -46,6 +46,9 @@ block content
             b Fecha de ultimo contacto: 
             |#{datoscontacto.fecha_ult_contacto}
             br
+            b Origen: 
+            |#{datoscontacto.relacion}
+            br
             
         
             
@@ -72,5 +75,7 @@ block content
                 input.form-control(type='text', name="comentario", placeholder='COMENTARIO',value=datoscontacto.comentario,readonly="true")
                 input.form-control(type='text', name="relacion", placeholder='RELACION CON RECOMENDADOR',value=datoscontacto.relacion,readonly="true")
                 input.form-control(type='text', name="fecha_ult_contacto", placeholder='FECHA DE ULTIMO CONTACTO',value=datoscontacto.fecha_ult_contacto,readonly="true")
+                input.form-control(type='text', name="relacion", placeholder='ORIGEN',value=datoscontacto.relacion,readonly="true")
+
               button(type='submit',class="boton") Eliminar
               a(href="/listadoContactos",class='.link') Cancelar

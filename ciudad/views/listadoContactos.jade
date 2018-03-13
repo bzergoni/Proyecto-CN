@@ -15,6 +15,7 @@ block content
           th Estado
           th Telefono/Celular
           th Comentario
+          th Origen
           th Fecha ultimo Contacto
           th
           th 
@@ -27,6 +28,7 @@ block content
             td #{elemento.estado}
             td #{elemento.tel_fijo} / #{elemento.celular}
             td #{elemento.comentario}
+            td #{elemento.relacion}
             if(elemento.fecha_ult_contacto)
               td #{elemento.fecha_ult_contacto.toLocaleDateString()}
             else
