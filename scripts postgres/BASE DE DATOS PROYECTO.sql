@@ -205,21 +205,7 @@ create trigger TriggerAuditoria after delete on ciudad_de_los_niños_development
 
 
 
-       drop function crearCobros(int,int);
-        CREATE or replace FUNCTION crearCobros(mes int,año int) returns void AS
-            $$
-            Declare reg RECORD;
-            BEGIN
-            	IF NOT EXISTS (SELECT * FROM ciudad_de_los_niños_development.cobro where fecha = (mesañoAFecha(mes,año)) )THEN
-            		FOR reg IN SELECT * FROM ciudad_de_los_niños_development.aporta LOOP
 
-            			INSERT INTO ciudad_de_los_niños_development.cobro VALUES (reg.dni,reg.nombre_programa,reg.id,mesañoAFecha(mes,año),'NO COBRADO',null,reg.monto);
-
-            		END LOOP;
-            	END IF;
-
-            END;
-            $$ LANGUAGE plpgsql;
 
 
             drop function seisMeses(int,int);
@@ -241,12 +227,12 @@ create trigger TriggerAuditoria after delete on ciudad_de_los_niños_development
                                     $$
                                     Declare reg RECORD;
                                     BEGIN
-                                    	IF NOT EXISTS (SELECT * FROM ciudad_de_los_niños_development.cobro where fecha = (mesañoAFecha(mes,año)) )THEN
+                                    	IF NOT EXISTS (SELECT * FROM ciudad_de_los_niños_development.cobro where fecha = (ciudad_de_los_niños_development.mesañoAFecha(mes,año)) )THEN
                                     		FOR reg IN SELECT * FROM ciudad_de_los_niños_development.aporta LOOP
 
 
-                        				IF ( cast(reg.frecuencia as varchar) = 'Mensual' OR (seisMeses(cast(date_part('month',reg.fecha_aporte) as int),mes)))THEN
-                        					INSERT INTO ciudad_de_los_niños_development.cobro VALUES (reg.dni,reg.nombre_programa,reg.id,mesañoAFecha(mes,año),'NO COBRADO',null,reg.monto);
+                        				IF ( cast(reg.frecuencia as varchar) = 'Mensual' OR (ciudad_de_los_niños_development.seisMeses(cast(date_part('month',reg.fecha_aporte) as int),mes)))THEN
+                        					INSERT INTO ciudad_de_los_niños_development.cobro VALUES (reg.dni,reg.nombre_programa,reg.id,ciudad_de_los_niños_development.mesañoAFecha(mes,año),'COBRADO',null,reg.monto);
                         				END IF;
                                     		END LOOP;
                                     	END IF;
