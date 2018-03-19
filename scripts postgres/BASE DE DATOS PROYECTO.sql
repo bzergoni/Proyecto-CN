@@ -170,9 +170,6 @@ CREATE TABLE "ciudad_de_los_niños_development".cobro
 );
 
 
-
-
-
 create or replace function auditoria() returns trigger as
 	'Begin
 		insert into ciudad_de_los_niños_development.donantes_eliminados values (old.dni,old.ocupacion,old.cuil_cuit,current_date,current_user);
@@ -194,59 +191,43 @@ create trigger TriggerAuditoria after delete on ciudad_de_los_niños_development
     	LANGUAGE 'plpgsql';
 
     create trigger triggertarjeta before insert or update on ciudad_de_los_niños_development.tarjeta for each row execute procedure creartipotarjeta();
-      drop function mesañoAFecha(int,int);
-      CREATE or replace FUNCTION mesañoAFecha(mes int,año int) returns date AS
-            $$
-            BEGIN
 
-            	return varchar'01'||varchar'/'||mes||varchar'/'||año;
-            END;
-            $$ LANGUAGE plpgsql;
+    drop function if exists mesañoAFecha(int,int);
+    CREATE or replace FUNCTION mesañoAFecha(mes int,año int) returns date AS
+          $$
+          BEGIN
 
+          	return varchar'01'||varchar'/'||mes||varchar'/'||año;
+          END;
+          $$ LANGUAGE plpgsql;
 
+    drop function if exists seisMeses(int,int);
+    CREATE or replace FUNCTION seisMeses(x int,y int) returns boolean AS
+                $$
+                BEGIN
+                	if((x=y)OR(x+6=y)OR(y+6=x))then
+    			return true;
+                	END IF;
+    		return false;
+                END;
+                $$ LANGUAGE plpgsql;
 
+     drop function if exists crearCobros(int,int);
+     CREATE or replace FUNCTION crearCobros(mes int,año int) returns void AS
+        $$
+        Declare reg RECORD;
+        BEGIN
+        	IF NOT EXISTS (SELECT * FROM ciudad_de_los_niños_development.cobro where fecha = (ciudad_de_los_niños_development.mesañoAFecha(mes,año)) )THEN
+        		FOR reg IN SELECT * FROM ciudad_de_los_niños_development.aporta LOOP
 
+				IF ( cast(reg.frecuencia as varchar) = 'Mensual' OR (ciudad_de_los_niños_development.seisMeses(cast(date_part('month',reg.fecha_aporte) as int),mes)))THEN
+					INSERT INTO ciudad_de_los_niños_development.cobro VALUES (reg.dni,reg.nombre_programa,reg.id,ciudad_de_los_niños_development.mesañoAFecha(mes,año),'COBRADO',null,reg.monto);
+				END IF;
+            		END LOOP;
+            	END IF;
 
-
-            drop function seisMeses(int,int);
-                        CREATE or replace FUNCTION seisMeses(x int,y int) returns boolean AS
-                                    $$
-                                    BEGIN
-                                    	if((x=y)OR(x+6=y)OR(y+6=x))then
-                        			return true;
-                                    	END IF;
-                        		return false;
-                                    END;
-                                    $$ LANGUAGE plpgsql;
-
-
-
-
-            drop function crearCobros(int,int);
-                         CREATE or replace FUNCTION crearCobros(mes int,año int) returns void AS
-                                    $$
-                                    Declare reg RECORD;
-                                    BEGIN
-                                    	IF NOT EXISTS (SELECT * FROM ciudad_de_los_niños_development.cobro where fecha = (ciudad_de_los_niños_development.mesañoAFecha(mes,año)) )THEN
-                                    		FOR reg IN SELECT * FROM ciudad_de_los_niños_development.aporta LOOP
-
-
-                        				IF ( cast(reg.frecuencia as varchar) = 'Mensual' OR (ciudad_de_los_niños_development.seisMeses(cast(date_part('month',reg.fecha_aporte) as int),mes)))THEN
-                        					INSERT INTO ciudad_de_los_niños_development.cobro VALUES (reg.dni,reg.nombre_programa,reg.id,ciudad_de_los_niños_development.mesañoAFecha(mes,año),'COBRADO',null,reg.monto);
-                        				END IF;
-                                    		END LOOP;
-                                    	END IF;
-
-                                    END;
-                                    $$ LANGUAGE plpgsql;
-
-
-
-
-
-
-
-
+        END;
+        $$ LANGUAGE plpgsql;
 
 
 INSERT INTO ciudad_de_los_niños_development.user(username, password, id,type) VALUES ('admin','$2a$10$sCRGh9xP.KDDiswoY/YmS.fZQqxuTlzzz0nQAVZo6ZO2Bxs4rHASG',default,1);
