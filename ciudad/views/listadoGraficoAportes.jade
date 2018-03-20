@@ -5,9 +5,36 @@ block content
     console.log(!{JSON.stringify(lista)})
     console.log(!{JSON.stringify(lista).replace(/<\//g, '<\\/')})
     var dataSet = !{JSON.stringify(lista).replace(/<\//g, '<\\/')}
+    console.log(!{JSON.stringify(lista2)})
+    console.log(!{JSON.stringify(lista2).replace(/<\//g, '<\\/')})
+    var dataSet2 = !{JSON.stringify(lista2).replace(/<\//g, '<\\/')}
     
     $(document).ready(function () {
       $.plot('#placeholder', dataSet, {
+        series: {
+            pie: { 
+                show: true,
+                radius: 1,
+                label: {
+                    show: true,
+                    radius: 3/4,
+                    formatter: labelFormatter,
+                    background: { 
+                        opacity: 0.5,
+                        color: '#000'
+                    }
+                }
+            }
+        },
+        legend: {
+            show: false
+        },
+        grid: {
+        hoverable: true,
+        clickable: true
+        }
+      });
+      $.plot('#placeholder2', dataSet2, {
         series: {
             pie: { 
                 show: true,
@@ -40,13 +67,13 @@ block content
       return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";}
     
   
-  p.title Grafico de personas por Programa:
-  br   
-  
-  br
-  br
   if(lista)
-    .col-md-4
+    p.title Grafico de personas por Programa:
+    br   
+    br
+    br
+    div.row
+      .col-md-4
         br
         h4 
           b Programas : cantidad de donantes
@@ -55,5 +82,27 @@ block content
           b #{elemento.label}: 
           |#{elemento.data}
           br
-    .col-md-6  
-      #placeholder(style='width:600px;height:300px')
+      .col-md-6  
+        #placeholder(style='width:600px;height:300px')
+  if(lista2)
+    br
+    br
+    br
+    p.title Grafico de Contactos por Estado:
+    br   
+    br
+    
+    br
+    br
+    div.row
+      .col-md-4
+        br
+        h4
+          b  Estado de Contacto : cantidad
+        br
+        each elemento, i in lista2
+          b #{elemento.label}: 
+          |#{elemento.data}
+          br
+      .col-md-6  
+        #placeholder2(style='width:600px;height:300px')

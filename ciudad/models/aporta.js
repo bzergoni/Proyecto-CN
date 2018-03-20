@@ -27,6 +27,7 @@ Aporta.prototype.cargar = function() {
         if (err) {
             console.log(err);
         }
+        console.log("SELECT * FROM ciudad_de_los_niños_development.aporta where dni='" + dni + "' and nombre_programa='"+nombre_programa+"'");
         client.query("SELECT * FROM ciudad_de_los_niños_development.aporta where dni='" + dni + "' and nombre_programa='"+nombre_programa+"'", function(err, result) {
             if (err) throw err;
             if (result.rows[0]) {
@@ -38,7 +39,7 @@ Aporta.prototype.cargar = function() {
                 console.log(thisrespaldo);
                 thisrespaldo.existe=true;
             }
-            console.log(thisrespaldo)
+            console.log(thisrespaldo);
             client.end(function(err) {
                 if (err) {
                     console.log(err)

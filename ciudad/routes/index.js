@@ -758,7 +758,7 @@ router.get('/modificarAporte', function(req, res) {
       aport.cargar()
       setTimeout(function(){
         res.render('modificarAporte', { user : req.user,datosaporte:aport });
-      }, 50);
+      }, time);
     }else{res.render('modificarAporte', { user : req.user });}
 
 
@@ -786,8 +786,8 @@ router.post('/modificarAporte', function(req, res) {
       console.log("el dni que viene del query es"+req.body.dni)
       //res.redirect('/modificarAporte?nombre_programa='+req.body.nombre_programa+'&dni='+req.body.dni);
       res.redirect('/listadoAportes');
-    }, 500);
-  }, 500);
+    }, time);
+  }, time);
 
 
 });
@@ -993,9 +993,10 @@ router.get('/donantesPorBanco', function(req, res) {
           console.log(query);
           client.query(query, function (err, result) {
             if (err) throw err;
-            if(!err && !result.rows[0]){res.render('donantesPorBanco', { user : req.user, listabancos:banco.lista });}
+            if(!err && !result.rows[0]){
+              res.render('donantesPorBanco', { user : req.user, listabancos:banco.lista });
+            }
             if(result.rows[0]){
-            	console.log(result.rows)
               tagExport="DonantesPBanco "+nombre_banco+" "+toStringForExportTag(new Date())
               res.render('donantesPorBanco', { user : req.user,lista:result.rows, listabancos:banco.lista,tagExport:tagExport  });
             }
@@ -1005,6 +1006,7 @@ router.get('/donantesPorBanco', function(req, res) {
           });
         });
       }else{
+
         res.render('donantesPorBanco', { user : req.user, listabancos:banco.lista });
       }
     }, time);
@@ -1051,6 +1053,7 @@ router.get('/listadoAportes', function(req, res) {
     if (err){console.log(err);}
     var query = "select * from (select * from ciudad_de_los_niños_development.aporta  natural join ciudad_de_los_niños_development.persona  )as a natural join ciudad_de_los_niños_development.tarjeta"
     var query2 = "select * from (select * from ciudad_de_los_niños_development.aporta  natural join ciudad_de_los_niños_development.persona  )as a natural join ciudad_de_los_niños_development.debito"
+    var tagExport;
     client.query(query, function (err, result) {
       if (err) throw err;
       var listacred;
@@ -1066,6 +1069,7 @@ router.get('/listadoAportes', function(req, res) {
             listadeb=result.rows;
 
           }
+
           res.render('listadoAportes', { user : req.user,listadeb:listadeb,listacred:listacred,tagExport:tagExport});
           client.end(function (err) {
             if (err) {console.log(err)};
@@ -1082,7 +1086,8 @@ router.get('/listadoAportes', function(req, res) {
 });
 router.get('/listadoGraficoAportes', function(req, res) {
   client = new pg.Client(connectionString);
-
+  var lista ;
+  var lista2;
   client.connect(function (err) {
     if (err){console.log(err);}
     var query = "select nombre_programa as label,count(dni) as data from ciudad_de_los_niños_development.aporta group by nombre_programa"
@@ -1090,15 +1095,27 @@ router.get('/listadoGraficoAportes', function(req, res) {
 
     client.query(query, function (err, result) {
       if (err) throw err;
-      if(!err && !result.rows[0]){res.render('listadoGraficoAportes', { user : req.user});}
-      if(result.rows[0]){
-        console.log(result.rows);
 
-        res.render('listadoGraficoAportes', { user : req.user,lista:result.rows});
-      }
-      client.end(function (err) {
-        if (err) {console.log(err)};
-      });
+      if(!err){
+        console.log(result.rows);
+        query ="select estado as label,count(dni) as data from ciudad_de_los_niños_development.contacto group by estado"
+        lista = result.rows;
+        client.query(query, function (err, result) {
+          if (err) throw err;
+          if(!err){
+            console.log(result.rows);
+            lista2 = result.rows;
+            res.render('listadoGraficoAportes', { user : req.user,lista:lista,lista2:lista2});
+
+            client.end(function (err) {
+              if (err) {console.log(err)};
+            });
+
+
+          }
+
+      })
+    };
     });
   });
 
@@ -1323,7 +1340,7 @@ router.post('/insertarCobros', function(req, res) {
           console.log(err);
       }
       //console.log("SELECT * FROM creacCobros("+req.body.")");
-      client.query("SELECT * FROM crearCobros("+req.body.mes+","+req.body.año+")", function(err, result) {
+      client.query("SELECT * FROM ciudad_de_los_niños_development.crearCobros("+req.body.mes+","+req.body.año+")", function(err, result) {
           if (err) throw err;
           if (!err) {
             res.redirect('/listadoCobros');

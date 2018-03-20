@@ -2,22 +2,23 @@ extends layout
 block content
       br
       center 
-        p Selecciona un Banco
-        form(role='form', action="/donantesPorBancoRedir",method="post", style='max-width: 300px;')
-          .form-group
-            select(name="nombre_bancoRedir")
-              each banco, i in listabancos
-                option(value=banco.nombre_banco)  #{banco.nombre_banco}
-          .form-group
-            input(type='checkbox', name='filtrofecha', value="true")
-            | Ver todos!
+        if(listabancos)
+          p Selecciona un Banco
+          form(role='form', action="/donantesPorBancoRedir",method="post", style='max-width: 300px;')
+            .form-group
+              select(name="nombre_bancoRedir")
+                each banco, i in listabancos
+                  option(value=banco.nombre_banco)  #{banco.nombre_banco}
+            .form-group
+              input(type='checkbox', name='filtrofecha', value="true")
+              | Ver todos!
+            br
+            br
+            button(type='submit',class="boton") Aceptar
           br
           br
-          button(type='submit',class="boton") Aceptar
-        br
-        br
-        
-        
+        if(!listabancos &&!lista)
+          p No existen medios de pago que utilicen debito
         if(lista)
           table#datos.display(cellspacing='0')
             thead

@@ -32,7 +32,7 @@ Credito.prototype.cargar = function(){
         thisrespaldo.nro=result.rows[0].nro;
         thisrespaldo.nombre_tarjeta=result.rows[0].nombre_tarjeta;
         thisrespaldo.nombre_titular=result.rows[0].nombre_titular;
-        thisrespaldo.fecha_vencimiento=result.rows[0].fecha_vencimiento.toLocaleDateString();
+        thisrespaldo.fecha_vencimiento=stringFecha(result.rows[0].fecha_vencimiento);
         thisrespaldo.codigo_verificacion=result.rows[0].codigo_verificacion;
         console.log(thisrespaldo);
         thisrespaldo.existe =true;
@@ -61,7 +61,7 @@ Credito.prototype.cargarPorId = function(){
         thisrespaldo.nro=result.rows[0].nro;
         thisrespaldo.nombre_tarjeta=result.rows[0].nombre_tarjeta;
         thisrespaldo.nombre_titular=result.rows[0].nombre_titular;
-        thisrespaldo.fecha_vencimiento=result.rows[0].fecha_vencimiento.toLocaleDateString();
+        thisrespaldo.fecha_vencimiento=stringFecha(result.rows[0].fecha_vencimiento);
         thisrespaldo.codigo_verificacion=result.rows[0].codigo_verificacion;
         console.log(thisrespaldo);
         thisrespaldo.existe =true;
@@ -105,8 +105,8 @@ Credito.prototype.insertar = function(){
     client.query("insert into ciudad_de_los_niños_development.medio_de_pago values (default);", function (err, result) {
       if (err){console.log(err)}
       if(result){
-        console.log("insert into ciudad_de_los_niños_development.tarjeta values (lastval(),'"+nro+"','"+nombre_titular+"','"+fecha_vencimiento+"','"+nombre_tarjeta+"',"+codigo_verificacion+");");
-        client.query("insert into ciudad_de_los_niños_development.tarjeta values (lastval(),'"+nro+"','"+nombre_titular+"','"+fecha_vencimiento+"','"+nombre_tarjeta+"',"+codigo_verificacion+");", function (err, result) {
+        console.log("insert into ciudad_de_los_niños_development.tarjeta values (lastval(),'"+nro+"','"+nombre_titular+"',"+fechaToQuery(fecha_vencimiento)+",'"+nombre_tarjeta+"',"+codigo_verificacion+");");
+        client.query("insert into ciudad_de_los_niños_development.tarjeta values (lastval(),'"+nro+"','"+nombre_titular+"',"+fechaToQuery(fecha_vencimiento)+",'"+nombre_tarjeta+"',"+codigo_verificacion+");", function (err, result) {
           if (err){console.log(err)}
           if(result){console.log("SE INSERTO EL CREDITO CORRECTAMENTE")}
         });
@@ -212,5 +212,26 @@ Credito.prototype.tiposTarjeta = function(){
   });
 
 }
+
+
+
+function stringFecha(a){
+  if(a){
+    return a.toLocaleDateString();
+  }else{
+    return a
+  }
+}
+
+
+
+function fechaToQuery(a){
+  if(a == ""||a == undefined){
+    return ("null");
+  }else{
+    return ("'"+a+"'");
+  }
+}
+
 
 module.exports.credito = Credito;
