@@ -44,37 +44,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 
-// passport config
-
-/*passport.use(new LocalStrategy(
-	function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      if (!user.verifyPassword(password)) { return done(null, false); }
-      return done(null, user);
-    });
-  }
-
-
-	));*/
   var connectionString = "pg://postgres:postgres@localhost:5432/postgres";
   var client = new pg.Client(connectionString);
 
 
 
-   // passport.use(new LocalStrategy(
-   //  function(username, password, done){
-   //    console.log("Login process:", username);
-   //    client.query("SELECT * from ciudad_de_los_niños_development.user WHERE username="+username+" AND password="+password+" limit 1")
-   //      .then((result)=> {
-   //        return done(null, result);
-   //      })
-   //      .catch((err) => {
-   //        console.log("/login: " + err);
-   //        return done(null, false, {message:'Wrong user name or password'});
-   //      });
-   //  }));
 
    passport.use(new LocalStrategy(
     function(username, password, done){
@@ -84,11 +58,11 @@ app.use('/', routes);
       client.connect(function (err) {
       if (err) throw err;
         client.query("SELECT * from ciudad_de_los_niños_development.user WHERE username='"+username+"' limit 1",function(err,result){
-          //console.log(err);
+
 
           if(err){done(err)};
           if(!err){
-            //console.log(result.rows[0]);
+
             if(!result.rows[0]){done(null,false);}
             if(result.rows[0]&&bcrypt.compareSync(password, result.rows[0].password)){done(null,result.rows[0])};
               }else{done(null,false);}
@@ -106,29 +80,16 @@ app.use('/', routes);
     }));
 
 
-//passport.serializeUser();
-//passport.deserializeUser(User.deserializeUser())
 
 passport.serializeUser((user, done)=>{
-    //console.log("serialize ", user);
+
     done(null, user.id);
   });
 
-  // passport.deserializeUser((id, done)=>{
-  //   console.log("deserialize ", id);
-  //   client.query("SELECT * FROM ciudad_de_los_niños_development.user" +"WHERE id ="+id)
-  //   .then((user)=>{
-  //     //log.debug("deserializeUser ", user);
-  //     done(null, user);
-  //   })
-  //   .catch((err)=>{
-  //     done(new Error(`User with the id ${id} does not exist`));
-  //   })
-  // });
 
 passport.deserializeUser((id, done)=>{
   var client = new pg.Client(connectionString);
-  //console.log("deserialize ", id);
+
 
   client.connect(function (err) {
     console.log(err);

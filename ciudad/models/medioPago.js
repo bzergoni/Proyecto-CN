@@ -11,7 +11,6 @@ MedioPago.prototype.show = function() {
     return this.id;
 };
 
-///Esta funcion se supone que inserte o actualize la tabla
 MedioPago.prototype.insertar = function() {
 
     client = new pg.Client(connectionString);
@@ -48,13 +47,13 @@ MedioPago.prototype.cargar = function(){
     client.query("SELECT * FROM ciudad_de_los_niños_development.medio_de_pago where id="+id, function (err, result) {
       if (err) throw err;
       if(result.rows[0]){
-        //repetirse para todos los campos
+
         thisrespaldo.id=result.rows[0].id;
         thisrespaldo.existe=true;
-        //console.log(thisrespaldo);
+
       }
 
-    //console.log(thisrespaldo)
+
     client.end(function (err) {
       if (err) {console.log(err)};
     });
@@ -62,7 +61,7 @@ MedioPago.prototype.cargar = function(){
 
   });
 };
-///Quizas no es necesario borrar el medio de pago
+
 
 MedioPago.prototype.eliminar = function() {
     var id = this.id;
@@ -71,7 +70,7 @@ MedioPago.prototype.eliminar = function() {
         if (err) {
             console.log(err)
         };
-        // execute a query on our database
+
         client.query("delete from ciudad_de_los_niños_development.medio_de_pago  where id='" + id + "'", function(err, result) {
             if (err) {
                 console.log(err)

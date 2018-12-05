@@ -15,9 +15,7 @@ function Padrino(number,em,tel,dir,cel,nac,cod) {
     this.existe = undefined;
 };
 
-/*
- *  Print a card
- */
+
 Padrino.prototype.show = function() {
     return this.dni + " | " + this.email+ " | " + this.tel_fijo+ " | " + this.direccion+ " | " + this.celular+ " | " + this.fecha_nac+ " | " + this.cod_postal
 };
@@ -34,14 +32,12 @@ Padrino.prototype.cargar = function() {
         }
 
 
-        // execute a query on our database
-        console.log("comienza la carga de " + dni);
+
         console.log("SELECT * FROM ciudad_de_los_niños_development.padrino where dni='111222333'");
-        console.log(thisrespaldo)
         client.query("SELECT * FROM ciudad_de_los_niños_development.padrino where dni='" + dni + "'", function(err, result) {
             if (err) throw err;
             if (result.rows[0]) {
-                //repetirse para todos los campos
+
                 thisrespaldo.existe=true;
                 thisrespaldo.email = result.rows[0].email;
                 thisrespaldo.tel_fijo = result.rows[0].tel_fijo;
@@ -51,11 +47,11 @@ Padrino.prototype.cargar = function() {
                 thisrespaldo.fecha_nacALT = stringFechaALT(result.rows[0].fecha_nac);
                 thisrespaldo.cod_postal = result.rows[0].cod_postal;
 
-                console.log(thisrespaldo);
+
 
 
             }
-            console.log(thisrespaldo)
+
             client.end(function(err) {
                 if (err) {
                     console.log(err)
@@ -65,7 +61,6 @@ Padrino.prototype.cargar = function() {
 
     });
 };
-///Esta funcion se supone que inserte o actualize la tabla
 Padrino.prototype.insertar = function() {
     var dni = this.dni;
     var email = this.email;
@@ -80,7 +75,7 @@ Padrino.prototype.insertar = function() {
         if (err) {
             console.log(err)
         };
-        // execute a query on our database
+
         console.log("insert into ciudad_de_los_niños_development.padrino values (" + dni + ",'" + email + "','" + tel_fijo + "','" + direccion + "','" + celular + "'," + fecha_nac + "," + cod_postal + ");")
         client.query("insert into ciudad_de_los_niños_development.padrino values (" + dni + ",'" + email + "','" + tel_fijo + "','" + direccion + "','" + celular + "'," + fecha_nac + "," + cod_postal + ");", function(err, result) {
             if (err) {
@@ -100,7 +95,6 @@ Padrino.prototype.insertar = function() {
 
 };
 
-//la funcion actualizar, subiria los cambios luego de una modificacion!
 Padrino.prototype.actualizar = function() {
     var dni = this.dni;
     var email = this.email;
@@ -114,7 +108,7 @@ Padrino.prototype.actualizar = function() {
         if (err) {
             console.log(err)
         };
-        // execute a query on our database
+
         client.query("update ciudad_de_los_niños_development.padrino set email='" + email + "', direccion='" + direccion + "', tel_fijo='" + tel_fijo + "', celular='" + celular + "', fecha_nac=" + fecha_nac + ", cod_postal=" + cod_postal + " where dni='" + dni + "'", function(err, result) {
             if (err) {
                 console.log(err)
@@ -139,7 +133,7 @@ Padrino.prototype.eliminar = function() {
         if (err) {
             console.log(err)
         };
-        // execute a query on our database
+
         client.query("delete from ciudad_de_los_niños_development.padrino  where dni='" + dni + "'", function(err, result) {
             if (err) {
                 console.log(err)

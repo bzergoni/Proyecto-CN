@@ -27,14 +27,13 @@ Donante.prototype.cargar = function(){
   var thisrespaldo=this;
   client.connect(function (err) {
     if (err){console.log(err);}
-    // execute a query on our database
-    console.log("comienza la carga de "+dni);
+
     console.log("SELECT * FROM ciudad_de_los_niños_development.donante where dni='dni'");
-  //  console.log(thisrespaldo)
+
     client.query("SELECT * FROM ciudad_de_los_niños_development.donante where dni='"+dni+"'", function (err, result) {
       if (err) throw err;
       if(result.rows[0]){
-        //repetirse para todos los campos
+
         thisrespaldo.ocupacion=result.rows[0].ocupacion;
         thisrespaldo.cuil_cuit=result.rows[0].cuil_cuit;
         thisrespaldo.comentario=result.rows[0].comentario;
@@ -52,7 +51,7 @@ Donante.prototype.cargar = function(){
     });
   });
 };
-///Esta funcion se supone que inserte o actualize la tabla
+
 Donante.prototype.insertar = function(){
   var dni=this.dni;
   var ocupacion=this.ocupacion;
@@ -65,11 +64,9 @@ var origen= this.origen;
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
-    // execute a query on our database
+
 
     var query= "insert into ciudad_de_los_niños_development.donante(dni,ocupacion,cuil_cuit,comentario,fecha_alta,fecha_baja,origen) values ('"+dni+"','"+ocupacion+"','"+cuil_cuit+"','"+comentario+"',"+fechaToQuery(fecha_alta)+","+fechaToQuery(fecha_baja)+",'"+origen+"');";
-    console.log(fecha_alta);
-    console.log(fecha_baja)
     console.log(query)
 
     client.query(query, function (err, result) {
@@ -89,7 +86,7 @@ Donante.prototype.insertarLOGIC = function(){
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
-    // execute a query on our database
+
     client.query("update ciudad_de_los_niños_development.donante set existe=true where dni='"+dni+"'", function (err, result) {
       if (err){console.log(err)}
 
@@ -102,7 +99,7 @@ Donante.prototype.insertarLOGIC = function(){
 };
 
 
-//la funcion actualizar, subiria los cambios luego de una modificacion!
+
 Donante.prototype.actualizar = function(name){
   var dni=this.dni;
   var ocupacion=this.ocupacion;
@@ -127,7 +124,7 @@ Donante.prototype.actualizar = function(name){
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
-    // execute a query on our database
+
     client.query("update ciudad_de_los_niños_development.donante set ocupacion='"+ocupacion+"',cuil_cuit='"+cuil_cuit+"',comentario='"+comentario+"',fecha_baja="+fecha_baja+",fecha_alta="+fecha_alta+",origen='"+origen+"' where dni='"+dni+"'", function (err, result) {
       if (err){console.log(err)}
 
@@ -144,7 +141,7 @@ Donante.prototype.eliminar= function(){
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
-    // execute a query on our database
+
     client.query("update ciudad_de_los_niños_development.donante set existe=false where dni='"+dni+"'", function (err, result) {
       if (err){console.log(err)}
 
@@ -199,11 +196,11 @@ Donante.prototype.existLOGIC = function(){
   });
 
 };
-//--------------------------------------------------------------------------------------------------------
+
 Donante.prototype.programasQueAporta = function(){
   client = new pg.Client(connectionString);
   var dni=this.dni;
-    console.log("el dni de los programas es "+dni);
+
   var thisrespaldo=this;
   client.connect(function (err) {
     if (err){console.log(err);}

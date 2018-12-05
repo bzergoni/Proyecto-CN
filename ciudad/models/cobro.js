@@ -13,19 +13,6 @@ function Cobro(d, np,i, mont,fa, e,com,mont) {
 
 };
 
-// function Cobro(d, np,i, fa) {
-//   this.dni = d;
-//   this.nombre_programa = np;
-//
-//   this.id = i;
-//   this.fecha = fa;
-//
-//
-// };
-
-
-
-
 Cobro.prototype.show = function() {
     return this.dni + " | " + this.nombre_programa+ " | " + this.monto + " | " + " | " + this.id;
 };
@@ -50,10 +37,10 @@ Cobro.prototype.cargar = function() {
                 thisrespaldo.comentario = result.rows[0].comentario;
                 thisrespaldo.estado = result.rows[0].estado;
                 thisrespaldo.fecha=result.rows[0].fecha;
-                console.log(thisrespaldo);
+
 
             }
-            console.log(thisrespaldo)
+
             client.end(function(err) {
                 if (err) {
                     console.log(err)
@@ -62,7 +49,7 @@ Cobro.prototype.cargar = function() {
         });
     });
 };
-///Esta funcion se supone que inserte o actualize la tabla
+
 Cobro.prototype.insertar = function() {
     var dni = this.dni;
     var nombre_programa = this.nombre_programa;
@@ -142,7 +129,6 @@ Cobro.prototype.eliminar = function() {
             client.end(function(err) {
               if (err) {
                 console.log(err)
-                console.log("se cerro el client de eliminaraporte!")
               };
             });
         });
@@ -166,7 +152,7 @@ Cobro.prototype.exist = function() {
             if (err) throw err;
             if (result.rows[0]) {
                 thisrespaldo.existe = true;
-                console.log("Existe");
+
             }
 
             client.end(function(err) {

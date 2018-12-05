@@ -36,10 +36,10 @@ Aporta.prototype.cargar = function() {
                 thisrespaldo.frecuencia = result.rows[0].frecuencia;
                 thisrespaldo.fecha_aporte = result.rows[0].fecha_aporte;
                 thisrespaldo.estado_cobro = result.rows[0].estado_cobro;
-                console.log(thisrespaldo);
+
                 thisrespaldo.existe=true;
             }
-            console.log(thisrespaldo);
+
             client.end(function(err) {
                 if (err) {
                     console.log(err)
@@ -126,13 +126,13 @@ Aporta.prototype.eliminar = function() {
               }
               client.query(query, function (err, result) {
                 if (err){console.log(err)}
-                if(result){console.log("Se elimino el aporte!")}
+
               });
             }
             client.end(function(err) {
               if (err) {
                 console.log(err)
-                console.log("se cerro el client de eliminaraporte!")
+
               };
             });
         });
@@ -176,7 +176,7 @@ Aporta.prototype.exist = function() {
             if (err) throw err;
             if (result.rows[0]) {
                 thisrespaldo.existe = true;
-                console.log("Existe");
+                
             }
 
             client.end(function(err) {

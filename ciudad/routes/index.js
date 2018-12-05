@@ -62,7 +62,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/register', function(req, res) {
-    console.log(req.user);
+
     res.render('register', {user:req.user });
 });
 
@@ -77,8 +77,7 @@ router.post('/register', function(req, res) {
 
     bcrypt.hash(req.body.password, null,null, function(err, hash) {
       if (err) throw err;
-      console.log("Lo que sigue es un hash");
-      console.log(hash);
+
       var stringQuery = "insert into ciudad_de_los_niños_development.user values ('" + req.body.username + "','" + hash + "',default,2);";
       console.log(stringQuery);
       client.query(stringQuery, function(err, result) {
@@ -107,15 +106,15 @@ router.get('/insertarDonante', function(req, res) {
 });
 
 router.post('/insertarDonante', function(req, res) {
-  console.log("POST DE MODIFICAR DONANTE, REQ.BODY.DNI="+req.body.dni)
+
 
    var donant = new Donante(req.body.dni)
 
-  //
+
    var pers = new Persona(req.body.dni,req.body.n_y_ap);
    var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
    var donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit);
-//setTimeout(function(){}, time);
+
   var dni=req.body.dni
 
   pers.cargar()
@@ -159,7 +158,6 @@ router.post('/insertarDonante', function(req, res) {
 router.get('/modificarDonante', function(req, res) {
     var dni =req.query.dni;
     if(dni){
-      console.log()
       var pers = new Persona(dni);
       var padr = new Padrino(dni);
       var donant = new Donante(dni);
@@ -186,14 +184,12 @@ router.post('/modificarDonanteRedir', function(req, res) {
 });
 
 router.post('/modificarDonante', function(req, res) {
-  console.log("POST DE MODIFICAR DONANTE, REQ.BODY.DNI="+req.body.dni)
+
 
   var pers = new Persona(req.body.dni,req.body.n_y_ap);
   var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
   var donant = new Donante(req.body.dni,req.body.ocupacion,req.body.cuil_cuit,req.body.comentario,req.body.fecha_alta,req.body.fecha_baja,req.body.origen);
-  console.log(pers.show())
-  console.log(padr.show())
-  console.log(donant.show())
+
   var dni=req.body.dni
   setTimeout(function(){
     pers.actualizar()
@@ -215,7 +211,7 @@ router.post('/modificarDonante', function(req, res) {
 router.get('/eliminarDonante', function(req, res) {
     var dni =req.query.dni;
     if(dni){
-      console.log("entro al if de dni")
+
       var pers = new Persona(dni);
       var padr = new Padrino(dni);
       var donant = new Donante(dni);
@@ -226,14 +222,14 @@ router.get('/eliminarDonante', function(req, res) {
           setTimeout(function(){
             donant.cargar();
             setTimeout(function(){
-              console.log(donant)
+
               res.render('eliminarDonante', { user : req.user,datospersona:pers,datospadrino:padr,datosdonante:donant });
             }, time);
           }, time);
         }, time);
       }, time);
     }else{
-      console.log("entro al else")
+
       res.render('eliminarDonante', { user : req.user });}
 
 
@@ -244,7 +240,7 @@ router.post('/eliminarDonanteRedir', function(req, res) {
 });
 
 router.post('/eliminarDonante', function(req, res) {
-  console.log("POST DE eliminar DONANTE, REQ.BODY.DNI="+req.body.dni)
+
   var donant = new Donante(req.body.dni);
 
   var dni=req.body.dni
@@ -310,8 +306,7 @@ router.post('/modificarProgramaRedir', function(req, res) {
 
 router.post('/modificarPrograma', function(req, res) {
   var program = new Programa(req.body.nombre_programa,req.body.descripcion);
-  console.log("AHORA VIENE EL SHOW DE PROGRAM");
-  console.log(program.show());
+
   var nombre_programa=req.body.nombre_programa;
   program.actualizar();
   setTimeout(function(){
@@ -323,16 +318,16 @@ router.post('/modificarPrograma', function(req, res) {
 router.get('/eliminarPrograma', function(req, res) {
     var nombre_programa =req.query.nombre_programa;
     if(nombre_programa){
-      console.log("entro al if de nombre_programa")
+
       var program = new Programa(nombre_programa);
       program.cargar();
       setTimeout(function(){
-        console.log(program)
+
         res.render('eliminarPrograma', { user : req.user,datosprograma:program });
       }, time);
 
     }else{
-      console.log("entro al else")
+
       res.render('eliminarPrograma', { user : req.user });}
 });
 
@@ -355,7 +350,7 @@ router.get('/insertarDebito', function(req, res) {
 
 router.post('/insertarDebito', function(req, res) {
    var debit = new Debito(req.body.nro_cuenta,req.body.cbu,req.body.nombre_titular,req.body.codigo_verificacion,req.body.tipo_cuenta,req.body.nombre_banco,req.body.sucursal_banco);
-//setTimeout(function(){}, time);
+
    var cbu=req.body.cbu
    debit.exist();
    setTimeout(function(){
@@ -385,7 +380,7 @@ router.get('/modificarDebito', function(req, res) {
         debit.exist()
 
         setTimeout(function(){
-          console.log(debit)
+
           res.render('modificarDebito', { user : req.user,datosdebito:debit});
         }, 500);
       }, 500);
@@ -404,8 +399,7 @@ router.post('/modificarDebitoRedir', function(req, res) {
 router.post('/modificarDebito', function(req, res) {
   var debit = new Debito(req.body.nro_cuenta,req.body.cbu,req.body.nombre_titular,req.body.codigo_verificacion,req.body.tipo_cuenta,req.body.nombre_banco,req.body.sucursal_banco);
   debit.id=req.body.id
-  console.log("dentro del post")
-  console.log(debit.show())
+
   var cbu=req.body.cbu
   debit.actualizar()
   setTimeout(function(){
@@ -419,16 +413,15 @@ router.post('/modificarDebito', function(req, res) {
 router.get('/eliminarDebito', function(req, res) {
     var cbu =req.query.cbu;
     if(cbu){
-      console.log("entro al if de cbu")
+
       var debit = new Debito(cbu);
       debit.cargar();
       setTimeout(function(){
-        console.log(debit)
+
         res.render('eliminarDebito', { user : req.user,datosdebito:debit });
       }, time);
 
     }else{
-      console.log("entro al else")
       res.render('eliminarDebito', { user : req.user });}
 });
 
@@ -446,14 +439,14 @@ router.post('/eliminarDebito', function(req, res) {
 });
 
 
-//----------------------------------------------------
+
 router.get('/insertarCredito', function(req, res) {
     res.render('insertarCredito', { user : req.user });
 });
 
 router.post('/insertarCredito', function(req, res) {
   var tarj = new Credito(req.body.nro, req.body.tipo_tarjeta, req.body.nombre_titular, req.body.fecha_vencimiento, req.body.codigo_verificacion);
-  //var tarj = new Credito(req.body.nro);
+
   tarj.exist();
   setTimeout(function(){
     if(!tarj.existe){
@@ -477,7 +470,7 @@ router.get('/modificarCredito', function(req, res) {
       setTimeout(function(){
         tarj.cargar();
         setTimeout(function(){
-        	console.log(tarj);
+
             res.render('modificarCredito', { user : req.user, datoscredito:tarj});
         }, 500);
       }, 500);
@@ -511,7 +504,7 @@ router.get('/eliminarCredito', function(req, res) {
 	  setTimeout(function(){
 	    tarj.cargar();
 	    setTimeout(function(){
-	    	console.log(tarj);
+
 	     	res.render('eliminarCredito', { user : req.user, datoscredito:tarj});
 	    }, time);
 	  }, time);
@@ -536,7 +529,7 @@ router.post('/eliminarCredito', function(req, res) {
     res.redirect('/')
   },time);
 });
-//----------------------------------------------------
+
 
 
 
@@ -574,7 +567,6 @@ router.get('/insertarContacto', function(req, res) {
 });
 
 router.post('/insertarContacto', function(req, res) {
-  console.log("POST DE MODIFICAR Contacto, REQ.BODY.DNI="+req.body.dni)
   var contact = new Contacto(req.body.dni)
   var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
   var pers = new Persona(req.body.dni,req.body.n_y_ap);
@@ -594,9 +586,8 @@ router.post('/insertarContacto', function(req, res) {
           padr.insertar()
         }
           setTimeout(function(){
-            console.log("existe de contact: "+contact.existe);
             if(!contact.existe){
-              console.log("entro al if de existe contact"+" ... con estado: "+req.body.estado);
+
               contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion,req.body.fecha_ult_contacto);
               contact.insertar()
             }
@@ -611,7 +602,6 @@ router.post('/insertarContacto', function(req, res) {
 router.get('/modificarContacto', function(req, res) {
     var dni =req.query.dni;
     if(dni){
-      console.log()
       var pers = new Persona(dni);
       var padr = new Padrino(dni);
       var contact = new Contacto(dni);
@@ -635,15 +625,12 @@ router.post('/modificarContactoRedir', function(req, res) {
 });
 
 router.post('/modificarContacto', function(req, res) {
-  console.log("POST DE MODIFICAR Contacto, REQ.BODY.DNI="+req.body.dni)
 
   var pers = new Persona(req.body.dni,req.body.n_y_ap);
   var padr = new Padrino(req.body.dni,req.body.email,req.body.tel_fijo,req.body.direccion,req.body.celular,req.body.fecha_nac,req.body.cod_postal);
   var contact = new Contacto(req.body.dni,req.body.fecha_primer_contacto,req.body.fecha_rechazo_adhesion,req.body.estado,req.body.dni_recomendador,req.body.comentario,req.body.relacion,req.body.fecha_ult_contacto);
 
-  console.log(pers.show());
 
-  console.log(contact.show());
   var dni=req.body.dni
 
     pers.actualizar();
@@ -652,7 +639,6 @@ router.post('/modificarContacto', function(req, res) {
       setTimeout(function(){
         contact.actualizar();
           setTimeout(function(){
-            console.log("dentro del ultimo setTimeout antes del redirect");
             res.redirect('/modificarContacto?dni='+dni);
           }, time);
       }, time);
@@ -663,7 +649,7 @@ router.post('/modificarContacto', function(req, res) {
 router.get('/eliminarContacto', function(req, res) {
     var dni =req.query.dni;
     if(dni){
-      console.log("entro al if de dni")
+
       var pers = new Persona(dni);
       var contact = new Contacto(dni);
       var padr = new Padrino(dni);
@@ -674,7 +660,7 @@ router.get('/eliminarContacto', function(req, res) {
         res.render('eliminarContacto', { user : req.user,datospersona:pers,datospadrino:padr,datoscontacto:contact});
       }, time);
     }else{
-      console.log("entro al else")
+
       res.render('eliminarContacto', { user : req.user });}
 });
 
@@ -683,7 +669,7 @@ router.post('/eliminarContactoRedir', function(req, res) {
 });
 
 router.post('/eliminarContacto', function(req, res) {
-  console.log("POST DE eliminar Contacto, REQ.BODY.DNI="+req.body.dni)
+
   var contact = new Contacto(req.body.dni);
 
   var dni=req.body.dni
@@ -693,7 +679,7 @@ router.post('/eliminarContacto', function(req, res) {
   }, 50);
 });
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 router.get('/insertarAporte', function(req, res) {
   var prog = new Programa()
   var cred= new Credito()
@@ -712,25 +698,25 @@ router.post('/insertarAporte', function(req, res) {
    var credit = new Credito(req.body.nro, req.body.nombre_tarjeta, req.body.nombre_titular,req.body.fecha_vencimiento,req.body.codigo_verificacion)
    var id_mediodepago = req.body.id_mediodepago
    var aport = new Aporta(req.body.dni,req.body.nombre_programa,req.body.monto,req.body.frecuencia,req.body.id_mediodepago,req.body.fecha_aporte,req.body.estado_cobro)
-//setTimeout(function(){}, time);
+
   donant.cargar()
   setTimeout(function(){
     if(donant.existe){
-      console.log("el donante existe")
+
       if(id_mediodepago > 0 ){
         aport.insertar()
         setTimeout(function(){res.redirect('/listadoAportes');}, time)
-         //ver si funciona sino ponr timmeout
+
       }else{
-        if(tipo_pago=="DEBITO"){debit.insertar()}else {credit.insertar();console.log(credit)}
+        if(tipo_pago=="DEBITO"){debit.insertar()}else {credit.insertar();}
         setTimeout(function(){
 
-          if(tipo_pago=="DEBITO"){debit.cargar()}else {credit.cargar();console.log(credit)}
+          if(tipo_pago=="DEBITO"){debit.cargar()}else {credit.cargar();}
           setTimeout(function(){
             if(tipo_pago=="DEBITO"){id_mediodepago=debit.id}else {id_mediodepago=credit.id}
-            console.log("id medio de pago ="+id_mediodepago)
+
             aport.id=id_mediodepago
-            console.log(aport)
+
             aport.insertar()
             setTimeout(function(){res.redirect('/listadoAportes');}, time)
           }, time);
@@ -753,7 +739,7 @@ router.get('/modificarAporte', function(req, res) {
     var dni =req.query.dni;
     var nombre_programa=req.query.nombre_programa
     if(dni &&  nombre_programa){
-      console.log()
+
       var aport = new Aporta(dni,nombre_programa)
       aport.cargar()
       setTimeout(function(){
@@ -775,16 +761,15 @@ router.post('/modificarAporte', function(req, res) {
   aport.dni= req.body.dni
   aport.cargar()
   setTimeout(function(){
-    console.log(aport)
+
     aport.frecuencia=req.body.frecuencia;
     aport.monto=req.body.monto;
-    console.log("EL ESTADO COBRO ES:",+req.body.estado_cobro)
+
     aport.estado_cobro = req.body.estado_cobro;
     aport.actualizar()
     setTimeout(function(){
-      console.log("el nombre programa que viene del query es"+req.body.nombre_programa)
-      console.log("el dni que viene del query es"+req.body.dni)
-      //res.redirect('/modificarAporte?nombre_programa='+req.body.nombre_programa+'&dni='+req.body.dni);
+
+
       res.redirect('/listadoAportes');
     }, time);
   }, time);
@@ -818,7 +803,7 @@ router.get('/eliminarAporte', function(req, res) {
         }, time);
       }, time);
     }else{
-      console.log("entro al else")
+
       res.render('eliminarAporte', { user : req.user });}
 
 
@@ -841,14 +826,7 @@ router.post('/eliminarAporte', function(req, res) {
 
 
 });
-// router.get('/PRUEBALISTA', function(req, res) {
-//   var prog = new Programa()
-//   prog.listaProgramas()
-//   setTimeout(function(){
-//     console.log(prog.lista)
-//     res.render('/')
-//   }, 50);
-//});
+
 
 router.get('/donantesPorPrograma', function(req, res) {
     var nombre_programa=req.query.nombre_programa
@@ -887,7 +865,7 @@ router.post('/donantesPorProgramaRedir', function(req, res) {
   res.redirect('/donantesPorPrograma?nombre_programa='+req.body.nombre_programaRedir);
 
 });
-//-----------------------------------------------------------------------------------------------------------------------
+
 router.get('/infoDonante', function(req, res) {
     var dni=req.query.dni;
     var donant = new Donante(dni);
@@ -905,7 +883,7 @@ router.get('/infoDonante', function(req, res) {
               res.render('infoDonante', { user : req.user});
             }
             if(result.rows[0]){
-                console.log("INFODONANTE ES  "+result.rows[0].ocupacion+" y "+result.rows[0].cuil_cuit);
+
                 if(result.rows[0].fecha_nac){
                   result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();}
                 res.render('infoDonante', { user : req.user,infoDonante:result.rows, listaAportes:donant.listaAportes, datosdonante:donant  });
@@ -942,7 +920,7 @@ router.get('/infoContacto', function(req, res) {
               res.render('infoContacto', { user : req.user});
             }
             if(result.rows[0]){
-                console.log("INFOCONTACTO  "+result.rows[0]);
+
                 if(result.rows[0].fecha_nac)result.rows[0].fecha_nac = result.rows[0].fecha_nac.toLocaleDateString();
                 if(result.rows[0].fecha_primer_contacto){result.rows[0].fecha_primer_contacto = result.rows[0].fecha_primer_contacto.toLocaleDateString();}
                 if(result.rows[0].fecha_alta){result.rows[0].fecha_alta = result.rows[0].fecha_alta.toLocaleDateString();}
@@ -978,18 +956,18 @@ router.get('/donantesPorBanco', function(req, res) {
 
         client.connect(function (err) {
           if (err){console.log(err);}
-          console.log("LO SIGUIENTE ES EL FILTROFECA")
+
           var query
           if(nofiltro=="true"){
             query="select * from (select * from ciudad_de_los_niños_development.aporta ) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb"
-            console.log("no aplica el filtro")
+
           }else{
             query="select * from (select * from ciudad_de_los_niños_development.aporta where ((not(frecuencia='Semestral') OR MOD((extract(YEAR FROM age(fecha_aporte,now()))*12 + extract(MONTH FROM age (fecha_aporte,now() )))::integer,6)=0)and fecha_aporte <=now()::date )) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb"
 
           }
-          console.log(nofiltro)
 
-         //	var query = "﻿select * from (select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb) apdeb natural join (select * from ciudad_de_los_niños_development.persona) per"
+
+
           console.log(query);
           client.query(query, function (err, result) {
             if (err) throw err;
@@ -1018,7 +996,7 @@ router.post('/donantesPorBancoRedir', function(req, res) {
   res.redirect('/donantesPorBanco?nombre_banco='+req.body.nombre_bancoRedir+'&nofiltro='+req.body.filtrofecha);
 
 });
-////-----------$$$$$$$$$$
+
 router.get('/listadoDonantes', function(req, res) {
   client = new pg.Client(connectionString);
 
@@ -1026,7 +1004,7 @@ router.get('/listadoDonantes', function(req, res) {
     if (err){console.log(err);}
     console.log(query);
 
-  //  var query = "select * from ciudad_de_los_niños_development.donante  natural join ciudad_de_los_niños_development.persona WHERE existe = TRUE "
+
     var query = "select * from (select * from ciudad_de_los_niños_development.donante  natural join ciudad_de_los_niños_development.persona WHERE existe = TRUE )as a natural join ciudad_de_los_niños_development.padrino"
     client.query(query, function (err, result) {
       if (err) throw err;
@@ -1097,13 +1075,13 @@ router.get('/listadoGraficoAportes', function(req, res) {
       if (err) throw err;
 
       if(!err){
-        console.log(result.rows);
+
         query ="select estado as label,count(dni) as data from ciudad_de_los_niños_development.contacto group by estado"
         lista = result.rows;
         client.query(query, function (err, result) {
           if (err) throw err;
           if(!err){
-            console.log(result.rows);
+
             lista2 = result.rows;
             res.render('listadoGraficoAportes', { user : req.user,lista:lista,lista2:lista2});
 
@@ -1143,7 +1121,7 @@ router.get('/listadoContactos', function(req, res) {
 
         res.render('listadoContactos', { user : req.user, lista:result.rows,tagExport:tagExport});
       }
-      //if (!err) {  res.render('listadoContactos', { user : req.user});};
+
       client.end(function (err) {
         if (err) {console.log(err)};
       });
@@ -1152,7 +1130,7 @@ router.get('/listadoContactos', function(req, res) {
 
 });
 
-//---------------------------------------------------------------------------------------------------------------------
+
   router.get('/listadoProgramas', function(req, res) {
     client = new pg.Client(connectionString);
     client.connect(function (err) {
@@ -1182,8 +1160,7 @@ router.get('/listadoContactos', function(req, res) {
       var tarjeta = new Credito();
       var usuario = req.user
       tarjeta.tiposTarjeta()
-      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-      console.log(req.user)
+
 
 
       setTimeout(function(){
@@ -1193,16 +1170,16 @@ router.get('/listadoContactos', function(req, res) {
           client.connect(function (err) {
             if (err){console.log(err);}
             var query
-            console.log(req.user)
+
             if(nofiltro=="true"){
               query="select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.tarjeta where nombre_tarjeta = '"+nombre_tarjeta+"') deb"
-              console.log("no aplica el filtro")
+
             }else{
               query="select * from (select * from ciudad_de_los_niños_development.aporta where ((not(frecuencia='Semestral') OR MOD((extract(YEAR FROM age(fecha_aporte,now()))*12 + extract(MONTH FROM age (fecha_aporte,now() )))::integer,6)=0)and fecha_aporte <=now()::date )) ap natural join (select * from ciudad_de_los_niños_development.tarjeta where nombre_tarjeta = '"+nombre_tarjeta+"') deb"
 
             }
 
-           //	var query = "﻿select * from (select * from (select * from ciudad_de_los_niños_development.aporta) ap natural join (select * from ciudad_de_los_niños_development.debito where nombre_banco = '"+nombre_banco+"') deb) apdeb natural join (select * from ciudad_de_los_niños_development.persona) per"
+
             console.log(query);
             client.query(query, function (err, result) {
               if (err) throw err;
@@ -1220,7 +1197,7 @@ router.get('/listadoContactos', function(req, res) {
             });
           });
         }else{
-        //  res.render('donantesPorTarjeta', {user:req.user, });
+
           res.render('donantesPorTarjeta', { user : usuario,listatarjetas:tarjeta.listatarjetas });
         }
       }, time);
@@ -1238,7 +1215,7 @@ router.get('/listadoContactos', function(req, res) {
         if(dni){
           var contact = new Contacto(dni);
           contact.cargar();
-          //setTimeout(function(){}, time);
+
 
           setTimeout(function(){
             contact.estado="Adherido";
@@ -1281,7 +1258,7 @@ router.get('/listadoContactos', function(req, res) {
               if (err) throw err;
 
               if(!err){
-                  console.log("renderiza");
+
                   setTimeout(function(){
                     res.render('historialDonante', { user : req.user,dni:dni, lista:result.rows,prog:programaespecifico });
                   },time);
@@ -1339,7 +1316,7 @@ router.post('/insertarCobros', function(req, res) {
       if (err) {
           console.log(err);
       }
-      //console.log("SELECT * FROM creacCobros("+req.body.")");
+
       client.query("SELECT * FROM ciudad_de_los_niños_development.crearCobros("+req.body.mes+","+req.body.año+")", function(err, result) {
           if (err) throw err;
           if (!err) {
@@ -1353,7 +1330,7 @@ router.post('/insertarCobros', function(req, res) {
           });
       });
   });
-//setTimeout(function(){}, time);
+
 });
 router.get('/modificarCobro', function(req, res) {
   var dni = req.query.dni;
@@ -1390,16 +1367,16 @@ router.post('/modificarCobro', function(req, res) {
 
   setTimeout(function(){
     cobro.fecha=fecha;
-    console.log(cobro)
+
     cobro.comentario=req.body.comentario;
     cobro.monto=req.body.monto;
     cobro.estado = req.body.estado;
-    console.log("EL ESTADO COBRO ES:"+req.body.estado)
+
 
     cobro.actualizar()
 
     setTimeout(function(){
-      //res.redirect('/modificarCobro?nombre_programa='+req.body.nombre_programa+'&dni='+req.body.dni);
+
       res.redirect('/listadoCobros');
     }, time);
   }, time);

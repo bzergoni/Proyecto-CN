@@ -27,14 +27,14 @@ Contacto.prototype.cargar = function(){
   var thisrespaldo=this;
   client.connect(function (err) {
     if (err){console.log(err);}
-    // execute a query on our database
-    console.log("comienza la carga de "+dni);
+
+
     console.log("SELECT * FROM ciudad_de_los_niños_development.contacto where dni='dni'");
-  //  console.log(thisrespaldo)
+
     client.query("SELECT * FROM ciudad_de_los_niños_development.contacto where dni='"+dni+"'", function (err, result) {
       if (err) throw err;
       if(result.rows[0]){
-        //repetirse para todos los campos
+
 
         thisrespaldo.dni = result.rows[0].dni;
 
@@ -79,7 +79,7 @@ Contacto.prototype.insertar = function(){
   });
 };
 
-//la funcion actualizar, subiria los cambios luego de una modificacion!
+
 Contacto.prototype.actualizar = function(){
   var dni=this.dni;
 
@@ -119,11 +119,10 @@ Contacto.prototype.actualizar = function(){
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
-    // execute a query on our database
-    console.log("antes del query");
+
     client.query("update ciudad_de_los_niños_development.contacto set fecha_primer_contacto="+fecha_primer_contacto+",fecha_rechazo_adhesion="+fecha_rechazo_adhesion+",estado='"+estado+"',dni_recomendador='"+dni_recomendador+"',comentario='"+comentario+"',relacion='"+relacion+"',fecha_ult_contacto="+fecha_ult_contacto+" where dni='" + dni + "'", function (err, result) {
       if (err){console.log(err)}
-      console.log("query update");
+
       console.log("update ciudad_de_los_niños_development.contacto set fecha_primer_contacto="+fecha_primer_contacto+",fecha_rechazo_adhesion="+fecha_rechazo_adhesion+",estado='"+estado+"',dni_recomendador='"+dni_recomendador+"',comentario='"+comentario+"',relacion='"+relacion+"',fecha_ult_contacto="+fecha_ult_contacto+" where dni='" + dni + "'");
       client.end(function (err) {
         if (err){ console.log(err)};

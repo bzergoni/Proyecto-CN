@@ -26,13 +26,13 @@ Debito.prototype.cargar = function(){
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err){console.log(err);}
-    // execute a query on our database
+
     console.log("SELECT * FROM ciudad_de_los_niños_development.debito where cbu='"+cbu+"'");
-  //  console.log(thisrespaldo)
+
     client.query("SELECT * FROM ciudad_de_los_niños_development.debito where cbu='"+cbu+"'", function (err, result) {
       if (err) throw err;
       if(result.rows[0]){
-        //repetirse para todos los campos
+
         thisrespaldo.id=result.rows[0].id;
         thisrespaldo.numero_cuenta=result.rows[0].nro_cuenta;
         thisrespaldo.cbu=result.rows[0].cbu;
@@ -57,12 +57,12 @@ Debito.prototype.cargarPorId = function(){
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err){console.log(err);}
-    // execute a query on our database
+
 
     client.query("SELECT * FROM ciudad_de_los_niños_development.debito where id="+id, function (err, result) {
       if (err) throw err;
       if(result.rows[0]){
-        //repetirse para todos los campos
+
         thisrespaldo.id=result.rows[0].id;
         thisrespaldo.numero_cuenta=result.rows[0].nro_cuenta;
         thisrespaldo.cbu=result.rows[0].cbu;
@@ -79,12 +79,12 @@ Debito.prototype.cargarPorId = function(){
     });
   });
 };
-///Esta funcion se supone que inserte o actualize la tabla
+
 Debito.prototype.insertar = function(){
   var numero_cuenta=this.numero_cuenta;
   var cbu=this.cbu;
   var titular=this.titular;
-  var codigo=0;//this.codigo;
+  var codigo=0;
   var cuenta=this.cuenta;
   var banco=this.banco;
   var sucursal=this.sucursal;
@@ -92,29 +92,18 @@ Debito.prototype.insertar = function(){
 
 
   client = new pg.Client(connectionString);
-  // client.connect(function (err) {
-  //   if (err) {console.log(err)};
-  //   // execute a query on our database
-  //   client.query("insert into ciudad_de_los_niños_development.debito values (lastval(),'"+numero_cuenta+"','"+cbu+"','"+titular+"','"+codigo+"','"+cuenta+"','"+banco+"','"+sucursal+"');", function (err, result) {
-  //     if (err){console.log(err)}
-  //
-  //
-  //     client.end(function (err) {
-  //       if (err){ console.log(err)};
-  //     });
-  //   });
-  // });
+
 
   client.connect(function (err) {
     if (err) {console.log(err)};
-    // execute a query on our database
+
     client.query("insert into ciudad_de_los_niños_development.medio_de_pago values (default);", function (err, result) {
       if (err){console.log(err)}
       if(result){
         console.log("insert into ciudad_de_los_niños_development.debito values (lastval(),'"+numero_cuenta+"','"+cbu+"','"+titular+"','"+codigo+"','"+cuenta+"','"+banco+"','"+sucursal+"');");
         client.query("insert into ciudad_de_los_niños_development.debito values (lastval(),'"+numero_cuenta+"','"+cbu+"','"+titular+"','"+codigo+"','"+cuenta+"','"+banco+"','"+sucursal+"');", function (err, result) {
           if (err){console.log(err)}
-          if(result){console.log("SE INSERTO EL DEBITO CORRECTAMENTE")}
+          if(result){}
         });
       }
       client.end(function (err) {
@@ -125,7 +114,7 @@ Debito.prototype.insertar = function(){
 
 };
 
-//la funcion actualizar, subiria los cambios luego de una modificacion!
+
 Debito.prototype.actualizar = function(){
   var id=this.id;
   var numero_cuenta=this.numero_cuenta;
@@ -139,7 +128,7 @@ Debito.prototype.actualizar = function(){
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
-    // execute a query on our database
+
     client.query("update ciudad_de_los_niños_development.debito set nro_cuenta='"+numero_cuenta+"',cbu='"+cbu+"',nombre_titular='"+titular+"',tipo_cuenta='"+cuenta+"',nombre_banco='"+banco+"',sucursal_banco='"+sucursal+"' where id='"+id+"'", function (err, result) {
       if (err){console.log(err)}
 
@@ -156,7 +145,7 @@ Debito.prototype.eliminar= function(){
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
-    // execute a query on our database
+
     client.query("delete from ciudad_de_los_niños_development.debito  where id='"+id+"'", function (err, result) {
       if (err){console.log(err)}
 
@@ -203,7 +192,7 @@ Debito.prototype.listaBancos = function(){
     client.query("SELECT DISTINCT nombre_banco FROM ciudad_de_los_niños_development.debito", function (err, result) {
       if (err) throw err;
       if(result.rows[0]){
-        //repetirse para todos los campos
+
         thisrespaldo.lista=result.rows;
       }
       client.end(function (err) {

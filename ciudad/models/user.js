@@ -1,16 +1,11 @@
-/*
- * Represents a player in the game
- * @param name [String]: old state to intialize the new state
- */
-var connectionString = "pg://postgres:root@localhost:5432/postgres";
+
+var connectionString = "pg://postgres:postgres@localhost:5432/postgres";
 var pg = require('pg')
 var config = require('../config');
 
 var client = new pg.Client(connectionString);
 
-/*
- * User Schema
- */
+
 function User(a) {
     this.username = a.username,
         this.password = a.password

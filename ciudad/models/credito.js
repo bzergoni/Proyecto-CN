@@ -27,18 +27,18 @@ Credito.prototype.cargar = function(){
     client.query("SELECT * FROM ciudad_de_los_niños_development.tarjeta where nro='"+nro+"' and nombre_tarjeta='"+nombre_tarjeta+"'", function (err, result) {
       if (err) throw err;
       if(result.rows[0]){
-        //repetirse para todos los campos
+
         thisrespaldo.id=result.rows[0].id;
         thisrespaldo.nro=result.rows[0].nro;
         thisrespaldo.nombre_tarjeta=result.rows[0].nombre_tarjeta;
         thisrespaldo.nombre_titular=result.rows[0].nombre_titular;
         thisrespaldo.fecha_vencimiento=stringFecha(result.rows[0].fecha_vencimiento);
         thisrespaldo.codigo_verificacion=result.rows[0].codigo_verificacion;
-        console.log(thisrespaldo);
+
         thisrespaldo.existe =true;
       }
 
-    //console.log(thisrespaldo)
+
     client.end(function (err) {
       if (err) {console.log(err)};
     });
@@ -56,18 +56,18 @@ Credito.prototype.cargarPorId = function(){
     client.query("SELECT * FROM ciudad_de_los_niños_development.tarjeta where id="+id, function (err, result) {
       if (err) throw err;
       if(result.rows[0]){
-        //repetirse para todos los campos
+
         thisrespaldo.id=result.rows[0].id;
         thisrespaldo.nro=result.rows[0].nro;
         thisrespaldo.nombre_tarjeta=result.rows[0].nombre_tarjeta;
         thisrespaldo.nombre_titular=result.rows[0].nombre_titular;
         thisrespaldo.fecha_vencimiento=stringFecha(result.rows[0].fecha_vencimiento);
         thisrespaldo.codigo_verificacion=result.rows[0].codigo_verificacion;
-        console.log(thisrespaldo);
+
         thisrespaldo.existe =true;
       }
 
-    //console.log(thisrespaldo)
+
     client.end(function (err) {
       if (err) {console.log(err)};
     });
@@ -76,39 +76,26 @@ Credito.prototype.cargarPorId = function(){
   });
 };
 
-///Esta funcion se supone que inserte o actualize la tabla
+
 Credito.prototype.insertar = function(){
   var nro = this.nro;
   var nombre_tarjeta = this.nombre_tarjeta;
   var nombre_titular = this.nombre_titular;
   var fecha_vencimiento = this.fecha_vencimiento;
-  var codigo_verificacion = 0 ;//this.codigo_verificacion;
+  var codigo_verificacion = 0 ;
 
   client = new pg.Client(connectionString);
-  /*client.connect(function (err) {
-    if (err) {console.log(err)};
 
-    client.query("insert into ciudad_de_los_niños_development.tarjeta values (lastval(),'"+nro+"','"+nombre_titular+"','"+fecha_vencimiento+"','"+nombre_tarjeta+"','"+codigo_verificacion+"');", function (err, result) {
-      if (err){console.log(err)}
-
-
-      client.end(function (err) {
-        if (err){ console.log(err)};
-      });
-
-
-    });
-  });*/
   client.connect(function (err) {
     if (err) {console.log(err)};
-    // execute a query on our database
+
     client.query("insert into ciudad_de_los_niños_development.medio_de_pago values (default);", function (err, result) {
       if (err){console.log(err)}
       if(result){
         console.log("insert into ciudad_de_los_niños_development.tarjeta values (lastval(),'"+nro+"','"+nombre_titular+"',"+fechaToQuery(fecha_vencimiento)+",'"+nombre_tarjeta+"',"+codigo_verificacion+");");
         client.query("insert into ciudad_de_los_niños_development.tarjeta values (lastval(),'"+nro+"','"+nombre_titular+"',"+fechaToQuery(fecha_vencimiento)+",'"+nombre_tarjeta+"',"+codigo_verificacion+");", function (err, result) {
           if (err){console.log(err)}
-          if(result){console.log("SE INSERTO EL CREDITO CORRECTAMENTE")}
+          if(result){}
         });
       }
       client.end(function (err) {
@@ -118,13 +105,13 @@ Credito.prototype.insertar = function(){
 });
 };
 
-//la funcion actualizar, subiria los cambios luego de una modificacion!
+
 Credito.prototype.actualizar = function(){
   var nro = this.nro;
   var nombre_tarjeta = this.nombre_tarjeta;
   var nombre_titular = this.nombre_titular;
   var fecha_vencimiento = this.fecha_vencimiento;
-  //var codigo_verificacion = this.codigo_verificacion;
+
 
   client = new pg.Client(connectionString);
   client.connect(function (err) {
@@ -148,7 +135,7 @@ Credito.prototype.eliminar= function(){
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
-    // execute a query on our database
+
     client.query("delete from ciudad_de_los_niños_development.tarjeta  where nro='"+nro+"'", function (err, result) {
       if (err){console.log(err)}
 
@@ -196,7 +183,7 @@ Credito.prototype.tiposTarjeta = function(){
   client = new pg.Client(connectionString);
   client.connect(function (err) {
     if (err) {console.log(err)};
-    // execute a query on our database
+    
     client.query("select * from ciudad_de_los_niños_development.tipotarjeta ", function (err, result) {
       if (err){console.log(err)}
       if(result.rows){
